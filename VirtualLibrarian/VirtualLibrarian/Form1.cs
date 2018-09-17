@@ -17,25 +17,30 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        //Button Library reader
-        private void button1_Click(object sender, EventArgs e)
+        //Button Login
+        private void buttonLogIn_Click(object sender, EventArgs e)
         {
-            //close this form, show / goto new one
-            FormLoginReader readerLogIn = new FormLoginReader();
-            readerLogIn.Show();
-            this.Hide();
-        }
+            string username = textBoxName.Text;
+            string pass = textBoxPassword.Text;
 
-        //Button Library emloyee
-        private void button2_Click(object sender, EventArgs e)
-        {
-            FormLoginEmployee employeeLogIn = new FormLoginEmployee();
-            employeeLogIn.Show();
+            //check if textBox empty
+            if (string.IsNullOrWhiteSpace(textBoxName.Text) ||
+               string.IsNullOrWhiteSpace(textBoxPassword.Text))
+            {
+                MessageBox.Show("Please enter login info."); return;
+            }
+
+            //check if input exists in login info database
+            // --- code --- //
+
+            //if all input ok, goto new form
+            FormLibrary library = new FormLibrary();
+            library.Show();
             this.Hide();
         }
 
         //Button Sign up
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonSignUp_Click(object sender, EventArgs e)
         {
             FormSignup signup = new FormSignup();
             signup.Show();
@@ -47,5 +52,7 @@ namespace VirtualLibrarian
         {
             this.Close();
         }
+
+
     }
 }

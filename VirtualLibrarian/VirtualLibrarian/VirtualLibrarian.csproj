@@ -58,24 +58,6 @@
     <Compile Include="FormLibrary.Designer.cs">
       <DependentUpon>FormLibrary.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormLibrarySystem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLibrarySystem.Designer.cs">
-      <DependentUpon>FormLibrarySystem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormLoginEmployee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLoginEmployee.Designer.cs">
-      <DependentUpon>FormLoginEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormLoginReader.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLoginReader.Designer.cs">
-      <DependentUpon>FormLoginReader.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormSignup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,15 +71,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLibrary.resx">
       <DependentUpon>FormLibrary.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLibrarySystem.resx">
-      <DependentUpon>FormLibrarySystem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLoginEmployee.resx">
-      <DependentUpon>FormLoginEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLoginReader.resx">
-      <DependentUpon>FormLoginReader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSignup.resx">
       <DependentUpon>FormSignup.cs</DependentUpon>

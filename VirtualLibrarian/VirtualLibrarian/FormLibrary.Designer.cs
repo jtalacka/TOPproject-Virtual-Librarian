@@ -37,6 +37,10 @@
             this.button4 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,24 +55,24 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(193, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(229, 24);
+            this.label2.Size = new System.Drawing.Size(260, 24);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Welcome to Virtual Library";
+            this.label2.Text = "Welcome to the Virtual Library";
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(12, 246);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 41);
+            this.button1.Size = new System.Drawing.Size(117, 41);
             this.button1.TabIndex = 2;
             this.button1.Text = "Taken books";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(123, 246);
+            this.button2.Location = new System.Drawing.Point(135, 246);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(126, 41);
             this.button2.TabIndex = 3;
@@ -77,23 +81,23 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(252, 39);
+            this.button3.Location = new System.Drawing.Point(249, 39);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(101, 20);
+            this.button3.Size = new System.Drawing.Size(101, 25);
             this.button3.TabIndex = 4;
             this.button3.Text = "Search books";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 39);
+            this.textBox1.Location = new System.Drawing.Point(12, 42);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(229, 20);
             this.textBox1.TabIndex = 5;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(352, 246);
+            this.button4.Location = new System.Drawing.Point(268, 246);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(101, 41);
             this.button4.TabIndex = 6;
@@ -102,26 +106,64 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 70);
+            this.textBox2.Location = new System.Drawing.Point(12, 68);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(441, 163);
+            this.textBox2.Size = new System.Drawing.Size(612, 163);
             this.textBox2.TabIndex = 7;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(359, 39);
+            this.button5.Location = new System.Drawing.Point(530, 39);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(94, 20);
+            this.button5.Size = new System.Drawing.Size(94, 25);
             this.button5.TabIndex = 8;
             this.button5.Text = "Search genre";
             this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(12, 308);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(117, 41);
+            this.button6.TabIndex = 9;
+            this.button6.Text = "Manage reader accounts";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(135, 308);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(126, 41);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Manage library";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(375, 246);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(52, 41);
+            this.button8.TabIndex = 11;
+            this.button8.Text = "Log out";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(359, 42);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(165, 20);
+            this.textBox3.TabIndex = 14;
             // 
             // FormLibrary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 306);
+            this.ClientSize = new System.Drawing.Size(636, 361);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button4);
@@ -149,5 +191,9 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
