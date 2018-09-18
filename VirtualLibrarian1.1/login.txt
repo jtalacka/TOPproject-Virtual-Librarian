@@ -1,0 +1,5 @@
+move4582;pass;monika;vedrickaite;email@email;1998;employee
+abc;abc;uu;uu;uu;10;reader
+la;bas;uu;uu;uu;100;reader
+dsv;dsfv;dsfv;dsv;dv;8547;reader
+as;kazkas;tikAS;lol;non;5;reader
