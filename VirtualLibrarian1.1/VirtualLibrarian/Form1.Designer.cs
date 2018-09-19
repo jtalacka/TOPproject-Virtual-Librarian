@@ -52,7 +52,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(124, 211);
+            this.label3.Location = new System.Drawing.Point(124, 204);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(122, 13);
             this.label3.TabIndex = 4;
@@ -100,6 +100,7 @@
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(177, 117);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(140, 20);
             this.textBoxPassword.TabIndex = 11;
             // 
@@ -139,6 +140,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
