@@ -1,19 +1,7 @@
-move4582;pass;monika;vedrickaite;email@email.com;1998;employee
+move4582;pass;monika;vedrickaite;email@email;1998;employee
 abc;abc;uu;uu;uu;10;reader
 la;bas;uu;uu;uu;100;reader
 dsv;dsfv;dsfv;dsv;dv;8547;reader
 as;kazkas;tikAS;lol;non;5;reader
-newacc;pass;aa;bb;email;1255;reader
-new2;pass;gg;pp;email!@;369;reader
-oop;pass;monika;new;sd;1998-07-08;reader
-sd;sedv;test;test;sdv;1255-10-10;reader
-fdv;v;test;test;fdv;1300-13-10;reader
-test;test;test;test;test;1966-15-31;reader
-test2;test;test;testtest;test;1587-05-02;reader
-test3;test;test;test;test;1256-03-03;reader
-cc ;cc ;cc ;cc ;cc ;1256-03-03;reader
-ff;ff;ff;ff;ff@dd;1236-11-13;reader
-cc;cc;cc;cc;cc@dd;1236-03-03;reader
-aa;aa;aa;aa;aa@dd.vom;1998-03-02;reader
-lag;bas;sdac;sac;s@s.bam;1236-01-02;reader
-deedee;password;lasttest;testetst;email@b.com;1789.09.19;reader
+aa;aa;aa;aa;aaa;11;reader
+aas;aa;aass;aa;aa;1;reader

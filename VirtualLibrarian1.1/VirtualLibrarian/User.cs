@@ -12,15 +12,14 @@ namespace VirtualLibrarian
         public User()
         {}
 
-        //properties (in same order as written in in the file)
-        public string username;
-        public string password;
+        //properties
         public string name;
         public string surname;
+        public string username;
+        public string password;
+        public int birth;
         public string email;
-        public string birth;
 
-        //needed for determining if extra functions need to be shown
         public userType type;
         public enum userType
         {

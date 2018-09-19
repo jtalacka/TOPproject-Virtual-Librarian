@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Globalization;
 
 namespace VirtualLibrarian
 {
@@ -23,7 +22,12 @@ namespace VirtualLibrarian
         private void button1_Click(object sender, EventArgs e)
         {
             //check if any textbox's empty
-            if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
+            if (string.IsNullOrWhiteSpace(textBoxName.Text) ||
+                string.IsNullOrWhiteSpace(textBoxSurname.Text) ||
+                string.IsNullOrWhiteSpace(textBoxUsername.Text) ||
+                string.IsNullOrWhiteSpace(textBoxPassword.Text) ||
+                string.IsNullOrWhiteSpace(textBoxEmail.Text) ||
+                string.IsNullOrWhiteSpace(textBoxBirth.Text))
             { MessageBox.Show("Please enter login info."); return; }
 
             //Class User object
@@ -34,45 +38,35 @@ namespace VirtualLibrarian
             string username = textBoxUsername.Text;
             string pass = textBoxPassword.Text;
             string email = textBoxEmail.Text;
-            //check if valid email
-            if (!this.textBoxEmail.Text.Contains('@') || !this.textBoxEmail.Text.Contains('.'))
+            int birth;
+            //check if input is the right type
+            if (int.TryParse(textBoxBirth.Text, out birth))
             {
-                MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
-                textBoxEmail.Focus();
-                return;
+                //parsing successful 
+                birth = Convert.ToInt32(textBoxBirth.Text);
             }
-
-            string birth = textBoxBirth.Text;
-            //check if date the right format
-            var dateFormats = new[] { "yyyy.MM.dd", "yyyy-MM-dd" };
-            DateTime date;
-            bool validDate = DateTime.TryParseExact(birth, dateFormats,
-                DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out date);
-            if (!validDate)
+            else
             {
-                MessageBox.Show("Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)");
-                textBoxBirth.Focus();
-                return;
+                //parsing failed 
+                MessageBox.Show("Date of birth has to be a number"); return;
             }
 
             string line;
             bool exists = false;
 
             //check if username already exists in login info file
-            StreamReader file = new StreamReader(@"C:\Users\user\Desktop\VirtualLibrarian1.1\login.txt");
+            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\login.txt");
             while ((line = file.ReadLine()) != null)
             {
                 string[] lineSplit = line.Split(';');
                 if (lineSplit[0] == username)
                 {
                     MessageBox.Show("Username already exists");
-                    textBoxUsername.Focus();
                     exists = true;
                     break;
                 }
             }
             file.Close();
-
             //if username unique - add user info. to the file
             if (exists == false)
             {
@@ -83,21 +77,19 @@ namespace VirtualLibrarian
                 user.password = pass;
                 user.email = email;
                 user.birth = birth;
-                //by default any new user is a reader
                 user.type = User.userType.reader;
 
-                using (StreamWriter w = File.AppendText(@"C:\Users\user\Desktop\VirtualLibrarian1.1\login.txt"))
+                using (StreamWriter w = File.AppendText(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\login.txt"))
                 {
-                    //information layout in file
+                    //inormation layout in file
                     w.WriteLine(username + ";" + pass + ";" + name + ";" + surname + ";" + email + ";" + birth + ";" + user.type);
                 }
 
+
                 //if all input ok, goto new form
-                this.Close();
                 FormLibrary library = new FormLibrary();
-                //pass defined user object to the new form
-                library.user = user;
                 library.Show();
+                this.Close();
             }
         }
 
@@ -107,6 +99,11 @@ namespace VirtualLibrarian
             this.Close();
             Form1 form = new Form1();
             form.Show();
+        }
+
+        private void FormSignup_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

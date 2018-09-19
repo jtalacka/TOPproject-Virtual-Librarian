@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,21 +12,23 @@ namespace VirtualLibrarian
 {
     public partial class FormLibrary : Form
     {
+
         public FormLibrary()
         {
             InitializeComponent();
         }
 
-        //for passing User class object parameters between forms
-        internal User user { get; set; }
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void FormLibrary_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show(user.type.ToString()); 
-            //determine, if the user is reader or employee
-            if (user.type.ToString() == "employee")
+            Form1 t = new Form1();
+            //MessageBox.Show(t.Type); 
+            if (t.Type == "employee")
             {
-                //extra employee functions
                 buttonManageLibrary.Visible = true;
                 buttonManageReaderAcc.Visible = true;
             }
@@ -36,59 +37,47 @@ namespace VirtualLibrarian
                 buttonManageLibrary.Visible = false;
                 buttonManageReaderAcc.Visible = false;
             }
-        }
 
-        //search by genre
-        private void buttonGenre_Click(object sender, EventArgs e)
+
+            for (int i = 0; i < 10; i++)
+            {
+                flowLayoutPanel1.Controls.Add(groupBox(i));
+            }
+
+        }
+        private FlowLayoutPanel groupBox(int y)
         {
-            //clear main window
-            listBoxMain.Items.Clear();
+            FlowLayoutPanel gr = new FlowLayoutPanel();
+            gr.BackColor = Color.FromArgb(100, 0, y * 20, 0);
+            Padding myMargin = new Padding();
+            myMargin.All = 0;
+            myMargin.Top = 1;
+            gr.Margin = myMargin;
+            gr.FlowDirection = FlowDirection.LeftToRight;
+            gr.Width = flowLayoutPanel1.Width;
+            flowLayoutPanel1.AutoScroll = true;
+            gr.Height =(int)(flowLayoutPanel1.Height/1.5);
 
-            //get which genres chosen
-            List<string> checkedGenres = new List<string>();
-            int q = 0;
-            foreach (string g in checkedListBoxGenre.CheckedItems)
-            {
-                checkedGenres.Add(g);
-                //how many genres selected
-                q++;
-            }
-            if (q == 0)
-            { MessageBox.Show("Please select a genre"); }
+            gr.Controls.Add(pictureBox());
 
-            //search for books with selected genres
-            string line;
-            StreamReader file = new StreamReader(@"C:\Users\user\Desktop\VirtualLibrarian1.1\books.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                //split line into strings
-                string[] lineSplit = line.Split(';');
-                //lineSplit[2] contains the genres separated with spaces
-                //get genres into genreSplit array
-                string[] genreSplit = lineSplit[2].Split(' ');
 
-                foreach (string g in checkedGenres)
-                {
-                    for (int i = 0; i < genreSplit.Length; i++)
-                    {
-                        //if matches - add to main listBox
-                        if (genreSplit[i] == g)
-                        {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
-                        }
-                    }
-                }
-            }
+            return gr;
+        }
+        private PictureBox pictureBox()
+        {
+            PictureBox pb = new PictureBox();
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            pb.Height= (int)(flowLayoutPanel1.Height / 1.5);
+            pb.ImageLocation= "https://thumb.knygos-static.lt/YMDHgyvVbGFdZ4yGNt5hfyFkp-g=/fit-in/2048x2048/filters:cwatermark(static/wm.png,500,75,30)/images/books/1290188/1534927349_Seethaler_tabaconist_72max.jpg";
 
-            //clear checked items
-            foreach (int i in checkedListBoxGenre.CheckedIndices)
-            {
-                checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
-            }
 
+
+            return pb;
         }
 
 
-
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+        }
     }
 }

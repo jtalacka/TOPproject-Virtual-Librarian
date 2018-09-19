@@ -35,13 +35,12 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.buttonGenre = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.buttonManageReaderAcc = new System.Windows.Forms.Button();
             this.buttonManageLibrary = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.checkedListBoxGenre = new System.Windows.Forms.CheckedListBox();
-            this.listBoxMain = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // label1
@@ -82,7 +81,7 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(293, 39);
+            this.buttonSearch.Location = new System.Drawing.Point(249, 39);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(101, 25);
             this.buttonSearch.TabIndex = 4;
@@ -93,9 +92,8 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(12, 42);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(275, 20);
+            this.textBox1.Size = new System.Drawing.Size(229, 20);
             this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "enter book tittle, author...";
             // 
             // button4
             // 
@@ -106,19 +104,18 @@
             this.button4.Text = "Account settings";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // buttonGenre
+            // button5
             // 
-            this.buttonGenre.Location = new System.Drawing.Point(438, 39);
-            this.buttonGenre.Name = "buttonGenre";
-            this.buttonGenre.Size = new System.Drawing.Size(94, 25);
-            this.buttonGenre.TabIndex = 8;
-            this.buttonGenre.Text = "Search genre";
-            this.buttonGenre.UseVisualStyleBackColor = true;
-            this.buttonGenre.Click += new System.EventHandler(this.buttonGenre_Click);
+            this.button5.Location = new System.Drawing.Point(438, 39);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(94, 25);
+            this.button5.TabIndex = 8;
+            this.button5.Text = "Search genre";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // buttonManageReaderAcc
             // 
-            this.buttonManageReaderAcc.Location = new System.Drawing.Point(548, 288);
+            this.buttonManageReaderAcc.Location = new System.Drawing.Point(538, 241);
             this.buttonManageReaderAcc.Name = "buttonManageReaderAcc";
             this.buttonManageReaderAcc.Size = new System.Drawing.Size(126, 41);
             this.buttonManageReaderAcc.TabIndex = 9;
@@ -127,7 +124,7 @@
             // 
             // buttonManageLibrary
             // 
-            this.buttonManageLibrary.Location = new System.Drawing.Point(548, 241);
+            this.buttonManageLibrary.Location = new System.Drawing.Point(538, 194);
             this.buttonManageLibrary.Name = "buttonManageLibrary";
             this.buttonManageLibrary.Size = new System.Drawing.Size(126, 41);
             this.buttonManageLibrary.TabIndex = 10;
@@ -143,60 +140,33 @@
             this.button8.Text = "Log out";
             this.button8.UseVisualStyleBackColor = true;
             // 
-            // checkedListBoxGenre
+            // checkedListBox1
             // 
-            this.checkedListBoxGenre.FormattingEnabled = true;
-            this.checkedListBoxGenre.Items.AddRange(new object[] {
-            "Science fiction",
-            "Fantasy",
-            "Adventure",
-            "Mystery",
-            "Horror",
-            "Drama",
-            "Romance",
-            "Health",
-            "Travel",
-            "Children\'s",
-            "Art",
-            "Poetry",
-            "History",
-            "Encyclopedias"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(539, 42);
-            this.checkedListBoxGenre.Name = "checkedListBoxGenre";
-            this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 184);
-            this.checkedListBoxGenre.TabIndex = 15;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(538, 43);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(136, 19);
+            this.checkedListBox1.TabIndex = 15;
             // 
-            // listBoxMain
+            // flowLayoutPanel1
             // 
-            this.listBoxMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.listBoxMain.FormattingEnabled = true;
-            this.listBoxMain.ItemHeight = 20;
-            this.listBoxMain.Location = new System.Drawing.Point(12, 81);
-            this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(520, 204);
-            this.listBoxMain.TabIndex = 16;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Title --- Author --- Genres";
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 79);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(520, 203);
+            this.flowLayoutPanel1.TabIndex = 16;
+            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // FormLibrary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 341);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.listBoxMain);
-            this.Controls.Add(this.checkedListBoxGenre);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.buttonManageLibrary);
             this.Controls.Add(this.buttonManageReaderAcc);
-            this.Controls.Add(this.buttonGenre);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonSearch);
@@ -221,12 +191,11 @@
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button buttonGenre;
+        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button buttonManageReaderAcc;
         private System.Windows.Forms.Button buttonManageLibrary;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.CheckedListBox checkedListBoxGenre;
-        private System.Windows.Forms.ListBox listBoxMain;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

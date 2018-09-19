@@ -1,1 +1,4 @@
 book1;autorius;act mmm;
+Tabakininkas;Robert Seethaler;https://thumb.knygos-static.lt/YMDHgyvVbGFdZ4yGNt5hfyFkp-g=/fit-in/2048x2048/filters:cwatermark(static/wm.png,500,75,30)/images/books/1290188/1534927349_Seethaler_tabaconist_72max.jpg
+Narcizai: grobuonys tarp musu;Vida Ciuberkiene-Kumpikiene;https://thumb.knygos-static.lt/-jEF63-DAo9wU5EH77akv6GtHic=/fit-in/2048x2048/filters:cwatermark(static/wm.png,500,75,30)/images/books/1161246/1524231676_Narcisizmas_virselis_2D_2.jpg
+Nuo tuštybes iki amžinybes: eiles ieškantiems saves;Mažvydas Šimkus;https://thumb.knygos-static.lt/oWfLM8B8kMMFCi_LsdrD_n4bIAQ=/fit-in/2048x2048/filters:cwatermark(static/wm.png,500,75,30)/images/books/1167383/1536936062_Nuo-tustybes-450.jpg
