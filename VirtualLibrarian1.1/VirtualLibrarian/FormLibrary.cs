@@ -58,7 +58,7 @@ namespace VirtualLibrarian
 
             //search for books with selected genres
             string line;
-            StreamReader file = new StreamReader(@"C:\Users\user\Desktop\VirtualLibrarian1.1\books.txt");
+            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\books.txt");
             while ((line = file.ReadLine()) != null)
             {
                 //split line into strings
@@ -88,7 +88,47 @@ namespace VirtualLibrarian
 
         }
 
+        private void buttonSearch_Click(object sender, EventArgs e) //same implementation as search by genre
+        {
+
+            //clear main window
+            listBoxMain.Items.Clear();
 
 
+            //search for books with selected genres
+            string line;
+            string searchBA = textBox1.Text; // search book or author
+            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\books.txt");
+            if (searchBA != "")
+            {
+                while ((line = file.ReadLine()) != null)
+                {
+                    //split line into strings
+                    string[] lineSplit = line.Split(';');
+
+
+                    for (int i = 0; i < lineSplit.Length; i++)
+                    {
+                        //if matches - add to main listBox
+                        if (lineSplit[i].Contains(searchBA))
+                        {
+                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
+                            break;
+
+                        }
+                    }
+                }
+
+                //clear checked items
+                foreach (int i in checkedListBoxGenre.CheckedIndices)
+                {
+                    checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
+                }
+
+            }
+            else {
+                MessageBox.Show("Please enter author or Book");
+            }
+        }
     }
 }

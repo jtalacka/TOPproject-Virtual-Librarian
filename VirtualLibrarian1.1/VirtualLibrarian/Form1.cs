@@ -35,7 +35,7 @@ namespace VirtualLibrarian
 
             //check if input exists in login info file
             // Read the file line by line unti end 
-            StreamReader file = new StreamReader(@"C:\Users\user\Desktop\VirtualLibrarian1.1\login.txt");
+            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\login.txt");
             while ((line = file.ReadLine()) != null)
             {
                 //split line into strings
