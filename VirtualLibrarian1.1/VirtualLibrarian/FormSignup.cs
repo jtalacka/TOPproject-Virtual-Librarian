@@ -19,6 +19,9 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
+        //file storage path
+        public readonly string loginInfo=@"C:\Users\login.txt";
+
         //Signup button
         private void button1_Click(object sender, EventArgs e)
         {
@@ -59,7 +62,7 @@ namespace VirtualLibrarian
             bool exists = false;
 
             //check if username already exists in login info file
-            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\user.txt");
+            StreamReader file = new StreamReader(loginInfo);
             while ((line = file.ReadLine()) != null)
             {
                 string[] lineSplit = line.Split(';');
@@ -86,7 +89,7 @@ namespace VirtualLibrarian
                 //by default any new user is a reader
                 user.type = User.userType.reader;
 
-                using (StreamWriter w = File.AppendText(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\user.txt"))
+                using (StreamWriter w = File.AppendText(loginInfo))
                 {
                     //information layout in file
                     w.WriteLine(username + ";" + pass + ";" + name + ";" + surname + ";" + email + ";" + birth + ";" + user.type);
@@ -107,11 +110,6 @@ namespace VirtualLibrarian
             this.Close();
             Form1 form = new Form1();
             form.Show();
-        }
-
-        private void FormSignup_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

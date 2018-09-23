@@ -30,15 +30,15 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonTakenBooks = new System.Windows.Forms.Button();
+            this.buttonReccomend = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonAccSettings = new System.Windows.Forms.Button();
             this.buttonGenre = new System.Windows.Forms.Button();
             this.buttonManageReaderAcc = new System.Windows.Forms.Button();
             this.buttonManageLibrary = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.buttonLogOut = new System.Windows.Forms.Button();
             this.checkedListBoxGenre = new System.Windows.Forms.CheckedListBox();
             this.listBoxMain = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -62,23 +62,23 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Welcome to the Virtual Library";
             // 
-            // button1
+            // buttonTakenBooks
             // 
-            this.button1.Location = new System.Drawing.Point(12, 291);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(117, 41);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Taken books";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonTakenBooks.Location = new System.Drawing.Point(12, 291);
+            this.buttonTakenBooks.Name = "buttonTakenBooks";
+            this.buttonTakenBooks.Size = new System.Drawing.Size(117, 41);
+            this.buttonTakenBooks.TabIndex = 2;
+            this.buttonTakenBooks.Text = "Taken books";
+            this.buttonTakenBooks.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonReccomend
             // 
-            this.button2.Location = new System.Drawing.Point(135, 291);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(126, 41);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Book recommendations";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonReccomend.Location = new System.Drawing.Point(135, 291);
+            this.buttonReccomend.Name = "buttonReccomend";
+            this.buttonReccomend.Size = new System.Drawing.Size(126, 41);
+            this.buttonReccomend.TabIndex = 3;
+            this.buttonReccomend.Text = "Book recommendations";
+            this.buttonReccomend.UseVisualStyleBackColor = true;
             // 
             // buttonSearch
             // 
@@ -96,16 +96,16 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(275, 20);
             this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "enter book tittle, author...";
             // 
-            // button4
+            // buttonAccSettings
             // 
-            this.button4.Location = new System.Drawing.Point(268, 291);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(101, 41);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Account settings";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonAccSettings.Location = new System.Drawing.Point(268, 291);
+            this.buttonAccSettings.Name = "buttonAccSettings";
+            this.buttonAccSettings.Size = new System.Drawing.Size(101, 41);
+            this.buttonAccSettings.TabIndex = 6;
+            this.buttonAccSettings.Text = "Account settings";
+            this.buttonAccSettings.UseVisualStyleBackColor = true;
+            this.buttonAccSettings.Click += new System.EventHandler(this.buttonAccSettings_Click);
             // 
             // buttonGenre
             // 
@@ -119,7 +119,7 @@
             // 
             // buttonManageReaderAcc
             // 
-            this.buttonManageReaderAcc.Location = new System.Drawing.Point(548, 288);
+            this.buttonManageReaderAcc.Location = new System.Drawing.Point(549, 291);
             this.buttonManageReaderAcc.Name = "buttonManageReaderAcc";
             this.buttonManageReaderAcc.Size = new System.Drawing.Size(126, 41);
             this.buttonManageReaderAcc.TabIndex = 9;
@@ -128,27 +128,29 @@
             // 
             // buttonManageLibrary
             // 
-            this.buttonManageLibrary.Location = new System.Drawing.Point(548, 241);
+            this.buttonManageLibrary.Location = new System.Drawing.Point(549, 244);
             this.buttonManageLibrary.Name = "buttonManageLibrary";
             this.buttonManageLibrary.Size = new System.Drawing.Size(126, 41);
             this.buttonManageLibrary.TabIndex = 10;
             this.buttonManageLibrary.Text = "Manage library";
             this.buttonManageLibrary.UseVisualStyleBackColor = true;
+            this.buttonManageLibrary.Click += new System.EventHandler(this.buttonManageLibrary_Click);
             // 
-            // button8
+            // buttonLogOut
             // 
-            this.button8.Location = new System.Drawing.Point(375, 291);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(52, 41);
-            this.button8.TabIndex = 11;
-            this.button8.Text = "Log out";
-            this.button8.UseVisualStyleBackColor = true;
+            this.buttonLogOut.Location = new System.Drawing.Point(375, 291);
+            this.buttonLogOut.Name = "buttonLogOut";
+            this.buttonLogOut.Size = new System.Drawing.Size(52, 41);
+            this.buttonLogOut.TabIndex = 11;
+            this.buttonLogOut.Text = "Log out";
+            this.buttonLogOut.UseVisualStyleBackColor = true;
+            this.buttonLogOut.Click += new System.EventHandler(this.buttonLogOut_Click);
             // 
             // checkedListBoxGenre
             // 
             this.checkedListBoxGenre.FormattingEnabled = true;
             this.checkedListBoxGenre.Items.AddRange(new object[] {
-            "Science fiction",
+            "Science-fiction",
             "Fantasy",
             "Adventure",
             "Mystery",
@@ -159,6 +161,7 @@
             "Travel",
             "Children\'s",
             "Art",
+            "Philosophy",
             "Poetry",
             "History",
             "Encyclopedias"});
@@ -169,12 +172,12 @@
             // 
             // listBoxMain
             // 
-            this.listBoxMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.listBoxMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.listBoxMain.FormattingEnabled = true;
-            this.listBoxMain.ItemHeight = 20;
+            this.listBoxMain.ItemHeight = 18;
             this.listBoxMain.Location = new System.Drawing.Point(12, 81);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(520, 204);
+            this.listBoxMain.Size = new System.Drawing.Size(520, 202);
             this.listBoxMain.TabIndex = 16;
             // 
             // label3
@@ -194,15 +197,15 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxMain);
             this.Controls.Add(this.checkedListBoxGenre);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.buttonLogOut);
             this.Controls.Add(this.buttonManageLibrary);
             this.Controls.Add(this.buttonManageReaderAcc);
             this.Controls.Add(this.buttonGenre);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.buttonAccSettings);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonSearch);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonReccomend);
+            this.Controls.Add(this.buttonTakenBooks);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormLibrary";
@@ -217,15 +220,15 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonTakenBooks;
+        private System.Windows.Forms.Button buttonReccomend;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonAccSettings;
         private System.Windows.Forms.Button buttonGenre;
         private System.Windows.Forms.Button buttonManageReaderAcc;
         private System.Windows.Forms.Button buttonManageLibrary;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button buttonLogOut;
         private System.Windows.Forms.CheckedListBox checkedListBoxGenre;
         private System.Windows.Forms.ListBox listBoxMain;
         private System.Windows.Forms.Label label3;

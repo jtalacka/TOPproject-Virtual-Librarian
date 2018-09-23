@@ -20,6 +20,8 @@ namespace VirtualLibrarian
 
         //Class User object
         User user = new User();
+        //file storage path
+        public readonly string loginInfo=@"C:\Users\login.txt";
 
         //Button Log in
         private void buttonLogIn_Click(object sender, EventArgs e)
@@ -35,7 +37,7 @@ namespace VirtualLibrarian
 
             //check if input exists in login info file
             // Read the file line by line unti end 
-            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\login.txt");
+            StreamReader file = new StreamReader(loginInfo);
             while ((line = file.ReadLine()) != null)
             {
                 //split line into strings

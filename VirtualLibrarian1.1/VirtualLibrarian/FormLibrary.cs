@@ -21,9 +21,11 @@ namespace VirtualLibrarian
         //for passing User class object parameters between forms
         internal User user { get; set; }
 
+        //file storage path
+        public readonly string books = @"C:\Users\books.txt";
+
         private void FormLibrary_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show(user.type.ToString()); 
             //determine, if the user is reader or employee
             if (user.type.ToString() == "employee")
             {
@@ -58,7 +60,7 @@ namespace VirtualLibrarian
 
             //search for books with selected genres
             string line;
-            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\books.txt");
+            StreamReader file = new StreamReader(books);
             while ((line = file.ReadLine()) != null)
             {
                 //split line into strings
@@ -79,33 +81,30 @@ namespace VirtualLibrarian
                     }
                 }
             }
-
-            //clear checked items
+            //clear checked items and serch
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
             }
-
+            textBox1.Clear();
         }
 
+        //Search by author or book title
         private void buttonSearch_Click(object sender, EventArgs e) //same implementation as search by genre
         {
-
             //clear main window
             listBoxMain.Items.Clear();
-
 
             //search for books with selected genres
             string line;
             string searchBA = textBox1.Text; // search book or author
-            StreamReader file = new StreamReader(@"C:\Users\juliu\OneDrive\Stalinis kompiuteris\VirtualLibrarian1.1\books.txt");
+            StreamReader file = new StreamReader(books);
             if (searchBA != "")
             {
                 while ((line = file.ReadLine()) != null)
                 {
                     //split line into strings
                     string[] lineSplit = line.Split(';');
-
 
                     for (int i = 0; i < lineSplit.Length; i++)
                     {
@@ -118,17 +117,41 @@ namespace VirtualLibrarian
                         }
                     }
                 }
-
                 //clear checked items
                 foreach (int i in checkedListBoxGenre.CheckedIndices)
                 {
                     checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
                 }
-
             }
-            else {
+            else
+            {
                 MessageBox.Show("Please enter author or Book");
             }
+        }
+
+        private void buttonAccSettings_Click(object sender, EventArgs e)
+        {
+            FormAccountInfo accInfo = new FormAccountInfo();
+            //pass defined user object to the new form
+            accInfo.user = user;
+            accInfo.Show();
+        }
+
+        private void buttonLogOut_Click(object sender, EventArgs e)
+        {
+            DialogResult result;
+            result = MessageBox.Show("Are you sure?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+                Form1 form = new Form1();
+                form.Show();
+            }
+        }
+
+        private void buttonManageLibrary_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
