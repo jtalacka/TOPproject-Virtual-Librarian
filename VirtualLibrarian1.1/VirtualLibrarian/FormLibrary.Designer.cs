@@ -42,49 +42,56 @@
             this.checkedListBoxGenre = new System.Windows.Forms.CheckedListBox();
             this.listBoxMain = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.takebook = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 31);
+            this.label1.Location = new System.Drawing.Point(87, 38);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.Size = new System.Drawing.Size(0, 17);
             this.label1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(193, 7);
+            this.label2.Location = new System.Drawing.Point(257, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(260, 24);
+            this.label2.Size = new System.Drawing.Size(332, 29);
             this.label2.TabIndex = 1;
             this.label2.Text = "Welcome to the Virtual Library";
             // 
             // buttonTakenBooks
             // 
-            this.buttonTakenBooks.Location = new System.Drawing.Point(12, 291);
+            this.buttonTakenBooks.Location = new System.Drawing.Point(156, 358);
+            this.buttonTakenBooks.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTakenBooks.Name = "buttonTakenBooks";
-            this.buttonTakenBooks.Size = new System.Drawing.Size(117, 41);
+            this.buttonTakenBooks.Size = new System.Drawing.Size(156, 50);
             this.buttonTakenBooks.TabIndex = 2;
             this.buttonTakenBooks.Text = "Taken books";
             this.buttonTakenBooks.UseVisualStyleBackColor = true;
+            this.buttonTakenBooks.Click += new System.EventHandler(this.buttonTakenBooks_Click);
             // 
             // buttonReccomend
             // 
-            this.buttonReccomend.Location = new System.Drawing.Point(135, 291);
+            this.buttonReccomend.Location = new System.Drawing.Point(320, 358);
+            this.buttonReccomend.Margin = new System.Windows.Forms.Padding(4);
             this.buttonReccomend.Name = "buttonReccomend";
-            this.buttonReccomend.Size = new System.Drawing.Size(126, 41);
+            this.buttonReccomend.Size = new System.Drawing.Size(168, 50);
             this.buttonReccomend.TabIndex = 3;
             this.buttonReccomend.Text = "Book recommendations";
             this.buttonReccomend.UseVisualStyleBackColor = true;
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(293, 39);
+            this.buttonSearch.Location = new System.Drawing.Point(391, 48);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(101, 25);
+            this.buttonSearch.Size = new System.Drawing.Size(135, 31);
             this.buttonSearch.TabIndex = 4;
             this.buttonSearch.Text = "Search books";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -92,16 +99,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 42);
+            this.textBox1.Location = new System.Drawing.Point(16, 52);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(275, 20);
+            this.textBox1.Size = new System.Drawing.Size(365, 22);
             this.textBox1.TabIndex = 5;
             // 
             // buttonAccSettings
             // 
-            this.buttonAccSettings.Location = new System.Drawing.Point(268, 291);
+            this.buttonAccSettings.Location = new System.Drawing.Point(496, 358);
+            this.buttonAccSettings.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAccSettings.Name = "buttonAccSettings";
-            this.buttonAccSettings.Size = new System.Drawing.Size(101, 41);
+            this.buttonAccSettings.Size = new System.Drawing.Size(135, 50);
             this.buttonAccSettings.TabIndex = 6;
             this.buttonAccSettings.Text = "Account settings";
             this.buttonAccSettings.UseVisualStyleBackColor = true;
@@ -109,9 +118,10 @@
             // 
             // buttonGenre
             // 
-            this.buttonGenre.Location = new System.Drawing.Point(438, 39);
+            this.buttonGenre.Location = new System.Drawing.Point(584, 48);
+            this.buttonGenre.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGenre.Name = "buttonGenre";
-            this.buttonGenre.Size = new System.Drawing.Size(94, 25);
+            this.buttonGenre.Size = new System.Drawing.Size(125, 31);
             this.buttonGenre.TabIndex = 8;
             this.buttonGenre.Text = "Search genre";
             this.buttonGenre.UseVisualStyleBackColor = true;
@@ -119,18 +129,20 @@
             // 
             // buttonManageReaderAcc
             // 
-            this.buttonManageReaderAcc.Location = new System.Drawing.Point(549, 291);
+            this.buttonManageReaderAcc.Location = new System.Drawing.Point(732, 358);
+            this.buttonManageReaderAcc.Margin = new System.Windows.Forms.Padding(4);
             this.buttonManageReaderAcc.Name = "buttonManageReaderAcc";
-            this.buttonManageReaderAcc.Size = new System.Drawing.Size(126, 41);
+            this.buttonManageReaderAcc.Size = new System.Drawing.Size(168, 50);
             this.buttonManageReaderAcc.TabIndex = 9;
             this.buttonManageReaderAcc.Text = "Manage reader accounts";
             this.buttonManageReaderAcc.UseVisualStyleBackColor = true;
             // 
             // buttonManageLibrary
             // 
-            this.buttonManageLibrary.Location = new System.Drawing.Point(549, 244);
+            this.buttonManageLibrary.Location = new System.Drawing.Point(732, 300);
+            this.buttonManageLibrary.Margin = new System.Windows.Forms.Padding(4);
             this.buttonManageLibrary.Name = "buttonManageLibrary";
-            this.buttonManageLibrary.Size = new System.Drawing.Size(126, 41);
+            this.buttonManageLibrary.Size = new System.Drawing.Size(168, 50);
             this.buttonManageLibrary.TabIndex = 10;
             this.buttonManageLibrary.Text = "Manage library";
             this.buttonManageLibrary.UseVisualStyleBackColor = true;
@@ -138,9 +150,10 @@
             // 
             // buttonLogOut
             // 
-            this.buttonLogOut.Location = new System.Drawing.Point(375, 291);
+            this.buttonLogOut.Location = new System.Drawing.Point(639, 358);
+            this.buttonLogOut.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogOut.Name = "buttonLogOut";
-            this.buttonLogOut.Size = new System.Drawing.Size(52, 41);
+            this.buttonLogOut.Size = new System.Drawing.Size(69, 50);
             this.buttonLogOut.TabIndex = 11;
             this.buttonLogOut.Text = "Log out";
             this.buttonLogOut.UseVisualStyleBackColor = true;
@@ -165,35 +178,50 @@
             "Poetry",
             "History",
             "Encyclopedias"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(539, 42);
+            this.checkedListBoxGenre.Location = new System.Drawing.Point(719, 52);
+            this.checkedListBoxGenre.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
-            this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 184);
+            this.checkedListBoxGenre.Size = new System.Drawing.Size(180, 225);
             this.checkedListBoxGenre.TabIndex = 15;
             // 
             // listBoxMain
             // 
             this.listBoxMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.listBoxMain.FormattingEnabled = true;
-            this.listBoxMain.ItemHeight = 18;
-            this.listBoxMain.Location = new System.Drawing.Point(12, 81);
+            this.listBoxMain.ItemHeight = 24;
+            this.listBoxMain.Location = new System.Drawing.Point(16, 100);
+            this.listBoxMain.Margin = new System.Windows.Forms.Padding(4);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(520, 202);
+            this.listBoxMain.Size = new System.Drawing.Size(692, 244);
             this.listBoxMain.TabIndex = 16;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
+            this.label3.Location = new System.Drawing.Point(16, 82);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 13);
+            this.label3.Size = new System.Drawing.Size(170, 17);
             this.label3.TabIndex = 17;
             this.label3.Text = "Title --- Author --- Genres";
             // 
+            // takebook
+            // 
+            this.takebook.BackColor = System.Drawing.SystemColors.Control;
+            this.takebook.Location = new System.Drawing.Point(12, 358);
+            this.takebook.Name = "takebook";
+            this.takebook.Size = new System.Drawing.Size(137, 50);
+            this.takebook.TabIndex = 18;
+            this.takebook.Text = "Take book";
+            this.takebook.UseVisualStyleBackColor = false;
+            this.takebook.Click += new System.EventHandler(this.takebook_Click);
+            // 
             // FormLibrary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 341);
+            this.ClientSize = new System.Drawing.Size(915, 420);
+            this.Controls.Add(this.takebook);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxMain);
             this.Controls.Add(this.checkedListBoxGenre);
@@ -208,6 +236,7 @@
             this.Controls.Add(this.buttonTakenBooks);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormLibrary";
             this.Text = "Virtual Library";
             this.Load += new System.EventHandler(this.FormLibrary_Load);
@@ -232,5 +261,6 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxGenre;
         private System.Windows.Forms.ListBox listBoxMain;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button takebook;
     }
 }

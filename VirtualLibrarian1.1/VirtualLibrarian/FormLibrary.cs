@@ -22,7 +22,8 @@ namespace VirtualLibrarian
         internal User user { get; set; }
 
         //file storage path
-        public readonly string books = @"C:\Users\books.txt";
+        public string books = @"C:\Users\books.txt";
+        public bool pressedtakenbooks = false;
 
         private void FormLibrary_Load(object sender, EventArgs e)
         {
@@ -99,7 +100,7 @@ namespace VirtualLibrarian
             string line;
             string searchBA = textBox1.Text; // search book or author
             StreamReader file = new StreamReader(books);
-            if (searchBA != "")
+            if (searchBA != null)  // was "" just a test method for the use of same function to see all the books
             {
                 while ((line = file.ReadLine()) != null)
                 {
@@ -153,5 +154,47 @@ namespace VirtualLibrarian
         {
 
         }
+
+        private void takebook_Click(object sender, EventArgs e)// writes books into the file called username+.txt
+        {
+            string text = listBoxMain.GetItemText(listBoxMain.SelectedItem); // gets selected info about the book
+            if (text == "")
+            {
+                MessageBox.Show("Please select a book");
+            }
+            else {
+                MessageBox.Show(text);
+                text = text.Replace(" --- ",";"); // saves the text into the format name;author;genre
+
+
+                string path = @"D:\"+user.name+".txt";// couldnt use C:/users because on launch didnt have permission to create file
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(text); //
+
+                }
+
+            }
+        }
+
+        private void buttonTakenBooks_Click(object sender, EventArgs e) // toggles between taken book view and all books
+        {
+            if (pressedtakenbooks == false)
+            {
+                pressedtakenbooks = true;
+                buttonTakenBooks.BackColor = Color.Gray;
+                books = @"D:\" + user.name + ".txt"; // sets the name and the path of the file
+                takebook.Enabled = false;
+                buttonSearch_Click(sender,e);
+            }
+            else {
+                pressedtakenbooks = false;
+                buttonTakenBooks.BackColor = SystemColors.Control; ;
+                books = @"C:\Users\books.txt";
+                takebook.Enabled = true;
+            }
+
+
+            }
     }
 }

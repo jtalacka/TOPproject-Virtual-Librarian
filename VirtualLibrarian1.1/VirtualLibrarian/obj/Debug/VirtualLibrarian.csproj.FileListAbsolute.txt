@@ -47,3 +47,16 @@ C:\Users\user\Desktop\TOPprojectVirtualLibrarian-master\VirtualLibrarian1.1\Virt
 C:\Users\user\Desktop\TOPprojectVirtualLibrarian-master\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
 C:\Users\user\Desktop\TOPprojectVirtualLibrarian-master\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb
 C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormAccountInfo.resources
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe.config
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\VirtualLibrarian.pdb
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.csprojAssemblyReference.cache
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.Form1.resources
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormAccountInfo.resources
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormLibrary.resources
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormSignup.resources
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.Properties.Resources.resources
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.GenerateResource.cache
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CoreCompileInputs.cache
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
+C:\Users\juliu\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb
