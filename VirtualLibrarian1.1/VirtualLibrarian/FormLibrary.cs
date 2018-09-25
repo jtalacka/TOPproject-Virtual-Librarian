@@ -32,12 +32,12 @@ namespace VirtualLibrarian
             {
                 //extra employee functions
                 buttonManageLibrary.Visible = true;
-                buttonManageReaderAcc.Visible = true;
+                takebook.Visible = true;
             }
             else
             {
                 buttonManageLibrary.Visible = false;
-                buttonManageReaderAcc.Visible = false;
+                takebook.Visible = false;
             }
         }
 
@@ -82,6 +82,7 @@ namespace VirtualLibrarian
                     }
                 }
             }
+            file.Close();
             //clear checked items and serch
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
@@ -114,19 +115,15 @@ namespace VirtualLibrarian
                         {
                             listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
                             break;
-
                         }
                     }
                 }
+                file.Close();
                 //clear checked items
                 foreach (int i in checkedListBoxGenre.CheckedIndices)
                 {
                     checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please enter author or Book");
             }
         }
 
@@ -150,30 +147,34 @@ namespace VirtualLibrarian
             }
         }
 
+        //Go to employee only form
         private void buttonManageLibrary_Click(object sender, EventArgs e)
         {
-
+            FormLibSys sys = new FormLibSys();
+            sys.Show();
+            this.Close();
         }
 
         private void takebook_Click(object sender, EventArgs e)// writes books into the file called username+.txt
         {
-            string text = listBoxMain.GetItemText(listBoxMain.SelectedItem); // gets selected info about the book
+            // gets selected info about the book
+            string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (text == "")
             {
                 MessageBox.Show("Please select a book");
             }
-            else {
+            else
+            {
                 MessageBox.Show(text);
-                text = text.Replace(" --- ",";"); // saves the text into the format name;author;genre
+                // saves the text into the format name;author;genre
+                text = text.Replace(" --- ", ";"); 
 
-
-                string path = @"D:\"+user.name+".txt";// couldnt use C:/users because on launch didnt have permission to create file
+                // couldnt use C:/users because on launch didnt have permission to create file
+                string path = @"D:\" + user.name + ".txt";
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                    sw.WriteLine(text); //
-
-                }
-
+                    sw.WriteLine(text);
+                }               
             }
         }
 
@@ -185,9 +186,10 @@ namespace VirtualLibrarian
                 buttonTakenBooks.BackColor = Color.Gray;
                 books = @"D:\" + user.name + ".txt"; // sets the name and the path of the file
                 takebook.Enabled = false;
-                buttonSearch_Click(sender,e);
+                buttonSearch_Click(sender, e);
             }
-            else {
+            else
+            {
                 pressedtakenbooks = false;
                 buttonTakenBooks.BackColor = SystemColors.Control; ;
                 books = @"C:\Users\books.txt";
@@ -195,6 +197,6 @@ namespace VirtualLibrarian
             }
 
 
-            }
+        }
     }
 }

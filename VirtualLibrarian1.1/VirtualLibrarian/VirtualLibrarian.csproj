@@ -64,6 +64,12 @@
     <Compile Include="FormLibrary.Designer.cs">
       <DependentUpon>FormLibrary.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormLibSys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLibSys.Designer.cs">
+      <DependentUpon>FormLibSys.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSignup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLibrary.resx">
       <DependentUpon>FormLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLibSys.resx">
+      <DependentUpon>FormLibSys.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSignup.resx">
       <DependentUpon>FormSignup.cs</DependentUpon>

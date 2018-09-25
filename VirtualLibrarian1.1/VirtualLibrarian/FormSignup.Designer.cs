@@ -65,7 +65,7 @@
             this.textBoxBirth.Location = new System.Drawing.Point(129, 130);
             this.textBoxBirth.Name = "textBoxBirth";
             this.textBoxBirth.Size = new System.Drawing.Size(173, 20);
-            this.textBoxBirth.TabIndex = 2;
+            this.textBoxBirth.TabIndex = 4;
             // 
             // label1
             // 
@@ -82,7 +82,7 @@
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 18);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 8;
             this.label2.Text = "Name";
             // 
             // label3
@@ -92,7 +92,7 @@
             this.label3.Location = new System.Drawing.Point(12, 38);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 18);
-            this.label3.TabIndex = 6;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Surname";
             // 
             // label4
@@ -102,7 +102,7 @@
             this.label4.Location = new System.Drawing.Point(12, 129);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 18);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 12;
             this.label4.Text = "Date of birth";
             // 
             // button1
@@ -110,7 +110,7 @@
             this.button1.Location = new System.Drawing.Point(227, 195);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
+            this.button1.TabIndex = 6;
             this.button1.Text = "Sign up";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -120,7 +120,7 @@
             this.button2.Location = new System.Drawing.Point(129, 195);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 12;
+            this.button2.TabIndex = 7;
             this.button2.Text = "Exit";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -130,7 +130,7 @@
             this.textBoxEmail.Location = new System.Drawing.Point(129, 161);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(173, 20);
-            this.textBoxEmail.TabIndex = 14;
+            this.textBoxEmail.TabIndex = 5;
             // 
             // label7
             // 
@@ -149,7 +149,7 @@
             this.label9.Location = new System.Drawing.Point(12, 69);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 18);
-            this.label9.TabIndex = 17;
+            this.label9.TabIndex = 10;
             this.label9.Text = "Username";
             // 
             // textBoxUsername
@@ -157,14 +157,14 @@
             this.textBoxUsername.Location = new System.Drawing.Point(129, 69);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(173, 20);
-            this.textBoxUsername.TabIndex = 18;
+            this.textBoxUsername.TabIndex = 2;
             // 
             // textBoxPassword
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(129, 99);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(173, 20);
-            this.textBoxPassword.TabIndex = 20;
+            this.textBoxPassword.TabIndex = 3;
             // 
             // label10
             // 
@@ -173,7 +173,7 @@
             this.label10.Location = new System.Drawing.Point(12, 99);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(75, 18);
-            this.label10.TabIndex = 19;
+            this.label10.TabIndex = 11;
             this.label10.Text = "Password";
             // 
             // label5
@@ -207,7 +207,6 @@
             this.Controls.Add(this.textBoxName);
             this.Name = "FormSignup";
             this.Text = "FormSignup";
-//            this.Load += new System.EventHandler(this.FormSignup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
