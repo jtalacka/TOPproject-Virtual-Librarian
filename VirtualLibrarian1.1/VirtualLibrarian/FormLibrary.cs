@@ -23,10 +23,12 @@ namespace VirtualLibrarian
 
         //file storage path
         public string books = @"C:\Users\books.txt";
+        public string userBooks;
         public bool pressedtakenbooks = false;
 
         private void FormLibrary_Load(object sender, EventArgs e)
         {
+            userBooks = @"D:\" + user.username + ".txt";
             //determine, if the user is reader or employee
             if (user.type.ToString() == "employee")
             {
@@ -82,6 +84,7 @@ namespace VirtualLibrarian
                     }
                 }
             }
+            file.Close();
             //clear checked items and serch
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
@@ -118,6 +121,7 @@ namespace VirtualLibrarian
                         }
                     }
                 }
+                file.Close();
                 //clear checked items
                 foreach (int i in checkedListBoxGenre.CheckedIndices)
                 {
@@ -163,15 +167,38 @@ namespace VirtualLibrarian
                 MessageBox.Show("Please select a book");
             }
             else {
-                MessageBox.Show(text);
-                text = text.Replace(" --- ",";"); // saves the text into the format name;author;genre
+                text = text.Replace(" --- ", ";"); // saves the text into the format name;author;genre
+                int exists = 0;
 
 
-                string path = @"D:\"+user.name+".txt";// couldnt use C:/users because on launch didnt have permission to create file
-                using (StreamWriter sw = File.AppendText(path))
+                string path = userBooks;// couldnt use C:/users because on launch didnt have permission to create file
+
+                string line;
+                if (System.IO.File.Exists(path))
                 {
-                    sw.WriteLine(text); //
+                    StreamReader file = new StreamReader(books);
 
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        if (line == text)
+                        {
+
+                            exists = 1;
+                            break;
+                        }
+                    }
+                    file.Close();
+                }
+                if (exists == 0)
+                {
+                    MessageBox.Show(text);
+                    using (StreamWriter sw = File.AppendText(path))
+                    {
+                        sw.WriteLine(text); //
+                    }
+                }
+                else {
+                    MessageBox.Show("You have already taken this book");
                 }
 
             }
@@ -179,22 +206,30 @@ namespace VirtualLibrarian
 
         private void buttonTakenBooks_Click(object sender, EventArgs e) // toggles between taken book view and all books
         {
-            if (pressedtakenbooks == false)
+            if (System.IO.File.Exists(userBooks))
             {
-                pressedtakenbooks = true;
-                buttonTakenBooks.BackColor = Color.Gray;
-                books = @"D:\" + user.name + ".txt"; // sets the name and the path of the file
-                takebook.Enabled = false;
-                buttonSearch_Click(sender,e);
+                if (pressedtakenbooks == false)
+                {
+                    pressedtakenbooks = true;
+                    buttonTakenBooks.BackColor = Color.Gray;
+                    books = userBooks; // sets the name and the path of the file
+                    takebook.Enabled = false;
+                    buttonSearch_Click(sender, e);
+                }
+                else
+                {
+                    pressedtakenbooks = false;
+                    buttonTakenBooks.BackColor = SystemColors.Control; ;
+                    books = @"C:\Users\books.txt";
+                    takebook.Enabled = true;
+                }
+
+
             }
             else {
-                pressedtakenbooks = false;
-                buttonTakenBooks.BackColor = SystemColors.Control; ;
-                books = @"C:\Users\books.txt";
-                takebook.Enabled = true;
+                MessageBox.Show("You haven't taken any books yet");
+
             }
-
-
             }
     }
 }
