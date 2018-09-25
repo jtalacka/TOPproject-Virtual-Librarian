@@ -165,20 +165,6 @@ namespace VirtualLibrarian
             {
                 MessageBox.Show("Please select a book");
             }
-<<<<<<< HEAD
-            else
-            {
-                MessageBox.Show(text);
-                // saves the text into the format name;author;genre
-                text = text.Replace(" --- ", ";"); 
-
-                // couldnt use C:/users because on launch didnt have permission to create file
-                string path = @"D:\" + user.name + ".txt";
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.WriteLine(text);
-                }               
-=======
             else {
                 text = text.Replace(" --- ", ";"); // saves the text into the format name;author;genre
                 int exists = 0;
@@ -189,12 +175,15 @@ namespace VirtualLibrarian
                 string line;
                 if (System.IO.File.Exists(path))
                 {
-                    StreamReader file = new StreamReader(books);
+                    StreamReader file = new StreamReader(userBooks);
+
 
                     while ((line = file.ReadLine()) != null)
                     {
                         if (line == text)
                         {
+                            MessageBox.Show(line);
+                            MessageBox.Show(text);
 
                             exists = 1;
                             break;
@@ -214,7 +203,6 @@ namespace VirtualLibrarian
                     MessageBox.Show("You have already taken this book");
                 }
 
->>>>>>> jtalacka-patch-1
             }
         }
 
@@ -222,24 +210,7 @@ namespace VirtualLibrarian
         {
             if (System.IO.File.Exists(userBooks))
             {
-<<<<<<< HEAD
-                pressedtakenbooks = true;
-                buttonTakenBooks.BackColor = Color.Gray;
-                books = @"D:\" + user.name + ".txt"; // sets the name and the path of the file
-                takebook.Enabled = false;
-                buttonSearch_Click(sender, e);
-            }
-            else
-            {
-                pressedtakenbooks = false;
-                buttonTakenBooks.BackColor = SystemColors.Control; ;
-                books = @"C:\Users\books.txt";
-                takebook.Enabled = true;
-            }
 
-
-        }
-=======
                 if (pressedtakenbooks == false)
                 {
                     pressedtakenbooks = true;
@@ -263,6 +234,5 @@ namespace VirtualLibrarian
 
             }
             }
->>>>>>> jtalacka-patch-1
     }
 }
