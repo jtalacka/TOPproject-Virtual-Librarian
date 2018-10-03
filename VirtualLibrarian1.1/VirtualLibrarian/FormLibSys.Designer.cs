@@ -63,7 +63,7 @@
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(204, 17);
+            this.buttonDel.Location = new System.Drawing.Point(204, 18);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(50, 25);
             this.buttonDel.TabIndex = 19;
