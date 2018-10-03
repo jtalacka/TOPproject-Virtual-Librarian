@@ -159,7 +159,7 @@
             "Encyclopedias"});
             this.checkedListBoxGenre.Location = new System.Drawing.Point(539, 42);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
-            this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 154);
+            this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 139);
             this.checkedListBoxGenre.TabIndex = 15;
             // 
             // listBoxMain
@@ -185,7 +185,7 @@
             // 
             this.takebook.BackColor = System.Drawing.SystemColors.Control;
             this.takebook.Location = new System.Drawing.Point(539, 264);
-            this.takebook.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.takebook.Margin = new System.Windows.Forms.Padding(2);
             this.takebook.Name = "takebook";
             this.takebook.Size = new System.Drawing.Size(136, 26);
             this.takebook.TabIndex = 18;

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Book.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +71,12 @@
     <Compile Include="FormLibSys.Designer.cs">
       <DependentUpon>FormLibSys.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormNewBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewBook.Designer.cs">
+      <DependentUpon>FormNewBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSignup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLibSys.resx">
       <DependentUpon>FormLibSys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewBook.resx">
+      <DependentUpon>FormNewBook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSignup.resx">
       <DependentUpon>FormSignup.cs</DependentUpon>

@@ -115,7 +115,7 @@ namespace VirtualLibrarian
                         //if matches - add to main listBox
                         if (lineSplit[i].Contains(searchBA))
                         {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
+                            listBoxMain.Items.Add(lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
                             break;
                         }
                     }
@@ -165,10 +165,10 @@ namespace VirtualLibrarian
             {
                 MessageBox.Show("Please select a book");
             }
-            else {
+            else
+            {
                 text = text.Replace(" --- ", ";"); // saves the text into the format name;author;genre
                 int exists = 0;
-
 
                 string path = userBooks;// couldnt use C:/users because on launch didnt have permission to create file
 
@@ -199,10 +199,10 @@ namespace VirtualLibrarian
                         sw.WriteLine(text); //
                     }
                 }
-                else {
+                else
+                {
                     MessageBox.Show("You have already taken this book");
                 }
-
             }
         }
 
@@ -226,13 +226,12 @@ namespace VirtualLibrarian
                     books = @"C:\Users\books.txt";
                     takebook.Enabled = true;
                 }
-
-
             }
-            else {
+            else
+            {
                 MessageBox.Show("You haven't taken any books yet");
 
             }
-            }
+        }
     }
 }

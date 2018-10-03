@@ -40,6 +40,7 @@
             this.buttonTake = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBoxMain
@@ -67,6 +68,7 @@
             this.buttonDel.TabIndex = 19;
             this.buttonDel.Text = "Delete";
             this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Visible = false;
             // 
             // buttonAdd
             // 
@@ -76,6 +78,7 @@
             this.buttonAdd.TabIndex = 21;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // textBoxReader
             // 
@@ -92,6 +95,7 @@
             this.buttonEdit.TabIndex = 26;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Visible = false;
             // 
             // buttonSearchReader
             // 
@@ -119,6 +123,7 @@
             this.buttonSearchBook.TabIndex = 29;
             this.buttonSearchBook.Text = "Search book";
             this.buttonSearchBook.UseVisualStyleBackColor = true;
+            this.buttonSearchBook.Click += new System.EventHandler(this.buttonSearchBook_Click);
             // 
             // buttonTake
             // 
@@ -147,11 +152,21 @@
             this.label2.TabIndex = 32;
             this.label2.Text = "Manage reader\r\n     accounts";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(162, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "ISBN --- Title --- Author --- Genres";
+            // 
             // FormLibSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 360);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonTake);
@@ -185,5 +200,6 @@
         private System.Windows.Forms.Button buttonTake;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
