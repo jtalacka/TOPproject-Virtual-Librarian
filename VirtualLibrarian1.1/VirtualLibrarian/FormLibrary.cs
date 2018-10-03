@@ -170,8 +170,7 @@ namespace VirtualLibrarian
                 text = text.Replace(" --- ", ";"); // saves the text into the format name;author;genre
                 int exists = 0;
 
-                string path = userBooks;// couldnt use C:/users because on launch didnt have permission to create file
-
+                string path = userBooks;
                 string line;
                 if (System.IO.File.Exists(path))
                 {
@@ -196,7 +195,7 @@ namespace VirtualLibrarian
                     MessageBox.Show(text);
                     using (StreamWriter sw = File.AppendText(path))
                     {
-                        sw.WriteLine(text); //
+                        sw.WriteLine(text); 
                     }
                 }
                 else

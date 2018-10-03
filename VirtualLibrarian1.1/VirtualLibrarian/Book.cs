@@ -16,6 +16,7 @@ namespace VirtualLibrarian
             this.author = a;
             this.genres = g;
         }
+        public Book() { }
 
         //properties (in same order as written in in the file)
         public int ISBN;

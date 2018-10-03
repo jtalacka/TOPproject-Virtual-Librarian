@@ -81,7 +81,7 @@ namespace VirtualLibrarian
                 }
             }
 
-            MessageBox.Show("Book " + book.title + " added");
+            MessageBox.Show("Book '" + book.title + "' added");
             textBoxISBN.Clear();
             textBoxTitle.Clear();
             textBoxAuthor.Clear();

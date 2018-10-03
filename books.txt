@@ -7,7 +7,6 @@
 7;Romeo and Juliet;William Shakespeare;Romance Drama
 8;The Alchemist;Paulo Coelho;Philosophy
 9;Fahrenheit 451;Ray Bradbury;Science-fiction
-10;The Lovely Bones;Alice Sebold;Mystery Horror
 11;The Girl with the Dragon Tattoo;Stieg Larsson;Mystery Drama 
 12;The Complete Stories and Poems;Edgar Allan Poe;Horror Poetry
 13;The Very Hungry Caterpillar;Eric Carle;Children's
@@ -17,7 +16,7 @@
 17;Bridge to Terabithia;Katherine Paterson;Fantasy Children's
 18;The Lion, the Witch and the Wardrobe;C.S. Lewis;Children's Fantasy Adventure
 19;Bunnicula;James Howe;Children's Fantasy Mystery
-20;Coraline;Neil Gaiman;Children's Mystery Horror
-21;The Gashlycrumb Tinies;Edward Gorey;Children's Art Poetry Horror222;testBook;na;
-222;testBook;na;Mystery
-223;newTestBook;na;Mystery Horror
+21;The Gashlycrumb Tinies;Edward Gorey;Children's Art Poetry Horror
+20;Coraline;Neil Gaiman;Mystery Horror Children's
+200;testBook;WWW;Mystery Horror
+420;ccc;ccc;Science-fiction Fantasy Adventure

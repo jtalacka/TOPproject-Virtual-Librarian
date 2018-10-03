@@ -52,6 +52,7 @@
             this.listBoxMain.Name = "listBoxMain";
             this.listBoxMain.Size = new System.Drawing.Size(730, 256);
             this.listBoxMain.TabIndex = 17;
+            this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.listBoxMain_SelectedIndexChanged);
             // 
             // textBoxBook
             // 
@@ -62,13 +63,14 @@
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(148, 18);
+            this.buttonDel.Location = new System.Drawing.Point(204, 17);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(50, 25);
             this.buttonDel.TabIndex = 19;
             this.buttonDel.Text = "Delete";
             this.buttonDel.UseVisualStyleBackColor = true;
             this.buttonDel.Visible = false;
+            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // buttonAdd
             // 
@@ -89,13 +91,14 @@
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(204, 18);
+            this.buttonEdit.Location = new System.Drawing.Point(148, 18);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(50, 25);
             this.buttonEdit.TabIndex = 26;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Visible = false;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonSearchReader
             // 
