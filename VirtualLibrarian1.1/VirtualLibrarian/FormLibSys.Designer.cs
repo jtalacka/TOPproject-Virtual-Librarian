@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBoxMain
@@ -51,8 +53,8 @@
             this.listBoxMain.Location = new System.Drawing.Point(12, 92);
             this.listBoxMain.Name = "listBoxMain";
             this.listBoxMain.Size = new System.Drawing.Size(730, 256);
+            this.listBoxMain.Sorted = true;
             this.listBoxMain.TabIndex = 17;
-            this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.listBoxMain_SelectedIndexChanged);
             // 
             // textBoxBook
             // 
@@ -80,6 +82,7 @@
             this.buttonAdd.TabIndex = 21;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Visible = false;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // textBoxReader
@@ -108,6 +111,7 @@
             this.buttonSearchReader.TabIndex = 27;
             this.buttonSearchReader.Text = "Search reader";
             this.buttonSearchReader.UseVisualStyleBackColor = true;
+            this.buttonSearchReader.Click += new System.EventHandler(this.buttonSearchReader_Click);
             // 
             // buttonReturn
             // 
@@ -117,6 +121,7 @@
             this.buttonReturn.TabIndex = 28;
             this.buttonReturn.Text = "Return book";
             this.buttonReturn.UseVisualStyleBackColor = true;
+            this.buttonReturn.Visible = false;
             // 
             // buttonSearchBook
             // 
@@ -134,8 +139,10 @@
             this.buttonTake.Name = "buttonTake";
             this.buttonTake.Size = new System.Drawing.Size(77, 25);
             this.buttonTake.TabIndex = 30;
-            this.buttonTake.Text = "Take book";
+            this.buttonTake.Text = "Give book";
             this.buttonTake.UseVisualStyleBackColor = true;
+            this.buttonTake.Visible = false;
+            this.buttonTake.Click += new System.EventHandler(this.buttonTake_Click);
             // 
             // label1
             // 
@@ -164,11 +171,32 @@
             this.label3.TabIndex = 33;
             this.label3.Text = "ISBN --- Title --- Author --- Genres";
             // 
+            // buttonExit
+            // 
+            this.buttonExit.Location = new System.Drawing.Point(696, 354);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(45, 23);
+            this.buttonExit.TabIndex = 34;
+            this.buttonExit.Text = "Exit";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(500, 78);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(242, 13);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "Username --- Name --- Surname --- Email --- Adress";
+            // 
             // FormLibSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 360);
+            this.ClientSize = new System.Drawing.Size(754, 383);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -204,5 +232,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Label label4;
     }
 }

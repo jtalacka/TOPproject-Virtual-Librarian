@@ -139,8 +139,10 @@
             // 
             // textBoxGenres
             // 
+            this.textBoxGenres.Cursor = System.Windows.Forms.Cursors.No;
             this.textBoxGenres.Location = new System.Drawing.Point(99, 87);
             this.textBoxGenres.Name = "textBoxGenres";
+            this.textBoxGenres.ReadOnly = true;
             this.textBoxGenres.Size = new System.Drawing.Size(213, 20);
             this.textBoxGenres.TabIndex = 4;
             // 

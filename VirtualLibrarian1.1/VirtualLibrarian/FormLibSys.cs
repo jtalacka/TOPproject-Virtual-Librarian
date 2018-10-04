@@ -19,25 +19,28 @@ namespace VirtualLibrarian
         }
         //file storage path
         public string books = @"C:\Users\books.txt";
+        public readonly string loginInfo = @"C:\Users\login.txt";
         Book book = new Book();
-
-        //if something gets selected
-        private void listBoxMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //show 'Edit' and 'Delete'
-            buttonDel.Visible = true;
-            buttonEdit.Visible = true;
-        }
+        internal User user;
 
         //search for a book
         private void buttonSearchBook_Click(object sender, EventArgs e)
         {
+            //Hide buttons realted to user management
+            buttonTake.Visible = false;
+            buttonReturn.Visible = false;
+            textBoxReader.Clear();
+            //Show library management buttons
+            buttonAdd.Visible = true;         
+            buttonEdit.Visible = true;
+            buttonDel.Visible = true;
+
             //clear main window
             listBoxMain.Items.Clear();
 
-            //search for books with selected genres
             string line;
-            string searchBA = textBoxBook.Text; // search book or author
+            // search book or author
+            string searchBA = textBoxBook.Text; 
             StreamReader file = new StreamReader(books);
             // was "" just a test method for the use of same function to see all the books
             if (searchBA != null)
@@ -46,7 +49,6 @@ namespace VirtualLibrarian
                 {
                     //split line into strings
                     string[] lineSplit = line.Split(';');
-
                     for (int i = 0; i < lineSplit.Length; i++)
                     {
                         //if matches - add to main listBox
@@ -66,7 +68,6 @@ namespace VirtualLibrarian
         {
             FormNewBook nb = new FormNewBook();
             nb.Show();
-
         }
         //edit a book
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -89,11 +90,12 @@ namespace VirtualLibrarian
             book.genres = tempGenres;
 
             FormEditBook eb = new FormEditBook();
+            //pass defined book
             eb.book = book;
             eb.Show();
         }
 
-        //delete line
+        //delete book
         private void buttonDel_Click(object sender, EventArgs e)
         {
             //gets selected info about the book
@@ -106,11 +108,16 @@ namespace VirtualLibrarian
             info = info.Replace(" --- ", ";");
             string[] lineSplit = info.Split(';');
 
+            //define book
+            book.ISBN = Int32.Parse(lineSplit[0]);
+            book.title = lineSplit[1];
+
             DialogResult result;
             result = MessageBox.Show("Are you sure you want to delete '" + book.title + "'?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 var Lines = File.ReadAllLines(books);
+                //ISBN must be unique, so look for it in the line
                 var newLines = Lines.Where(line => !line.Contains(book.ISBN.ToString()));
                 File.WriteAllLines(books, newLines);
 
@@ -118,6 +125,61 @@ namespace VirtualLibrarian
                 //clear main window
                 listBoxMain.Items.Clear();
             }
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            FormLibrary lib = new FormLibrary();
+            //didn't use user object, but have to pass it back
+            lib.user = user;
+            lib.Show();
+        }
+
+
+
+        //search reader ccounts
+        private void buttonSearchReader_Click(object sender, EventArgs e)
+        {
+            //Hide buttons realted to library management
+            buttonAdd.Visible = false;
+            buttonEdit.Visible = false;
+            buttonDel.Visible = false;
+            textBoxBook.Clear();
+            //Shoe reader management functions
+            buttonTake.Visible = true;
+            buttonReturn.Visible = true;
+
+            //clear main window
+            listBoxMain.Items.Clear();
+
+            string line;
+            string searchR = textBoxReader.Text; 
+            StreamReader file = new StreamReader(loginInfo);
+            if (searchR != null)
+            {
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] lineSplit = line.Split(';');
+                    for (int i = 0; i < lineSplit.Length; i++)
+                    {
+                        //if matches - add to main listBox
+                        if (lineSplit[i].Contains(searchR))
+                        {
+                            //lineSplit[1] is password - DONT SHOW IT
+                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[2] + " --- " + lineSplit[3] + " --- " + lineSplit[4] + " --- " + lineSplit[5]);
+                            break;
+                        }
+                    }
+                }
+                file.Close();
+            }
+        }
+        //add new taken book to user account
+        private void buttonTake_Click(object sender, EventArgs e)
+        {
+            //write book info into correct file
+
         }
     }
 }

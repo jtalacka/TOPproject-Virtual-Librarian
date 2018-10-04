@@ -142,24 +142,25 @@
             // 
             this.checkedListBoxGenre.FormattingEnabled = true;
             this.checkedListBoxGenre.Items.AddRange(new object[] {
-            "Science-fiction",
-            "Fantasy",
             "Adventure",
-            "Mystery",
-            "Horror",
-            "Drama",
-            "Romance",
-            "Health",
-            "Travel",
-            "Children\'s",
             "Art",
+            "Children\'s",
+            "Drama",
+            "Encyclopedias",
+            "Fantasy",
+            "Health",
+            "History",
+            "Horror",
+            "Mystery",
             "Philosophy",
             "Poetry",
-            "History",
-            "Encyclopedias"});
+            "Romance",
+            "Science-fiction",
+            "Travel"});
             this.checkedListBoxGenre.Location = new System.Drawing.Point(539, 42);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
             this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 139);
+            this.checkedListBoxGenre.Sorted = true;
             this.checkedListBoxGenre.TabIndex = 15;
             // 
             // listBoxMain

@@ -42,31 +42,60 @@ namespace VirtualLibrarian
         //save changes
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            string text = File.ReadAllText(books);
-            text = text.Replace(book.ISBN.ToString(), textBoxISBN.Text);
-            text = text.Replace(book.title, textBoxTitle.Text);
-            text = text.Replace(book.author, textBoxAuthor.Text);
-
-            //if new genres selected
-            if (genresChanged == true)
+            string line;
+            StreamReader file = new StreamReader(books);
+            //read line by line and look for ISBN
+            while ((line = file.ReadLine()) != null)
             {
-                //get which genres chosen
-                List<string> checkedGenres = new List<string>();
-                foreach (string g in checkedListBoxGenre.CheckedItems)
-                {
-                    checkedGenres.Add(g);
-                }
-                string checkedG = string.Join( " ", checkedGenres.ToArray() );
-                //save new genres in file
-                 text = text.Replace(textBoxGenres.Text, checkedG);
-            }
+                string[] lineSplit = line.Split(';');
 
-            File.WriteAllText(books, text);
+                //if found our line (unique ISBN)
+                if (lineSplit[0] == book.ISBN.ToString())
+                {
+                    //save old info
+                    string[] oInfo = { book.ISBN.ToString(), book.title,
+                                        book.author, textBoxGenres.Text };
+                    //all old info in one string
+                    string oLine = string.Join(";", oInfo);
+                    //new info
+                    string nLine;
+
+                    //if new genres selected 
+                    if (genresChanged == true)
+                    {
+                        //get which genres chosen and put into List
+                        List<string> checkedGenres = new List<string>();
+                        foreach (string g in checkedListBoxGenre.CheckedItems)
+                        { checkedGenres.Add(g); }
+                        //List into string
+                        string checkedG = string.Join(" ", checkedGenres.ToArray());
+
+                        //form new info string
+                        nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
+                                                textBoxAuthor.Text, checkedG);
+                    }
+                    else
+                    {
+                        //form new info string
+                        nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
+                                                textBoxAuthor.Text, textBoxGenres.Text); ;
+                    }
+                    file.Close();
+                    //write modified text
+                    //read all text
+                    string text = File.ReadAllText(books);
+                    //modifiy old text
+                    text = text.Replace(oLine, nLine);
+                    //write it back
+                    File.WriteAllText(books, text);
+
+                    //end the madness
+                    break;
+                }
+            }
 
             MessageBox.Show("Changes saved");
             this.Close();
         }
-
-
     }
 }

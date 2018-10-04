@@ -153,6 +153,7 @@ namespace VirtualLibrarian
         private void buttonManageLibrary_Click(object sender, EventArgs e)
         {
             FormLibSys sys = new FormLibSys();
+            sys.user = user;
             sys.Show();
             this.Close();
         }
@@ -175,7 +176,6 @@ namespace VirtualLibrarian
                 if (System.IO.File.Exists(path))
                 {
                     StreamReader file = new StreamReader(userBooks);
-
 
                     while ((line = file.ReadLine()) != null)
                     {
