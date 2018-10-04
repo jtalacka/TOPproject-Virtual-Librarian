@@ -168,7 +168,8 @@ namespace VirtualLibrarian
             }
             else
             {
-                text = text.Replace(" --- ", ";"); // saves the text into the format name;author;genre
+                // saves the text into the format name;author;genre
+                text = text.Replace(" --- ", ";"); 
                 int exists = 0;
 
                 string path = userBooks;

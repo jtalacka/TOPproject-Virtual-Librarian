@@ -65,6 +65,12 @@
     <Compile Include="FormEditBook.Designer.cs">
       <DependentUpon>FormEditBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormGiveBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGiveBook.Designer.cs">
+      <DependentUpon>FormGiveBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLibrary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +88,12 @@
     </Compile>
     <Compile Include="FormNewBook.Designer.cs">
       <DependentUpon>FormNewBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReaderBooks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReaderBooks.Designer.cs">
+      <DependentUpon>FormReaderBooks.cs</DependentUpon>
     </Compile>
     <Compile Include="FormSignup.cs">
       <SubType>Form</SubType>
@@ -101,6 +113,9 @@
     <EmbeddedResource Include="FormEditBook.resx">
       <DependentUpon>FormEditBook.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormGiveBook.resx">
+      <DependentUpon>FormGiveBook.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLibrary.resx">
       <DependentUpon>FormLibrary.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNewBook.resx">
       <DependentUpon>FormNewBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReaderBooks.resx">
+      <DependentUpon>FormReaderBooks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSignup.resx">
       <DependentUpon>FormSignup.cs</DependentUpon>

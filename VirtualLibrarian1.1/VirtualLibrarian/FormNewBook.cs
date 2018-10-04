@@ -70,7 +70,6 @@ namespace VirtualLibrarian
             //define Book
             Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres);
 
-
             //if ISBN unique - add book to the file
             if (exists == false)
             {

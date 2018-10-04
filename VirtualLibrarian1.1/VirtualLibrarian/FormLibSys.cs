@@ -31,7 +31,7 @@ namespace VirtualLibrarian
             buttonReturn.Visible = false;
             textBoxReader.Clear();
             //Show library management buttons
-            buttonAdd.Visible = true;         
+            buttonAdd.Visible = true;
             buttonEdit.Visible = true;
             buttonDel.Visible = true;
 
@@ -40,7 +40,7 @@ namespace VirtualLibrarian
 
             string line;
             // search book or author
-            string searchBA = textBoxBook.Text; 
+            string searchBA = textBoxBook.Text;
             StreamReader file = new StreamReader(books);
             // was "" just a test method for the use of same function to see all the books
             if (searchBA != null)
@@ -154,7 +154,7 @@ namespace VirtualLibrarian
             listBoxMain.Items.Clear();
 
             string line;
-            string searchR = textBoxReader.Text; 
+            string searchR = textBoxReader.Text;
             StreamReader file = new StreamReader(loginInfo);
             if (searchR != null)
             {
@@ -175,11 +175,105 @@ namespace VirtualLibrarian
                 file.Close();
             }
         }
+
+
+
         //add new taken book to user account
         private void buttonTake_Click(object sender, EventArgs e)
         {
-            //write book info into correct file
+            //get info about selected reader
+            string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
+            if (readerInfo == "")
+            { MessageBox.Show("Please select a reader account"); }
+            else
+            {
+                readerInfo = readerInfo.Replace(" --- ", ";");
+                string[] readerInfoSplit = readerInfo.Split(';');
+                //new form
+                FormGiveBook gb = new FormGiveBook();
+                gb.ShowDialog();
 
+                //info about book being taken => givenBookInfo
+                string givenBookInfo = FormGiveBook.givenBookInfo;
+                givenBookInfo = givenBookInfo.Replace(" --- ", ";");
+                if (givenBookInfo != "none")
+                {
+                    //write info about book into their file
+                    //their file  
+                    string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
+                    //write it
+
+                    //is this book already taken by this reader?
+                    int exists = 0;
+                    string line;
+                    //file already exists
+                    if (System.IO.File.Exists(userBooks))
+                    {
+                        StreamReader file = new StreamReader(userBooks);
+                        while ((line = file.ReadLine()) != null)
+                        {
+                            if (line == givenBookInfo)
+                            {
+                                MessageBox.Show("This reader has already taken this book");
+                                exists = 1;
+                                break;
+                            }
+                        }
+                        file.Close();
+                    }
+                    //if book new - write it in
+                    if (exists == 0)
+                    {
+                        using (StreamWriter sw = File.AppendText(userBooks))
+                        {
+                            sw.WriteLine(givenBookInfo);
+                            MessageBox.Show("Book \n" + givenBookInfo + " \nadded to reader account");
+                        }
+                    }
+                }
+            }
+        }
+
+        //delete book from file
+        private void buttonReturn_Click(object sender, EventArgs e)
+        {
+            //get info about selected reader
+            string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
+            if (readerInfo == "")
+            { MessageBox.Show("Please select a reader account"); }
+            else
+            {
+                readerInfo = readerInfo.Replace(" --- ", ";");
+                string[] readerInfoSplit = readerInfo.Split(';');
+
+                //their file  
+                string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
+
+                if (!System.IO.File.Exists(userBooks))
+                {
+                    MessageBox.Show("This reader has never taken any books (no file created)");
+                    return;
+                }
+                else
+                {
+                    //new form
+                    FormReaderBooks rb = new FormReaderBooks();
+                    rb.username = readerInfoSplit[0];
+                    rb.ShowDialog();
+                }
+
+                //info about book being returned => returnedBookInfo
+                string returnedBookInfo = FormReaderBooks.returnedBookInfo;
+                returnedBookInfo = returnedBookInfo.Replace(" --- ", ";");
+                if (returnedBookInfo != "none")
+                {
+                    //delete
+                    var Lines = File.ReadAllLines(userBooks);
+                    var newLines = Lines.Where(line => !line.Contains(returnedBookInfo));
+                    File.WriteAllLines(userBooks, newLines);
+                    MessageBox.Show("Book\n" + returnedBookInfo + "\ndeleted from reader account");
+                }
+            }
         }
     }
 }

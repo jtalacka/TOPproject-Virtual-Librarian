@@ -53,7 +53,6 @@
             this.listBoxMain.Location = new System.Drawing.Point(12, 92);
             this.listBoxMain.Name = "listBoxMain";
             this.listBoxMain.Size = new System.Drawing.Size(730, 256);
-            this.listBoxMain.Sorted = true;
             this.listBoxMain.TabIndex = 17;
             // 
             // textBoxBook
@@ -122,6 +121,7 @@
             this.buttonReturn.Text = "Return book";
             this.buttonReturn.UseVisualStyleBackColor = true;
             this.buttonReturn.Visible = false;
+            this.buttonReturn.Click += new System.EventHandler(this.buttonReturn_Click);
             // 
             // buttonSearchBook
             // 
