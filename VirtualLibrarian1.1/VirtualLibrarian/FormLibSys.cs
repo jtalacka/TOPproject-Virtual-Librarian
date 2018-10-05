@@ -17,6 +17,7 @@ namespace VirtualLibrarian
         {
             InitializeComponent();
         }
+
         //file storage path
         public string books = @"C:\Users\books.txt";
         public readonly string loginInfo = @"C:\Users\login.txt";
@@ -189,7 +190,7 @@ namespace VirtualLibrarian
             {
                 readerInfo = readerInfo.Replace(" --- ", ";");
                 string[] readerInfoSplit = readerInfo.Split(';');
-                //new form
+                //new form - to get info. about the book being taken
                 FormGiveBook gb = new FormGiveBook();
                 gb.ShowDialog();
 
@@ -201,7 +202,6 @@ namespace VirtualLibrarian
                     //write info about book into their file
                     //their file  
                     string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
-                    //write it
 
                     //is this book already taken by this reader?
                     int exists = 0;
@@ -222,11 +222,17 @@ namespace VirtualLibrarian
                         file.Close();
                     }
                     //if book new - write it in
+
+                    //form date when taken
+                    string dateTaken = DateTime.Now.ToShortDateString();
+                    //form return date
+                    var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
+
                     if (exists == 0)
                     {
                         using (StreamWriter sw = File.AppendText(userBooks))
                         {
-                            sw.WriteLine(givenBookInfo);
+                            sw.WriteLine(givenBookInfo + ";" + dateTaken + ";" + dateReturn);
                             MessageBox.Show("Book \n" + givenBookInfo + " \nadded to reader account");
                         }
                     }
@@ -237,6 +243,8 @@ namespace VirtualLibrarian
         //delete book from file
         private void buttonReturn_Click(object sender, EventArgs e)
         {
+            string returnedBookInfo = "none";
+
             //get info about selected reader
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
@@ -263,10 +271,18 @@ namespace VirtualLibrarian
                 }
 
                 //info about book being returned => returnedBookInfo
-                string returnedBookInfo = FormReaderBooks.returnedBookInfo;
+                returnedBookInfo = FormReaderBooks.returnedBookInfo;
                 returnedBookInfo = returnedBookInfo.Replace(" --- ", ";");
                 if (returnedBookInfo != "none")
                 {
+                    //is reader late to return?
+                    string[] temp = returnedBookInfo.Split(';');
+                    string dateToday = DateTime.Now.ToShortDateString();
+                    if (DateTime.Parse(temp[5]) < DateTime.Parse(dateToday))
+                    {
+                        var late = DateTime.Parse(dateToday)-DateTime.Parse(temp[5]);
+                        MessageBox.Show("This reader is late to return this book by: " + late + "days");
+                    }
                     //delete
                     var Lines = File.ReadAllLines(userBooks);
                     var newLines = Lines.Where(line => !line.Contains(returnedBookInfo));

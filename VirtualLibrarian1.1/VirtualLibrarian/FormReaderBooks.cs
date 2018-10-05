@@ -19,23 +19,22 @@ namespace VirtualLibrarian
         {
             InitializeComponent();
         }
-
-        //public FormReaderBooks(string reader)
-        //{
-        //    this.username = reader;
-        //}     
-        public static string returnedBookInfo = "none";
+    
+        public static string returnedBookInfo;
         public string username;
 
         private void FormReaderBooks_Load(object sender, EventArgs e)
         {
+            returnedBookInfo = "none";
             string line;
             string path = @"D:\" + username + ".txt";         
             StreamReader file = new StreamReader(path);
             while ((line = file.ReadLine()) != null)
             {
                 string[] lineSplit = line.Split(';');
-                listBox1.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
+                listBox1.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " 
+                    + lineSplit[2] + " --- " + lineSplit[3] + " --- " 
+                    + lineSplit[4] + " --- " + lineSplit[5]);
             }
             file.Close();
         }

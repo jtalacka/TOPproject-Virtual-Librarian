@@ -70,7 +70,7 @@ namespace VirtualLibrarian
                 string[] lineSplit = line.Split(';');
                 //lineSplit[2] contains the genres separated with spaces
                 //get genres into genreSplit array
-                string[] genreSplit = lineSplit[2].Split(' ');
+                string[] genreSplit = lineSplit[3].Split(' ');
 
                 foreach (string g in checkedGenres)
                 {
@@ -79,7 +79,7 @@ namespace VirtualLibrarian
                         //if matches - add to main listBox
                         if (genreSplit[i] == g)
                         {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
+                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
                         }
                     }
                 }
@@ -206,11 +206,11 @@ namespace VirtualLibrarian
             }
         }
 
-        private void buttonTakenBooks_Click(object sender, EventArgs e) // toggles between taken book view and all books
+        // toggles between taken book view and all books
+        private void buttonTakenBooks_Click(object sender, EventArgs e) 
         {
             if (System.IO.File.Exists(userBooks))
             {
-
                 if (pressedtakenbooks == false)
                 {
                     pressedtakenbooks = true;
@@ -230,7 +230,6 @@ namespace VirtualLibrarian
             else
             {
                 MessageBox.Show("You haven't taken any books yet");
-
             }
         }
     }

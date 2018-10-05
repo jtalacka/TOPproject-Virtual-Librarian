@@ -37,13 +37,13 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(406, 212);
+            this.listBox1.Size = new System.Drawing.Size(594, 147);
             this.listBox1.TabIndex = 1;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // buttonSelect
             // 
-            this.buttonSelect.Location = new System.Drawing.Point(171, 230);
+            this.buttonSelect.Location = new System.Drawing.Point(276, 165);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(75, 23);
             this.buttonSelect.TabIndex = 2;
@@ -55,7 +55,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 260);
+            this.ClientSize = new System.Drawing.Size(618, 195);
             this.Controls.Add(this.buttonSelect);
             this.Controls.Add(this.listBox1);
             this.Name = "FormReaderBooks";

@@ -23,5 +23,7 @@ namespace VirtualLibrarian
         public string title;
         public string author;
         public List<string> genres;
+        public DateTime Dtaken;
+        public DateTime Dreturned;
     }
 }
