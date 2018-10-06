@@ -75,3 +75,7 @@ C:\Users\juliu\OneDrive\Stalinis kompiuteris\New folder\VirtualLibrarian1.1\Virt
 C:\Users\juliu\OneDrive\Stalinis kompiuteris\New folder\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe.config
 C:\Users\juliu\OneDrive\Stalinis kompiuteris\New folder\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe
 C:\Users\juliu\OneDrive\Stalinis kompiuteris\New folder\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\VirtualLibrarian.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormNewBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormEditBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormGiveBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormReaderBooks.resources

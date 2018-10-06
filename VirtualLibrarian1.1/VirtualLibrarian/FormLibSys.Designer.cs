@@ -40,6 +40,9 @@
             this.buttonTake = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBoxMain
@@ -61,12 +64,14 @@
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(148, 18);
+            this.buttonDel.Location = new System.Drawing.Point(204, 18);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(50, 25);
             this.buttonDel.TabIndex = 19;
             this.buttonDel.Text = "Delete";
             this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Visible = false;
+            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // buttonAdd
             // 
@@ -76,6 +81,8 @@
             this.buttonAdd.TabIndex = 21;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Visible = false;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // textBoxReader
             // 
@@ -86,12 +93,14 @@
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(204, 18);
+            this.buttonEdit.Location = new System.Drawing.Point(148, 18);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(50, 25);
             this.buttonEdit.TabIndex = 26;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Visible = false;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonSearchReader
             // 
@@ -101,6 +110,7 @@
             this.buttonSearchReader.TabIndex = 27;
             this.buttonSearchReader.Text = "Search reader";
             this.buttonSearchReader.UseVisualStyleBackColor = true;
+            this.buttonSearchReader.Click += new System.EventHandler(this.buttonSearchReader_Click);
             // 
             // buttonReturn
             // 
@@ -110,6 +120,8 @@
             this.buttonReturn.TabIndex = 28;
             this.buttonReturn.Text = "Return book";
             this.buttonReturn.UseVisualStyleBackColor = true;
+            this.buttonReturn.Visible = false;
+            this.buttonReturn.Click += new System.EventHandler(this.buttonReturn_Click);
             // 
             // buttonSearchBook
             // 
@@ -119,6 +131,7 @@
             this.buttonSearchBook.TabIndex = 29;
             this.buttonSearchBook.Text = "Search book";
             this.buttonSearchBook.UseVisualStyleBackColor = true;
+            this.buttonSearchBook.Click += new System.EventHandler(this.buttonSearchBook_Click);
             // 
             // buttonTake
             // 
@@ -126,8 +139,10 @@
             this.buttonTake.Name = "buttonTake";
             this.buttonTake.Size = new System.Drawing.Size(77, 25);
             this.buttonTake.TabIndex = 30;
-            this.buttonTake.Text = "Take book";
+            this.buttonTake.Text = "Give book";
             this.buttonTake.UseVisualStyleBackColor = true;
+            this.buttonTake.Visible = false;
+            this.buttonTake.Click += new System.EventHandler(this.buttonTake_Click);
             // 
             // label1
             // 
@@ -147,11 +162,42 @@
             this.label2.TabIndex = 32;
             this.label2.Text = "Manage reader\r\n     accounts";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(162, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "ISBN --- Title --- Author --- Genres";
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.Location = new System.Drawing.Point(696, 354);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(45, 23);
+            this.buttonExit.TabIndex = 34;
+            this.buttonExit.Text = "Exit";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(500, 78);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(242, 13);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "Username --- Name --- Surname --- Email --- Adress";
+            // 
             // FormLibSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 360);
+            this.ClientSize = new System.Drawing.Size(754, 383);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.buttonExit);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonTake);
@@ -185,5 +231,8 @@
         private System.Windows.Forms.Button buttonTake;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Label label4;
     }
 }

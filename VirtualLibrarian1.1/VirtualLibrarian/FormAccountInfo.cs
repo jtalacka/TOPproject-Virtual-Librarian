@@ -67,6 +67,7 @@ namespace VirtualLibrarian
                     user.username = textBoxUsername.Text;
 
                     string text = File.ReadAllText(loginInfo);
+                    //username must be unique - so look for it
                     text = text.Replace(oldUsername, user.username);
                     File.WriteAllText(loginInfo, text);
                 }
@@ -75,6 +76,7 @@ namespace VirtualLibrarian
                     user.password = textBoxPass.Text;
 
                     string text = File.ReadAllText(loginInfo);
+                    //some passwords may be the same
                     text = text.Replace(oldPass, user.password);
                     File.WriteAllText(loginInfo, text);
                 }

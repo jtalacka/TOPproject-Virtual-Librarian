@@ -49,7 +49,7 @@ namespace VirtualLibrarian
                 {
                     if (lineSplit[1] == pass)
                     {
-                        file.Close();
+                        //file.Close();
                         //define user object parameters
                         user.username = username;
                         user.password = pass;

@@ -70,7 +70,7 @@ namespace VirtualLibrarian
                 string[] lineSplit = line.Split(';');
                 //lineSplit[2] contains the genres separated with spaces
                 //get genres into genreSplit array
-                string[] genreSplit = lineSplit[2].Split(' ');
+                string[] genreSplit = lineSplit[3].Split(' ');
 
                 foreach (string g in checkedGenres)
                 {
@@ -79,7 +79,7 @@ namespace VirtualLibrarian
                         //if matches - add to main listBox
                         if (genreSplit[i] == g)
                         {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
+                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
                         }
                     }
                 }
@@ -115,7 +115,7 @@ namespace VirtualLibrarian
                         //if matches - add to main listBox
                         if (lineSplit[i].Contains(searchBA))
                         {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2]);
+                            listBoxMain.Items.Add(lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
                             break;
                         }
                     }
@@ -153,6 +153,7 @@ namespace VirtualLibrarian
         private void buttonManageLibrary_Click(object sender, EventArgs e)
         {
             FormLibSys sys = new FormLibSys();
+            sys.user = user;
             sys.Show();
             this.Close();
         }
@@ -165,18 +166,17 @@ namespace VirtualLibrarian
             {
                 MessageBox.Show("Please select a book");
             }
-            else {
-                text = text.Replace(" --- ", ";"); // saves the text into the format name;author;genre
+            else
+            {
+                // saves the text into the format name;author;genre
+                text = text.Replace(" --- ", ";"); 
                 int exists = 0;
 
-
-                string path = userBooks;// couldnt use C:/users because on launch didnt have permission to create file
-
+                string path = userBooks;
                 string line;
                 if (System.IO.File.Exists(path))
                 {
                     StreamReader file = new StreamReader(userBooks);
-
 
                     while ((line = file.ReadLine()) != null)
                     {
@@ -196,21 +196,21 @@ namespace VirtualLibrarian
                     MessageBox.Show(text);
                     using (StreamWriter sw = File.AppendText(path))
                     {
-                        sw.WriteLine(text); //
+                        sw.WriteLine(text); 
                     }
                 }
-                else {
+                else
+                {
                     MessageBox.Show("You have already taken this book");
                 }
-
             }
         }
 
-        private void buttonTakenBooks_Click(object sender, EventArgs e) // toggles between taken book view and all books
+        // toggles between taken book view and all books
+        private void buttonTakenBooks_Click(object sender, EventArgs e) 
         {
             if (System.IO.File.Exists(userBooks))
             {
-
                 if (pressedtakenbooks == false)
                 {
                     pressedtakenbooks = true;
@@ -226,13 +226,11 @@ namespace VirtualLibrarian
                     books = @"C:\Users\books.txt";
                     takebook.Enabled = true;
                 }
-
-
             }
-            else {
+            else
+            {
                 MessageBox.Show("You haven't taken any books yet");
-
             }
-            }
+        }
     }
 }
