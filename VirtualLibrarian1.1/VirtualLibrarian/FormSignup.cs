@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace VirtualLibrarian
 {
@@ -38,7 +39,8 @@ namespace VirtualLibrarian
             string pass = textBoxPassword.Text;
             string email = textBoxEmail.Text;
             //check if valid email
-            if (!this.textBoxEmail.Text.Contains('@') || !this.textBoxEmail.Text.Contains('.'))
+            Regex regex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");
+            if (!regex.IsMatch(email))
             {
                 MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
                 textBoxEmail.Focus();

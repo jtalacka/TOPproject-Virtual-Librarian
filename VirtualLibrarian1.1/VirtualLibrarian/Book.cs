@@ -45,6 +45,5 @@ namespace VirtualLibrarian
             return infoToDisplay;
         }//end method search
 
-
     }
 }
