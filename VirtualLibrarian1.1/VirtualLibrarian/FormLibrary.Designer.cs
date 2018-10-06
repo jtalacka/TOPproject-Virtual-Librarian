@@ -70,7 +70,7 @@
             this.buttonTakenBooks.TabIndex = 2;
             this.buttonTakenBooks.Text = "Taken books";
             this.buttonTakenBooks.UseVisualStyleBackColor = true;
-            this.buttonTakenBooks.Click += new System.EventHandler(this.buttonTakenBooks_Click);
+//            this.buttonTakenBooks.Click += new System.EventHandler(this.buttonTakenBooks_Click);
             // 
             // buttonReccomend
             // 

@@ -21,13 +21,14 @@ namespace VirtualLibrarian
         //file storage path
         public string books = @"C:\Users\books.txt";
         public readonly string loginInfo = @"C:\Users\login.txt";
+
         Book book = new Book();
         internal User user;
 
         //search for a book
         private void buttonSearchBook_Click(object sender, EventArgs e)
         {
-            //Hide buttons realted to user management
+            //Hide buttons related to user management
             buttonTake.Visible = false;
             buttonReturn.Visible = false;
             textBoxReader.Clear();
@@ -39,28 +40,18 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
-            string line;
-            // search book or author
+            //write info
             string searchBA = textBoxBook.Text;
+            string line;
             StreamReader file = new StreamReader(books);
-            // was "" just a test method for the use of same function to see all the books
             if (searchBA != null)
             {
                 while ((line = file.ReadLine()) != null)
                 {
-                    //split line into strings
-                    string[] lineSplit = line.Split(';');
-                    for (int i = 0; i < lineSplit.Length; i++)
-                    {
-                        //if matches - add to main listBox
-                        if (lineSplit[i].Contains(searchBA))
-                        {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
-                            break;
-                        }
-                    }
+                    string readInfo = book.search(readLine: line, searchInfo: textBoxBook.Text);
+                    if (readInfo != "no match")
+                        listBoxMain.Items.Add(readInfo);
                 }
-                file.Close();
             }
         }
 
@@ -137,8 +128,6 @@ namespace VirtualLibrarian
             lib.Show();
         }
 
-
-
         //search reader ccounts
         private void buttonSearchReader_Click(object sender, EventArgs e)
         {
@@ -154,26 +143,18 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
-            string line;
+            //write info
             string searchR = textBoxReader.Text;
+            string line;
             StreamReader file = new StreamReader(loginInfo);
             if (searchR != null)
             {
                 while ((line = file.ReadLine()) != null)
                 {
-                    string[] lineSplit = line.Split(';');
-                    for (int i = 0; i < lineSplit.Length; i++)
-                    {
-                        //if matches - add to main listBox
-                        if (lineSplit[i].Contains(searchR))
-                        {
-                            //lineSplit[1] is password - DONT SHOW IT
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[2] + " --- " + lineSplit[3] + " --- " + lineSplit[4] + " --- " + lineSplit[5]);
-                            break;
-                        }
-                    }
+                    string readInfo = book.search(readLine: line, searchInfo: textBoxBook.Text);
+                    if (readInfo != "no match")
+                        listBoxMain.Items.Add(readInfo);
                 }
-                file.Close();
             }
         }
 
@@ -280,7 +261,7 @@ namespace VirtualLibrarian
                     string dateToday = DateTime.Now.ToShortDateString();
                     if (DateTime.Parse(temp[5]) < DateTime.Parse(dateToday))
                     {
-                        var late = DateTime.Parse(dateToday)-DateTime.Parse(temp[5]);
+                        var late = DateTime.Parse(dateToday) - DateTime.Parse(temp[5]);
                         MessageBox.Show("This reader is late to return this book by: " + late + "days");
                     }
                     //delete

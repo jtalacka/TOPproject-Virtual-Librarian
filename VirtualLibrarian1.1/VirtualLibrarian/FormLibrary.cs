@@ -99,35 +99,28 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
-            //search for books with selected genres
+            //write info
+            Book book = new Book();
+            string searchBA = textBox1.Text;
             string line;
-            string searchBA = textBox1.Text; // search book or author
             StreamReader file = new StreamReader(books);
-            if (searchBA != null)  // was "" just a test method for the use of same function to see all the books
+            if (searchBA != null)
             {
                 while ((line = file.ReadLine()) != null)
                 {
-                    //split line into strings
-                    string[] lineSplit = line.Split(';');
-
-                    for (int i = 0; i < lineSplit.Length; i++)
-                    {
-                        //if matches - add to main listBox
-                        if (lineSplit[i].Contains(searchBA))
-                        {
-                            listBoxMain.Items.Add(lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
-                            break;
-                        }
-                    }
-                }
-                file.Close();
-                //clear checked items
-                foreach (int i in checkedListBoxGenre.CheckedIndices)
-                {
-                    checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
+                    string readInfo = book.search(textBox1.Text, line);
+                    if (readInfo != "no match")
+                        listBoxMain.Items.Add(readInfo);
                 }
             }
+
+            //clear checked items
+            foreach (int i in checkedListBoxGenre.CheckedIndices)
+            {
+                checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
+            }
         }
+
 
         private void buttonAccSettings_Click(object sender, EventArgs e)
         {
@@ -169,7 +162,7 @@ namespace VirtualLibrarian
             else
             {
                 // saves the text into the format name;author;genre
-                text = text.Replace(" --- ", ";"); 
+                text = text.Replace(" --- ", ";");
                 int exists = 0;
 
                 string path = userBooks;
@@ -196,7 +189,7 @@ namespace VirtualLibrarian
                     MessageBox.Show(text);
                     using (StreamWriter sw = File.AppendText(path))
                     {
-                        sw.WriteLine(text); 
+                        sw.WriteLine(text);
                     }
                 }
                 else
@@ -207,7 +200,7 @@ namespace VirtualLibrarian
         }
 
         // toggles between taken book view and all books
-        private void buttonTakenBooks_Click(object sender, EventArgs e) 
+        private void buttonTakenBooks_Click(object sender, EventArgs e)
         {
             if (System.IO.File.Exists(userBooks))
             {
@@ -234,3 +227,31 @@ namespace VirtualLibrarian
         }
     }
 }
+
+
+
+
+//OLD SEARCH
+
+//// search book or author
+//string line;
+//string searchBA = textBox1.Text;
+//StreamReader file = new StreamReader(books);
+//if (searchBA != null)  // was "" just a test method for the use of same function to see all the books
+//{
+//    while ((line = file.ReadLine()) != null)
+//    {
+//        //split line into strings
+//        string[] lineSplit = line.Split(';');
+
+//        for (int i = 0; i < lineSplit.Length; i++)
+//        {
+//            //if matches - add to main listBox
+//            if (lineSplit[i].Contains(searchBA))
+//            {
+//                listBoxMain.Items.Add(lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
+//                break;
+//            }
+//        }
+//    }
+//    file.Close();

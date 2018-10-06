@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,5 +26,25 @@ namespace VirtualLibrarian
         public List<string> genres;
         public DateTime Dtaken;
         public DateTime Dreturned;
+
+
+        //search with input or display all
+        public string search(string searchInfo, string readLine)
+        {
+            string infoToDisplay = "no match";
+            //split line into strings
+            string[] lineSplit = readLine.Split(';');
+            for (int i = 0; i < lineSplit.Length; i++)
+            {
+                if (lineSplit[i].Contains(searchInfo))
+                {
+                    infoToDisplay = readLine.Replace(";", " --- ");
+                    return infoToDisplay;
+                }
+            }
+            return infoToDisplay;
+        }//end method search
+
+
     }
 }
