@@ -114,6 +114,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "BookView";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.BookView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

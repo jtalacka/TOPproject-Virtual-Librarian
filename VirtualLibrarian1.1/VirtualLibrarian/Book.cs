@@ -16,12 +16,15 @@ namespace VirtualLibrarian
             this.title = t;
             this.author = a;
             this.genres = g;
+            this.image = "";
         }
         public Book() { }
 
         //properties (in same order as written in in the file)
         public int ISBN;
         public string title;
+        public string image;
+        public string description;
         public string author;
         public List<string> genres;
         public DateTime Dtaken;
@@ -44,6 +47,14 @@ namespace VirtualLibrarian
             }
             return infoToDisplay;
         }//end method search
+        public string genresToDisplay() {
+            string tempGenres="";
+            foreach (string g in genres) {
+                tempGenres += g;
+                tempGenres += " ";
+            }
+            return tempGenres;
+        }
 
     }
 }

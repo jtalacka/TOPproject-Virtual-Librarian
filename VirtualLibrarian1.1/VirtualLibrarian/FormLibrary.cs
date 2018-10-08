@@ -17,6 +17,7 @@ namespace VirtualLibrarian
         {
             InitializeComponent();
         }
+        List<Book> bookList = new List<Book>();
 
         //for passing User class object parameters between forms
         internal User user { get; set; }
@@ -43,11 +44,42 @@ namespace VirtualLibrarian
             }
         }
 
+        private void loadLibraryBooks() {
+            bookList.Clear();
+            string line;
+            StreamReader file = new StreamReader(books);
+            while ((line = file.ReadLine()) != null)
+            {
+                //split line into strings
+                string[] lineSplit = line.Split(';');
+                //lineSplit[2] contains the genres separated with spaces
+                //get genres into genreSplit array
+                string[] genreSplit = lineSplit[3].Split(' ');
+
+                List<string> genres = new List<string>();
+                for (int i = 0; i < genreSplit.Length; i++) {
+                    genres.Add(genreSplit[i]);
+                }
+                bookList.Add(new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2],genres));
+
+            }
+            file.Close();
+
+
+
+
+
+
+
+
+        }
+
         //search by genre
         private void buttonGenre_Click(object sender, EventArgs e)
         {
             //clear main window
             listBoxMain.Items.Clear();
+            loadLibraryBooks();
 
             //get which genres chosen
             List<string> checkedGenres = new List<string>();
@@ -61,30 +93,26 @@ namespace VirtualLibrarian
             if (q == 0)
             { MessageBox.Show("Please select a genre"); }
 
-            //search for books with selected genres
-            string line;
-            StreamReader file = new StreamReader(books);
-            while ((line = file.ReadLine()) != null)
+            foreach (Book tempBook in bookList) //checks all the books in the list bookList
             {
-                //split line into strings
-                string[] lineSplit = line.Split(';');
-                //lineSplit[2] contains the genres separated with spaces
-                //get genres into genreSplit array
-                string[] genreSplit = lineSplit[3].Split(' ');
+
 
                 foreach (string g in checkedGenres)
                 {
-                    for (int i = 0; i < genreSplit.Length; i++)
+                    foreach(string bg in tempBook.genres) //genres from book class
                     {
                         //if matches - add to main listBox
-                        if (genreSplit[i] == g)
+                        if (bg == g)
                         {
-                            listBoxMain.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
+                            listBoxMain.Items.Add(tempBook.ISBN + " --- " +tempBook.title + " --- " + tempBook.author + " --- " + tempBook.genresToDisplay());//genrestodisplay is a function that returns genres as string
                         }
                     }
                 }
+
+
             }
-            file.Close();
+
+
             //clear checked items and serch
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
@@ -228,7 +256,8 @@ namespace VirtualLibrarian
 
         private void buttonMore_Click(object sender, EventArgs e)
         {
-            new BookView().Show();
+            Book book = new Book();
+            new BookView(book).Show();
         }
     }
 }
