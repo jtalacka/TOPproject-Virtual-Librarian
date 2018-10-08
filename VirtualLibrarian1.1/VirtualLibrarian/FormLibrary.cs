@@ -225,6 +225,11 @@ namespace VirtualLibrarian
                 MessageBox.Show("You haven't taken any books yet");
             }
         }
+
+        private void buttonMore_Click(object sender, EventArgs e)
+        {
+            new BookView().Show();
+        }
     }
 }
 
