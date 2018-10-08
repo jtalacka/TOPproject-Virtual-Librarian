@@ -47,9 +47,11 @@ namespace VirtualLibrarian
         private void loadLibraryBooks() {
             bookList.Clear();
             string line;
+            string templine;
             StreamReader file = new StreamReader(books);
             while ((line = file.ReadLine()) != null)
             {
+                templine = line;
                 //split line into strings
                 string[] lineSplit = line.Split(';');
                 //lineSplit[2] contains the genres separated with spaces
@@ -60,7 +62,7 @@ namespace VirtualLibrarian
                 for (int i = 0; i < genreSplit.Length; i++) {
                     genres.Add(genreSplit[i]);
                 }
-                bookList.Add(new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2],genres));
+                bookList.Add(new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2],genres,templine));
 
             }
             file.Close();
@@ -126,27 +128,25 @@ namespace VirtualLibrarian
         {
             //clear main window
             listBoxMain.Items.Clear();
+            loadLibraryBooks();
 
             //write info
-            Book book = new Book();
             string searchBA = textBox1.Text;
-            string line;
-            StreamReader file = new StreamReader(books);
-            if (searchBA != null)
+
+            foreach (Book tempBook in bookList) //checks all the books in the list bookList
             {
-                while ((line = file.ReadLine()) != null)
+
+
+                string readInfo = tempBook.search(textBox1.Text, tempBook.bookLineRead);
+                if (readInfo != "no match")
                 {
-                    string readInfo = book.search(textBox1.Text, line);
-                    if (readInfo != "no match")
-                        listBoxMain.Items.Add(readInfo);
+                    listBoxMain.Items.Add(readInfo);
                 }
             }
 
-            //clear checked items
-            foreach (int i in checkedListBoxGenre.CheckedIndices)
-            {
-                checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
-            }
+
+
+
         }
 
 
@@ -228,7 +228,7 @@ namespace VirtualLibrarian
         }
 
         // toggles between taken book view and all books
-        private void buttonTakenBooks_Click(object sender, EventArgs e)
+        private void buttonTakenBooks_Click_1(object sender, EventArgs e)
         {
             if (System.IO.File.Exists(userBooks))
             {
@@ -247,6 +247,7 @@ namespace VirtualLibrarian
                     books = @"C:\Users\books.txt";
                     takebook.Enabled = true;
                 }
+                buttonSearch_Click(sender, e);
             }
             else
             {
@@ -254,11 +255,18 @@ namespace VirtualLibrarian
             }
         }
 
-        private void buttonMore_Click(object sender, EventArgs e)
+        private void buttonMore_Click(object sender, EventArgs e)// opens a new form more about the book
         {
-            Book book = new Book();
-            new BookView(book).Show();
+            string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
+            foreach (Book tempBook in bookList) {
+                if (text == tempBook.ISBN + " --- " + tempBook.title + " --- " + tempBook.author + " --- " + tempBook.genresToDisplay()) {//searches for a book that matches the selected
+                    new BookView(tempBook).Show();
+                    break;
+                }
+            }
+
         }
+
     }
 }
 
