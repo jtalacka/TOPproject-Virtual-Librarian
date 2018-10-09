@@ -97,7 +97,7 @@ namespace VirtualLibrarian
 
             foreach (Book tempBook in bookList) //checks all the books in the list bookList
             {
-
+                bool matchFound = false;
 
                 foreach (string g in checkedGenres)
                 {
@@ -107,7 +107,13 @@ namespace VirtualLibrarian
                         if (bg == g)
                         {
                             listBoxMain.Items.Add(tempBook.ISBN + " --- " +tempBook.title + " --- " + tempBook.author + " --- " + tempBook.genresToDisplay());//genrestodisplay is a function that returns genres as string
+                            matchFound = true;
+                            break;
                         }
+
+                    }
+                    if (matchFound) {
+                        break;
                     }
                 }
 
