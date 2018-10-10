@@ -99,3 +99,11 @@ C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibra
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb
 C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.BookView.resources
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.ISBNScanner.resources
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CopyComplete
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\zxing.dll
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\zxing.presentation.dll
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\zxing.pdb
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\zxing.xml
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\zxing.presentation.pdb
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\zxing.presentation.xml

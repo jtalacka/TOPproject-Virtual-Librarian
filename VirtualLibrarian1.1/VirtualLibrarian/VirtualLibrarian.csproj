@@ -44,6 +44,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net461\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net461\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
@@ -58,6 +64,12 @@
     </Compile>
     <Compile Include="BookView.Designer.cs">
       <DependentUpon>BookView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ISBNScanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISBNScanner.Designer.cs">
+      <DependentUpon>ISBNScanner.cs</DependentUpon>
     </Compile>
     <Compile Include="FormAccountInfo.cs">
       <SubType>Form</SubType>
@@ -117,6 +129,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ISBNScanner.resx">
+      <DependentUpon>ISBNScanner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAccountInfo.resx">
       <DependentUpon>FormAccountInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,6 +165,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
