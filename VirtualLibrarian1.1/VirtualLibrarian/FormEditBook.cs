@@ -20,7 +20,7 @@ namespace VirtualLibrarian
         //for passing Book class object parameters between forms
         internal Book book { get; set; }
         //file storage path
-        public string books = @"C:\Users\books.txt";
+        //public string books = @"C:\Users\books.txt";
 
         bool genresChanged = false;
 
@@ -43,7 +43,7 @@ namespace VirtualLibrarian
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             string line;
-            StreamReader file = new StreamReader(books);
+            StreamReader file = new StreamReader("books.txt");
             //read line by line and look for ISBN
             while ((line = file.ReadLine()) != null)
             {
@@ -83,11 +83,11 @@ namespace VirtualLibrarian
                     file.Close();
                     //write modified text
                     //read all text
-                    string text = File.ReadAllText(books);
+                    string text = File.ReadAllText("books.txt");
                     //modifiy old text
                     text = text.Replace(oLine, nLine);
                     //write it back
-                    File.WriteAllText(books, text);
+                    File.WriteAllText("books.txt", text);
 
                     //end the madness
                     break;

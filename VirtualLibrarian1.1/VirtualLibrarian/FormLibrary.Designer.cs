@@ -56,16 +56,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(193, 7);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label2.Location = new System.Drawing.Point(215, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(260, 24);
+            this.label2.Size = new System.Drawing.Size(300, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Welcome to the Virtual Library";
             // 
             // buttonTakenBooks
             // 
-            this.buttonTakenBooks.Location = new System.Drawing.Point(139, 295);
+            this.buttonTakenBooks.Location = new System.Drawing.Point(139, 342);
             this.buttonTakenBooks.Name = "buttonTakenBooks";
             this.buttonTakenBooks.Size = new System.Drawing.Size(97, 41);
             this.buttonTakenBooks.TabIndex = 2;
@@ -75,7 +75,7 @@
             // 
             // buttonReccomend
             // 
-            this.buttonReccomend.Location = new System.Drawing.Point(242, 295);
+            this.buttonReccomend.Location = new System.Drawing.Point(242, 342);
             this.buttonReccomend.Name = "buttonReccomend";
             this.buttonReccomend.Size = new System.Drawing.Size(126, 41);
             this.buttonReccomend.TabIndex = 3;
@@ -84,7 +84,7 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(293, 39);
+            this.buttonSearch.Location = new System.Drawing.Point(293, 51);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(101, 25);
             this.buttonSearch.TabIndex = 4;
@@ -94,14 +94,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 42);
+            this.textBox1.Location = new System.Drawing.Point(12, 54);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(275, 20);
             this.textBox1.TabIndex = 5;
             // 
             // buttonAccSettings
             // 
-            this.buttonAccSettings.Location = new System.Drawing.Point(374, 295);
+            this.buttonAccSettings.Location = new System.Drawing.Point(374, 342);
             this.buttonAccSettings.Name = "buttonAccSettings";
             this.buttonAccSettings.Size = new System.Drawing.Size(101, 41);
             this.buttonAccSettings.TabIndex = 6;
@@ -111,7 +111,7 @@
             // 
             // buttonGenre
             // 
-            this.buttonGenre.Location = new System.Drawing.Point(438, 39);
+            this.buttonGenre.Location = new System.Drawing.Point(574, 54);
             this.buttonGenre.Name = "buttonGenre";
             this.buttonGenre.Size = new System.Drawing.Size(94, 25);
             this.buttonGenre.TabIndex = 8;
@@ -121,7 +121,7 @@
             // 
             // buttonManageLibrary
             // 
-            this.buttonManageLibrary.Location = new System.Drawing.Point(539, 295);
+            this.buttonManageLibrary.Location = new System.Drawing.Point(674, 342);
             this.buttonManageLibrary.Name = "buttonManageLibrary";
             this.buttonManageLibrary.Size = new System.Drawing.Size(136, 41);
             this.buttonManageLibrary.TabIndex = 10;
@@ -131,7 +131,7 @@
             // 
             // buttonLogOut
             // 
-            this.buttonLogOut.Location = new System.Drawing.Point(481, 295);
+            this.buttonLogOut.Location = new System.Drawing.Point(481, 342);
             this.buttonLogOut.Name = "buttonLogOut";
             this.buttonLogOut.Size = new System.Drawing.Size(52, 41);
             this.buttonLogOut.TabIndex = 11;
@@ -158,7 +158,7 @@
             "Romance",
             "Science-fiction",
             "Travel"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(539, 42);
+            this.checkedListBoxGenre.Location = new System.Drawing.Point(674, 54);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
             this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 139);
             this.checkedListBoxGenre.Sorted = true;
@@ -169,24 +169,24 @@
             this.listBoxMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.listBoxMain.FormattingEnabled = true;
             this.listBoxMain.ItemHeight = 18;
-            this.listBoxMain.Location = new System.Drawing.Point(12, 81);
+            this.listBoxMain.Location = new System.Drawing.Point(12, 95);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(520, 202);
+            this.listBoxMain.Size = new System.Drawing.Size(656, 238);
             this.listBoxMain.TabIndex = 16;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
+            this.label3.Location = new System.Drawing.Point(11, 80);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 13);
+            this.label3.Size = new System.Drawing.Size(162, 13);
             this.label3.TabIndex = 17;
-            this.label3.Text = "Title --- Author --- Genres";
+            this.label3.Text = "ISBN --- Title --- Author --- Genres";
             // 
             // takebook
             // 
             this.takebook.BackColor = System.Drawing.SystemColors.Control;
-            this.takebook.Location = new System.Drawing.Point(539, 264);
+            this.takebook.Location = new System.Drawing.Point(674, 311);
             this.takebook.Margin = new System.Windows.Forms.Padding(2);
             this.takebook.Name = "takebook";
             this.takebook.Size = new System.Drawing.Size(136, 26);
@@ -198,7 +198,7 @@
             // 
             // buttonMore
             // 
-            this.buttonMore.Location = new System.Drawing.Point(12, 295);
+            this.buttonMore.Location = new System.Drawing.Point(12, 342);
             this.buttonMore.Name = "buttonMore";
             this.buttonMore.Size = new System.Drawing.Size(121, 41);
             this.buttonMore.TabIndex = 19;
@@ -210,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 341);
+            this.ClientSize = new System.Drawing.Size(822, 391);
             this.Controls.Add(this.buttonMore);
             this.Controls.Add(this.takebook);
             this.Controls.Add(this.label3);

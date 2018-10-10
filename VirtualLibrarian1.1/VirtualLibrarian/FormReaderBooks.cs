@@ -13,18 +13,27 @@ namespace VirtualLibrarian
 {
     public partial class FormReaderBooks : Form
     {
-        private string v;
 
         public FormReaderBooks()
         {
             InitializeComponent();
         }
-    
+
+        private string s;
+        public FormReaderBooks(string buttonShow)
+        {
+            this.s = buttonShow;
+             InitializeComponent();
+        }
+
         public static string returnedBookInfo;
         public string username;
 
         private void FormReaderBooks_Load(object sender, EventArgs e)
         {
+            if(s != "show")
+            { buttonSelect.Visible = true; }
+
             returnedBookInfo = "none";
             string line;
             string path = @"D:\" + username + ".txt";         

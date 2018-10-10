@@ -18,7 +18,7 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
         //file storage path
-        public readonly string loginInfo = @"C:\Users\login.txt";
+        //public readonly string loginInfo = @"C:\Users\login.txt";
         //for passing User class object parameters between forms
         internal User user { get; set; }
 
@@ -66,19 +66,19 @@ namespace VirtualLibrarian
                 {
                     user.username = textBoxUsername.Text;
 
-                    string text = File.ReadAllText(loginInfo);
+                    string text = File.ReadAllText("login.txt");
                     //username must be unique - so look for it
                     text = text.Replace(oldUsername, user.username);
-                    File.WriteAllText(loginInfo, text);
+                    File.WriteAllText("login.txt", text);
                 }
                 if (!string.IsNullOrWhiteSpace(textBoxPass.Text))
                 {
                     user.password = textBoxPass.Text;
 
-                    string text = File.ReadAllText(loginInfo);
+                    string text = File.ReadAllText("login.txt");
                     //some passwords may be the same
                     text = text.Replace(oldPass, user.password);
-                    File.WriteAllText(loginInfo, text);
+                    File.WriteAllText("login.txt", text);
                 }
 
                 textBoxUsername.Visible = false;

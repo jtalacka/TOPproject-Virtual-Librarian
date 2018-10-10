@@ -98,3 +98,4 @@ C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibra
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CoreCompileInputs.cache
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\obj\Debug\VirtualLibrarian.BookView.resources

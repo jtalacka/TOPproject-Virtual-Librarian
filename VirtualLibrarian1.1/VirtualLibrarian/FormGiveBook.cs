@@ -18,17 +18,15 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        //public static class givenBook
-        //{ public static string givenBookInfo{ get; set; } }
         public static string givenBookInfo = "none";
 
         //file storage path
-        public string books = @"C:\Users\books.txt";
+        //public string books = @"C:\Users\books.txt";
 
         private void FormGiveBook_Load(object sender, EventArgs e)
         {
             string line;
-            StreamReader file = new StreamReader(books);
+            StreamReader file = new StreamReader("books.txt");
             while ((line = file.ReadLine()) != null)
             {
                 string[] lineSplit = line.Split(';');

@@ -19,7 +19,7 @@ namespace VirtualLibrarian
         }
 
         //file storage path
-        public string books = @"C:\Users\books.txt";
+        //public string books = @"C:\Users\books.txt";
 
         //add book to file
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace VirtualLibrarian
             string line;
             string[] lineSplit;
             bool exists = false;
-            StreamReader file = new StreamReader(books);
+            StreamReader file = new StreamReader("books.txt");
             while ((line = file.ReadLine()) != null)
             {
                 lineSplit = line.Split(';');
@@ -73,7 +73,7 @@ namespace VirtualLibrarian
             //if ISBN unique - add book to the file
             if (exists == false)
             {
-                using (StreamWriter w = File.AppendText(books))
+                using (StreamWriter w = File.AppendText("books.txt"))
                 {
                     //information layout in file
                     w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres));

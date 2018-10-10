@@ -19,8 +19,8 @@ namespace VirtualLibrarian
         }
 
         //file storage path
-        public string books = @"C:\Users\books.txt";
-        public readonly string loginInfo = @"C:\Users\login.txt";
+        //public string books = @"C:\Users\books.txt";
+        //public readonly string loginInfo = @"C:\Users\login.txt";
 
         Book book = new Book();
         internal User user;
@@ -43,16 +43,17 @@ namespace VirtualLibrarian
             //write info
             string searchBA = textBoxBook.Text;
             string line;
-            StreamReader file = new StreamReader(books);
+            StreamReader file = new StreamReader("books.txt");
             if (searchBA != null)
             {
                 while ((line = file.ReadLine()) != null)
                 {
-                    string readInfo = book.search(readLine: line, searchInfo: textBoxBook.Text);
+                    string readInfo = Functions.search(readLine: line, searchInfo: textBoxBook.Text);
                     if (readInfo != "no match")
                         listBoxMain.Items.Add(readInfo);
                 }
             }
+            file.Close();
         }
 
         //add a book
@@ -108,10 +109,10 @@ namespace VirtualLibrarian
             result = MessageBox.Show("Are you sure you want to delete '" + book.title + "'?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                var Lines = File.ReadAllLines(books);
+                var Lines = File.ReadAllLines("books.txt");
                 //ISBN must be unique, so look for it in the line
                 var newLines = Lines.Where(line => !line.Contains(book.ISBN.ToString()));
-                File.WriteAllLines(books, newLines);
+                File.WriteAllLines("books.txt", newLines);
 
                 MessageBox.Show("Book deleted");
                 //clear main window
@@ -146,12 +147,12 @@ namespace VirtualLibrarian
             //write info
             string searchR = textBoxReader.Text;
             string line;
-            StreamReader file = new StreamReader(loginInfo);
+            StreamReader file = new StreamReader("login.txt");
             if (searchR != null)
             {
                 while ((line = file.ReadLine()) != null)
                 {
-                    string readInfo = book.search(readLine: line, searchInfo: textBoxBook.Text);
+                    string readInfo = Functions.search(readLine: line, searchInfo: textBoxBook.Text);
                     if (readInfo != "no match")
                         listBoxMain.Items.Add(readInfo);
                 }
