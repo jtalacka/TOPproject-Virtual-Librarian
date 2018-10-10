@@ -42,6 +42,7 @@
             this.listBoxMain = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.takebook = new System.Windows.Forms.Button();
+            this.buttonMore = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -64,17 +65,17 @@
             // 
             // buttonTakenBooks
             // 
-            this.buttonTakenBooks.Location = new System.Drawing.Point(12, 295);
+            this.buttonTakenBooks.Location = new System.Drawing.Point(139, 295);
             this.buttonTakenBooks.Name = "buttonTakenBooks";
             this.buttonTakenBooks.Size = new System.Drawing.Size(97, 41);
             this.buttonTakenBooks.TabIndex = 2;
             this.buttonTakenBooks.Text = "Taken books";
             this.buttonTakenBooks.UseVisualStyleBackColor = true;
-//            this.buttonTakenBooks.Click += new System.EventHandler(this.buttonTakenBooks_Click);
+            this.buttonTakenBooks.Click += new System.EventHandler(this.buttonTakenBooks_Click_1);
             // 
             // buttonReccomend
             // 
-            this.buttonReccomend.Location = new System.Drawing.Point(115, 295);
+            this.buttonReccomend.Location = new System.Drawing.Point(242, 295);
             this.buttonReccomend.Name = "buttonReccomend";
             this.buttonReccomend.Size = new System.Drawing.Size(126, 41);
             this.buttonReccomend.TabIndex = 3;
@@ -100,7 +101,7 @@
             // 
             // buttonAccSettings
             // 
-            this.buttonAccSettings.Location = new System.Drawing.Point(247, 295);
+            this.buttonAccSettings.Location = new System.Drawing.Point(374, 295);
             this.buttonAccSettings.Name = "buttonAccSettings";
             this.buttonAccSettings.Size = new System.Drawing.Size(101, 41);
             this.buttonAccSettings.TabIndex = 6;
@@ -130,7 +131,7 @@
             // 
             // buttonLogOut
             // 
-            this.buttonLogOut.Location = new System.Drawing.Point(354, 295);
+            this.buttonLogOut.Location = new System.Drawing.Point(481, 295);
             this.buttonLogOut.Name = "buttonLogOut";
             this.buttonLogOut.Size = new System.Drawing.Size(52, 41);
             this.buttonLogOut.TabIndex = 11;
@@ -195,11 +196,22 @@
             this.takebook.Visible = false;
             this.takebook.Click += new System.EventHandler(this.takebook_Click);
             // 
+            // buttonMore
+            // 
+            this.buttonMore.Location = new System.Drawing.Point(12, 295);
+            this.buttonMore.Name = "buttonMore";
+            this.buttonMore.Size = new System.Drawing.Size(121, 41);
+            this.buttonMore.TabIndex = 19;
+            this.buttonMore.Text = "More about the book";
+            this.buttonMore.UseVisualStyleBackColor = true;
+            this.buttonMore.Click += new System.EventHandler(this.buttonMore_Click);
+            // 
             // FormLibrary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 341);
+            this.Controls.Add(this.buttonMore);
             this.Controls.Add(this.takebook);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxMain);
@@ -238,5 +250,6 @@
         private System.Windows.Forms.ListBox listBoxMain;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button takebook;
+        private System.Windows.Forms.Button buttonMore;
     }
 }

@@ -89,5 +89,10 @@ namespace VirtualLibrarian
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
             }
         }
+
+        private void FormNewBook_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
