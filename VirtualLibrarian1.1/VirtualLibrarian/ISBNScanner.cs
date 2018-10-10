@@ -34,6 +34,9 @@ namespace VirtualLibrarian
             foreach (FilterInfo VideoCaptureDevice in VideoCaptureDevices) {
                 comboBox1.Items.Add(VideoCaptureDevice.Name);
             }
+            if (comboBox1.Items.Count > 0) {
+                comboBox1.SelectedIndex = 0;
+            }
 
         }
 
@@ -71,25 +74,33 @@ namespace VirtualLibrarian
                 //  MessageBox.Show(result.BarcodeFormat.ToString());
                 MessageBox.Show(result.Text);
             }
-            else {
-                MessageBox.Show("ISBN was not found");
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(comboBox1.SelectedIndex.ToString());
             if (comboBox1.SelectedIndex != -1)
             {
-                if (FinalVideo.IsRunning == true) { FinalVideo.Stop(); }
-                FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[comboBox1.SelectedIndex].MonikerString);
-                FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
-                FinalVideo.Start();
+                if (FinalVideo != null)
+                {
+                    if (FinalVideo.IsRunning == true) { FinalVideo.Stop(); FinalVideo = null;}
+                }
+                else
+                {
+                    FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[comboBox1.SelectedIndex].MonikerString);
+                    FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
+                    FinalVideo.Start();
+
+                }
             }
         }
         private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs) {
             Bitmap video = (Bitmap)eventArgs.Frame.Clone();
+            Bitmap video2 = new Bitmap(video);
             pictureBox1.Image = video;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+             readISBN(video2);
+
+ 
         }
     }
 }
