@@ -18,10 +18,6 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        //file storage path
-        //public string books = @"C:\Users\books.txt";
-        //public readonly string loginInfo = @"C:\Users\login.txt";
-
         Book book = new Book();
         internal User user;
 
@@ -62,6 +58,7 @@ namespace VirtualLibrarian
             FormNewBook nb = new FormNewBook();
             nb.Show();
         }
+
         //edit a book
         private void buttonEdit_Click(object sender, EventArgs e)
         {
@@ -111,7 +108,7 @@ namespace VirtualLibrarian
             {
                 var Lines = File.ReadAllLines("books.txt");
                 //ISBN must be unique, so look for it in the line
-                var newLines = Lines.Where(line => !line.Contains(book.ISBN.ToString()));
+                var newLines = Lines.Where(line => !line.Contains(book.ISBN.ToString() + ";" + book.title));
                 File.WriteAllLines("books.txt", newLines);
 
                 MessageBox.Show("Book deleted");

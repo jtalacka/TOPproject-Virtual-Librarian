@@ -12,6 +12,16 @@ namespace VirtualLibrarian
         public User()
         {}
 
+        public User(string u, string p, string n, string s, string e, string b)
+        {
+            this.username = u;
+            this.password = p;
+            this.name = n;
+            this.surname = s;
+            this.email = e;
+            this.birth = b;
+        }
+
         //properties (in same order as written in in the file)
         public string username;
         public string password;
@@ -26,7 +36,5 @@ namespace VirtualLibrarian
         {
             reader, employee
         }
-
-
     }
 }

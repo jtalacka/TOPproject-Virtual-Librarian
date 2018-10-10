@@ -48,20 +48,12 @@ namespace VirtualLibrarian
         {
             //clear main window
             listBoxMain.Items.Clear();
-            //Functions class method
+            //Functions class method to fill bookList with all books from file
             Functions.loadLibraryBooks(bookList);
 
             //get which genres chosen
-            List<string> checkedGenres = new List<string>();
-            int q = 0;
-            foreach (string g in checkedListBoxGenre.CheckedItems)
-            {
-                checkedGenres.Add(g);
-                //how many genres selected
-                q++;
-            }
-            if (q == 0)
-            { MessageBox.Show("Please select a genre"); }
+            List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
+            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
 
             foreach (Book tempBook in bookList) //checks all the books in the list bookList
             {
@@ -74,7 +66,9 @@ namespace VirtualLibrarian
                         //if matches - add to main listBox
                         if (bg == g)
                         {
-                            listBoxMain.Items.Add(tempBook.ISBN + " --- " + tempBook.title + " --- " + tempBook.author + " --- " + Functions.genresToDisplay(tempBook.genres));
+                            listBoxMain.Items.Add(tempBook.ISBN + " --- " + tempBook.title 
+                                + " --- " + tempBook.author + " --- " 
+                                + Functions.genresToDisplay(tempBook.genres));
                             matchFound = true;
                             break;
                         }
@@ -87,7 +81,7 @@ namespace VirtualLibrarian
             }
 
 
-            //clear checked items and serch
+            //clear checked items and search box
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
@@ -106,7 +100,7 @@ namespace VirtualLibrarian
             //what to look for
             string searchBA = textBox1.Text;
 
-             //checks all the books in the list bookList
+            //checks all the books in the list bookList
             foreach (Book tempBook in bookList)
             {
                 string readInfo = Functions.search(textBox1.Text, tempBook.bookLineRead);
@@ -146,14 +140,13 @@ namespace VirtualLibrarian
             this.Close();
         }
 
+
         private void takebook_Click(object sender, EventArgs e)// writes books into the file called username+.txt
         {
             // gets selected info about the book
             string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (text == "")
-            {
-                MessageBox.Show("Please select a book");
-            }
+            { MessageBox.Show("Please select a book"); }
             else
             {
                 // saves the text into the format name;author;genre
@@ -165,7 +158,6 @@ namespace VirtualLibrarian
                 if (System.IO.File.Exists(path))
                 {
                     StreamReader file = new StreamReader(userBooks);
-
                     while ((line = file.ReadLine()) != null)
                     {
                         if (line == text)
@@ -194,6 +186,7 @@ namespace VirtualLibrarian
             }
         }
 
+        //show new form with taken books
         private void buttonTakenBooks_Click_1(object sender, EventArgs e)
         {
             if (System.IO.File.Exists(userBooks))
@@ -209,15 +202,16 @@ namespace VirtualLibrarian
             }
         }
 
-        // opens a new form more about the book
+        // opens a new form with more about the book
         private void buttonMore_Click(object sender, EventArgs e)
         {
             string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             foreach (Book tempBook in bookList)
             {
-                if (text == tempBook.ISBN + " --- " + tempBook.title + " --- " 
+                if (text == tempBook.ISBN + " --- " + tempBook.title + " --- "
                     + tempBook.author + " --- " + Functions.genresToDisplay(tempBook.genres))
-                {//searches for a book that matches the selected
+                {
+                    //searches for a book that matches the selected
                     new BookView(tempBook).Show();
                     break;
                 }

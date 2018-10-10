@@ -18,9 +18,6 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        //file storage path
-        //public string books = @"C:\Users\books.txt";
-
         //add book to file
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -37,47 +34,25 @@ namespace VirtualLibrarian
                 return;
             }
 
-            //check if ISBN already exists in file
-            string line;
-            string[] lineSplit;
-            bool exists = false;
-            StreamReader file = new StreamReader("books.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                lineSplit = line.Split(';');
-                if (lineSplit[0] == textBoxISBN.Text)
-                {
-                    MessageBox.Show("Book with this ISBN code already exists");
-                    textBoxISBN.Focus();
-                    exists = true;
-                    break;
-                }
-            }
-            file.Close();
-
             //get which genres chosen
-            List<string> checkedGenres = new List<string>();
-            int q = 0;
-            foreach (string g in checkedListBoxGenre.CheckedItems)
-            {
-                checkedGenres.Add(g);
-                //how many genres selected
-                q++;
-            }
-            if (q == 0)
-            { MessageBox.Show("Please select a genre"); }
+            List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
+            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
 
             //define Book
             Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres);
 
-            //if ISBN unique - add book to the file
-            if (exists == false)
+            //check if ISBN already exists in file
+            if (Functions.checkIfExistsInFile("books.txt", textBoxISBN.Text) == true)
             {
-                using (StreamWriter w = File.AppendText("books.txt"))
-                {
-                    //information layout in file
-                    w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres));
-                }
+                MessageBox.Show("Book with this ISBN code already exists");
+                textBoxISBN.Focus();
+                return;
+            }
+            //if ISBN unique - add book to the file
+            using (StreamWriter w = File.AppendText("books.txt"))
+            {
+                //information layout in file
+                w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres));
             }
 
             MessageBox.Show("Book '" + book.title + "' added");
@@ -88,11 +63,6 @@ namespace VirtualLibrarian
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
             }
-        }
-
-        private void FormNewBook_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -19,8 +19,6 @@ namespace VirtualLibrarian
         }
         //for passing Book class object parameters between forms
         internal Book book { get; set; }
-        //file storage path
-        //public string books = @"C:\Users\books.txt";
 
         bool genresChanged = false;
 
@@ -64,9 +62,7 @@ namespace VirtualLibrarian
                     if (genresChanged == true)
                     {
                         //get which genres chosen and put into List
-                        List<string> checkedGenres = new List<string>();
-                        foreach (string g in checkedListBoxGenre.CheckedItems)
-                        { checkedGenres.Add(g); }
+                        List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
                         //List into string
                         string checkedG = string.Join(" ", checkedGenres.ToArray());
 

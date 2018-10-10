@@ -20,9 +20,6 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        //file storage path
-        //public readonly string loginInfo=@"C:\Users\login.txt";
-
         //Signup button
         private void button1_Click(object sender, EventArgs e)
         {
@@ -30,79 +27,57 @@ namespace VirtualLibrarian
             if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
             { MessageBox.Show("Please enter login info."); return; }
 
-            //Class User object
-            User user = new User();
-
             string name = textBoxName.Text;
             string surname = textBoxSurname.Text;
             string username = textBoxUsername.Text;
             string pass = textBoxPassword.Text;
+            string birth = textBoxBirth.Text;
             string email = textBoxEmail.Text;
-            //check if valid email
-            Regex regex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");
-            if (!regex.IsMatch(email))
+            //check if valid email w regex
+            if (Functions.inputCheck(email, 1) == 0)
             {
                 MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
                 textBoxEmail.Focus();
                 return;
             }
-
-            string birth = textBoxBirth.Text;
             //check if date the right format
-            var dateFormats = new[] { "yyyy.MM.dd", "yyyy-MM-dd" };
-            DateTime date;
-            bool validDate = DateTime.TryParseExact(birth, dateFormats,
-                DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out date);
-            if (!validDate)
+            if (Functions.inputCheck(birth, 2) == 0)
             {
                 MessageBox.Show("Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)");
                 textBoxBirth.Focus();
                 return;
             }
 
-            string line;
-            bool exists = false;
-
             //check if username already exists in login info file
-            StreamReader file = new StreamReader("login.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
-                if (lineSplit[0] == username)
-                {
-                    MessageBox.Show("Username already exists");
-                    textBoxUsername.Focus();
-                    exists = true;
-                    break;
-                }
-            }
-            file.Close();
+            bool exists = Functions.checkIfExistsInFile("login.txt", username);
 
+            //Class User object
+            User user;
             //if username unique - add user info. to the file
             if (exists == false)
             {
                 //define user class object user
-                user.name = name;
-                user.surname = surname;
-                user.username = username;
-                user.password = pass;
-                user.email = email;
-                user.birth = birth;
+                user = new User(username, pass, name, surname, email, birth);
                 //by default any new user is a reader
                 user.type = User.userType.reader;
 
-                using (StreamWriter w = File.AppendText("logi.txt"))
+                using (StreamWriter w = File.AppendText("login.txt"))
                 {
                     //information layout in file
                     w.WriteLine(username + ";" + pass + ";" + name + ";" + surname + ";" + email + ";" + birth + ";" + user.type);
                 }
 
-                //if all input ok, goto new form
                 this.Close();
                 FormLibrary library = new FormLibrary();
                 //pass defined user object to the new form
                 library.user = user;
                 library.Show();
+            }
+            else
+            {
+                MessageBox.Show("Username already exists");
+                textBoxUsername.Focus();
+                return;
             }
         }
 
