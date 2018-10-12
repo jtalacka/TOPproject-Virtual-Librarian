@@ -17,8 +17,6 @@ namespace VirtualLibrarian
         {
             InitializeComponent();
         }
-
-        Book book = new Book();
         internal User user;
 
         //search for a book
@@ -36,27 +34,28 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
-            //write info
-            string searchBA = textBoxBook.Text;
-            string line;
-            StreamReader file = new StreamReader("books.txt");
-            if (searchBA != null)
+            //reload books in case changes were made in file
+            Functions.loadLibraryBooks();
+
+            //checks all the books in the list bookList
+            foreach (Book tempBook in Book.bookList)
             {
-                while ((line = file.ReadLine()) != null)
+                //checks tempBook - if it fits, returns tempBook info to display            
+                if (Functions.search(textBoxBook.Text, tempBook) != "no match")
                 {
-                    string readInfo = Functions.search(readLine: line, searchInfo: textBoxBook.Text);
-                    if (readInfo != "no match")
-                        listBoxMain.Items.Add(readInfo);
+                    listBoxMain.Items.Add(Functions.search(textBoxBook.Text, tempBook));
                 }
             }
-            file.Close();
         }
 
         //add a book
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             FormNewBook nb = new FormNewBook();
-            nb.Show();
+            nb.ShowDialog();
+
+            //clear main window
+            listBoxMain.Items.Clear();
         }
 
         //edit a book
@@ -73,16 +72,16 @@ namespace VirtualLibrarian
             string[] lineSplit = info.Split(';');
 
             //define book
-            book.ISBN = Int32.Parse(lineSplit[0]);
-            book.title = lineSplit[1];
-            book.author = lineSplit[2];
-            List<string> tempGenres = lineSplit[3].Split(new char[] { ' ' }).ToList();
-            book.genres = tempGenres;
+            Book book = new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2],
+                lineSplit[3].Split(new char[] { ' ' }).ToList());
 
             FormEditBook eb = new FormEditBook();
             //pass defined book
             eb.book = book;
-            eb.Show();
+            eb.ShowDialog();
+
+            //clear main window
+            listBoxMain.Items.Clear();
         }
 
         //delete book
@@ -98,17 +97,17 @@ namespace VirtualLibrarian
             info = info.Replace(" --- ", ";");
             string[] lineSplit = info.Split(';');
 
-            //define book
-            book.ISBN = Int32.Parse(lineSplit[0]);
-            book.title = lineSplit[1];
+            //temp variables
+            int code = Int32.Parse(lineSplit[0]);
+            string t = lineSplit[1];
 
             DialogResult result;
-            result = MessageBox.Show("Are you sure you want to delete '" + book.title + "'?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            result = MessageBox.Show("Are you sure you want to delete '" + t + "'?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 var Lines = File.ReadAllLines("books.txt");
                 //ISBN must be unique, so look for it in the line
-                var newLines = Lines.Where(line => !line.Contains(book.ISBN.ToString() + ";" + book.title));
+                var newLines = Lines.Where(line => !line.Contains(code.ToString() + ";" + t));
                 File.WriteAllLines("books.txt", newLines);
 
                 MessageBox.Show("Book deleted");
@@ -126,6 +125,11 @@ namespace VirtualLibrarian
             lib.Show();
         }
 
+
+
+        // = = = = = = Reader acc. related functions = = = = = = 
+
+
         //search reader ccounts
         private void buttonSearchReader_Click(object sender, EventArgs e)
         {
@@ -134,29 +138,23 @@ namespace VirtualLibrarian
             buttonEdit.Visible = false;
             buttonDel.Visible = false;
             textBoxBook.Clear();
-            //Shoe reader management functions
+            //Show reader management functions
             buttonTake.Visible = true;
             buttonReturn.Visible = true;
 
             //clear main window
             listBoxMain.Items.Clear();
 
-            //write info
-            string searchR = textBoxReader.Text;
-            string line;
-            StreamReader file = new StreamReader("login.txt");
-            if (searchR != null)
+             //checks all list
+            foreach (User reader in User.readerList)
             {
-                while ((line = file.ReadLine()) != null)
+                //checks reader - if it fits, returns reader info to display            
+                if (Functions.searchR(textBoxReader.Text, reader) != "no match")
                 {
-                    string readInfo = Functions.search(readLine: line, searchInfo: textBoxBook.Text);
-                    if (readInfo != "no match")
-                        listBoxMain.Items.Add(readInfo);
+                    listBoxMain.Items.Add(Functions.searchR(textBoxReader.Text, reader));
                 }
             }
         }
-
-
 
         //add new taken book to user account
         private void buttonTake_Click(object sender, EventArgs e)
@@ -219,7 +217,7 @@ namespace VirtualLibrarian
             }
         }
 
-        //delete book from file
+        //delete book from reader file
         private void buttonReturn_Click(object sender, EventArgs e)
         {
             string returnedBookInfo = "none";
@@ -262,6 +260,7 @@ namespace VirtualLibrarian
                         var late = DateTime.Parse(dateToday) - DateTime.Parse(temp[5]);
                         MessageBox.Show("This reader is late to return this book by: " + late + "days");
                     }
+
                     //delete
                     var Lines = File.ReadAllLines(userBooks);
                     var newLines = Lines.Where(line => !line.Contains(returnedBookInfo));

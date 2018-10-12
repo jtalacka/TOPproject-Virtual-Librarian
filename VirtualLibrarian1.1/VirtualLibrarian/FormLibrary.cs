@@ -18,17 +18,22 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        List<Book> bookList = new List<Book>();
-
         //for passing User class object parameters between forms
         internal User user { get; set; }
 
         //FILES: BOOKS.TXT AND LOGIN.TXT ARE IN BIN/DEBUG
+        //this is for taken user books
         public string userBooks;
 
         private void FormLibrary_Load(object sender, EventArgs e)
         {
+            //Functions class method to fill bookList with all books from file
+            Functions.loadLibraryBooks();
+            Functions.loadReaders();
+
+            //form a path to taken user books
             userBooks = @"D:\" + user.username + ".txt";
+
             //determine, if the user is reader or employee
             if (user.type.ToString() == "employee")
             {
@@ -48,17 +53,15 @@ namespace VirtualLibrarian
         {
             //clear main window
             listBoxMain.Items.Clear();
-            //Functions class method to fill bookList with all books from file
-            Functions.loadLibraryBooks(bookList);
 
             //get which genres chosen
             List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
             if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
 
-            foreach (Book tempBook in bookList) //checks all the books in the list bookList
+            //checks all books in bookList
+            foreach (Book tempBook in Book.bookList)
             {
                 bool matchFound = false;
-
                 foreach (string g in checkedGenres)
                 {
                     foreach (string bg in tempBook.genres) //genres from book class
@@ -66,9 +69,8 @@ namespace VirtualLibrarian
                         //if matches - add to main listBox
                         if (bg == g)
                         {
-                            listBoxMain.Items.Add(tempBook.ISBN + " --- " + tempBook.title 
-                                + " --- " + tempBook.author + " --- " 
-                                + Functions.genresToDisplay(tempBook.genres));
+                            //returns object parameter string
+                            listBoxMain.Items.Add(Functions.objectToString(tempBook));
                             matchFound = true;
                             break;
                         }
@@ -79,7 +81,6 @@ namespace VirtualLibrarian
                     }
                 }
             }
-
 
             //clear checked items and search box
             foreach (int i in checkedListBoxGenre.CheckedIndices)
@@ -92,21 +93,18 @@ namespace VirtualLibrarian
         //Search by author or book title
         private void buttonSearch_Click(object sender, EventArgs e) //same implementation as search by genre
         {
+            buttonSort.Visible = true;
+            Book.sortList.Clear();
             //clear main window
             listBoxMain.Items.Clear();
-            //load all books into list
-            Functions.loadLibraryBooks(bookList);
-
-            //what to look for
-            string searchBA = textBox1.Text;
 
             //checks all the books in the list bookList
-            foreach (Book tempBook in bookList)
+            foreach (Book tempBook in Book.bookList)
             {
-                string readInfo = Functions.search(textBox1.Text, tempBook.bookLineRead);
-                if (readInfo != "no match")
+                //checks tempBook - if it fits, returns tempBook info to display            
+                if (Functions.search(textBox1.Text, tempBook) != "no match")
                 {
-                    listBoxMain.Items.Add(readInfo);
+                    listBoxMain.Items.Add(Functions.search(textBox1.Text, tempBook));
                 }
             }
         }
@@ -206,7 +204,7 @@ namespace VirtualLibrarian
         private void buttonMore_Click(object sender, EventArgs e)
         {
             string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
-            foreach (Book tempBook in bookList)
+            foreach (Book tempBook in Book.bookList)
             {
                 if (text == tempBook.ISBN + " --- " + tempBook.title + " --- "
                     + tempBook.author + " --- " + Functions.genresToDisplay(tempBook.genres))
@@ -218,33 +216,65 @@ namespace VirtualLibrarian
             }
         }
 
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            //clear main window
+            listBoxMain.Items.Clear();
+            //sort it by title
+            Book.sortList.Sort();
+            //display
+            foreach (Book item in Book.sortList)
+            {
+                string genres = string.Join(" ", item.genres);
+                listBoxMain.Items.Add(item.title + " --- " + item.author + " --- " + genres);
+            }
+
+        }
+
+
+        private void buttonReccomend_Click(object sender, EventArgs e)
+        {
+            //clear main window
+            listBoxMain.Items.Clear();
+
+            //get genres of books this reader has taken
+            List<string> genres = new List<string>();
+            string line;         
+            StreamReader file = new StreamReader(userBooks);
+            while (( line = file.ReadLine()) != null)
+            {
+                string[] lineSplit = line.Split(';');
+                string[] genreSplit = lineSplit[3].Split(' ');
+                for (int i=0; i<genreSplit.Length; i++)
+                {
+                    if(!genres.Contains(genreSplit[i]))
+                        genres.Add(genreSplit[i]);
+                }
+            }
+
+            foreach (Book tempBook in Book.bookList)
+            {
+                bool matchFound = false;
+                foreach (string g in genres)
+                {
+                    foreach (string bg in tempBook.genres)
+                    {
+                        //if matches - add to main listBox
+                        if (bg == g)
+                        {
+                            //returns object parameter string
+                            listBoxMain.Items.Add(Functions.objectToString(tempBook));
+                            matchFound = true;
+                            break;
+                        }
+                    }
+                    if (matchFound)
+                    {
+                        break;
+                    }
+                }
+            }
+
+        }
     }
 }
-
-
-
-
-//OLD SEARCH
-
-//// search book or author
-//string line;
-//string searchBA = textBox1.Text;
-//StreamReader file = new StreamReader(books);
-//if (searchBA != null)  // was "" just a test method for the use of same function to see all the books
-//{
-//    while ((line = file.ReadLine()) != null)
-//    {
-//        //split line into strings
-//        string[] lineSplit = line.Split(';');
-
-//        for (int i = 0; i < lineSplit.Length; i++)
-//        {
-//            //if matches - add to main listBox
-//            if (lineSplit[i].Contains(searchBA))
-//            {
-//                listBoxMain.Items.Add(lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
-//                break;
-//            }
-//        }
-//    }
-//    file.Close();

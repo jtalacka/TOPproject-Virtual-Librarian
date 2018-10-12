@@ -53,6 +53,7 @@ namespace VirtualLibrarian
             {
                 //information layout in file
                 w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres));
+                //Book.bookList.Add(new Book(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres)));
             }
 
             MessageBox.Show("Book '" + book.title + "' added");

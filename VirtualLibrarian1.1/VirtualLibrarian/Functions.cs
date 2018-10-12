@@ -12,11 +12,11 @@ namespace VirtualLibrarian
 {
     class Functions
     {
-        //Gets all books into list
-        public static void loadLibraryBooks(List<Book> bookList)
+        //Gets all books from file into list
+        public static void loadLibraryBooks()
         {
             //clear book list
-            bookList.Clear();
+            Book.bookList.Clear();
             string line;
             string templine;
             StreamReader file = new StreamReader("books.txt");
@@ -26,7 +26,6 @@ namespace VirtualLibrarian
                 //split line into strings
                 string[] lineSplit = line.Split(';');
                 //lineSplit[3] contains the genres separated with spaces
-                //get genres into genreSplit array
                 string[] genreSplit = lineSplit[3].Split(' ');
 
                 List<string> genres = new List<string>();
@@ -34,26 +33,66 @@ namespace VirtualLibrarian
                 {
                     genres.Add(genreSplit[i]);
                 }
-                bookList.Add(new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2], genres, templine));
+                Book.bookList.Add(new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2], genres, templine));
+            }
+            file.Close();
+        }
+
+        //Gets all readers from file into list
+        public static void loadReaders()
+        {
+            User.readerList.Clear();
+            string line;
+            StreamReader file = new StreamReader("login.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                string[] lineSplit = line.Split(';');
+                User.readerList.Add(new User(lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3], lineSplit[4], lineSplit[5]));
             }
             file.Close();
         }
 
 
-        //search with input or display all
-        public static string search(string searchInfo, string readLine)
+        //pass Book object - return its parameters as string
+        public static string objectToString(Book currentBook)
+        {
+            string genres = string.Join(" ", currentBook.genres);
+
+            string infoToDisplay = currentBook.ISBN + " --- " + currentBook.title + " --- "
+                                 + currentBook.author + " --- " + genres;
+            return infoToDisplay;
+        }
+
+
+        //searches Book object - if it fits, returns obj. info to display as a string
+        public static string search(string searchInfo, Book currentBook)
         {
             string infoToDisplay = "no match";
-            //split line into strings
-            string[] lineSplit = readLine.Split(';');
-            for (int i = 0; i < lineSplit.Length; i++)
+
+            if (currentBook.title.Contains(searchInfo) || currentBook.author.Contains(searchInfo))
             {
-                if (lineSplit[i].Contains(searchInfo))
-                {
-                    infoToDisplay = readLine.Replace(";", " --- ");
-                    return infoToDisplay;
-                }
+                //all search results to list for potential sorting
+                Book.sortList.Add(new Book(currentBook.ISBN, currentBook.title, currentBook.author, currentBook.genres));
+
+                return Functions.objectToString(currentBook);
             }
+
+            return infoToDisplay;
+        }
+
+        //searches User object - if it fits, returns obj. info to display as a string
+         public static string searchR(string searchInfo, User currentU)
+        {
+            string infoToDisplay = "no match";
+
+            if (currentU.username.Contains(searchInfo) || currentU.name.Contains(searchInfo)
+                || currentU.surname.Contains(searchInfo))
+            {
+                infoToDisplay = currentU.username + " --- " + currentU.name + " --- "
+                              + currentU.surname + " --- " + currentU.email + " --- " + currentU.birth;
+                return infoToDisplay;
+            }
+
             return infoToDisplay;
         }
 
@@ -115,7 +154,7 @@ namespace VirtualLibrarian
 
 
         //check if username / ISBN exists in file 
-        public static bool checkIfExistsInFile (string fileName, string whatToLookFor)
+        public static bool checkIfExistsInFile(string fileName, string whatToLookFor)
         {
             bool ExistsResult = false;
             string line;
@@ -133,7 +172,7 @@ namespace VirtualLibrarian
                 }
             }
             file.Close();
-            return ExistsResult;         
+            return ExistsResult;
         }
 
     }

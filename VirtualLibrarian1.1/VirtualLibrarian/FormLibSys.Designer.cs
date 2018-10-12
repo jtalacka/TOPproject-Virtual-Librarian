@@ -184,11 +184,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(500, 78);
+            this.label4.Location = new System.Drawing.Point(486, 78);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(242, 13);
+            this.label4.Size = new System.Drawing.Size(255, 13);
             this.label4.TabIndex = 35;
-            this.label4.Text = "Username --- Name --- Surname --- Email --- Adress";
+            this.label4.Text = "Username --- Name --- Surname --- Email --- Birth date";
             // 
             // FormLibSys
             // 
@@ -212,7 +212,6 @@
             this.Controls.Add(this.listBoxMain);
             this.Name = "FormLibSys";
             this.Text = "Library system";
-//            this.Load += new System.EventHandler(this.FormLibSys_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

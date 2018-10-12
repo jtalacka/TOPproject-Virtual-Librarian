@@ -77,7 +77,7 @@ namespace VirtualLibrarian
                                                 textBoxAuthor.Text, textBoxGenres.Text); ;
                     }
                     file.Close();
-                    //write modified text
+
                     //read all text
                     string text = File.ReadAllText("books.txt");
                     //modifiy old text

@@ -20,19 +20,12 @@ namespace VirtualLibrarian
 
         public static string givenBookInfo = "none";
 
-        //file storage path
-        //public string books = @"C:\Users\books.txt";
-
         private void FormGiveBook_Load(object sender, EventArgs e)
         {
-            string line;
-            StreamReader file = new StreamReader("books.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
-                listBox1.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " + lineSplit[2] + " --- " + lineSplit[3]);
+            foreach (Book tempBook in Book.bookList)
+            {               
+                listBox1.Items.Add(Functions.objectToString(tempBook));
             }
-            file.Close();
         }
         
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

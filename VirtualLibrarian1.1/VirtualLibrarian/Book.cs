@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VirtualLibrarian
 {
-    class Book
+    class Book : IComparable<Book>
     {
         //a constructor
         public Book(int isbn, string t, string a, List<string> g)
@@ -42,5 +42,18 @@ namespace VirtualLibrarian
         public DateTime Dtaken;
         public DateTime Dreturned;
 
+        //List for all books
+        public static List<Book> bookList = new List<Book>();
+        public static List<Book> sortList = new List<Book>();
+
+
+        public int CompareTo(Book book)
+        {
+            if (this.title == book.title)
+            {
+                return this.title.CompareTo(book.title);
+            }
+            return this.title.CompareTo(book.title);
+        }
     }
 }

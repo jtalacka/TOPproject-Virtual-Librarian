@@ -36,5 +36,8 @@ namespace VirtualLibrarian
         {
             reader, employee
         }
+
+        //List for all readers
+        public static List<User> readerList = new List<User>();
     }
 }

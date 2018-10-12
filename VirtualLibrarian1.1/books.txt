@@ -15,6 +15,6 @@
 16;The Wonderful Wizard of Oz;L. Frank Baum;Children's Adventure
 17;Bridge to Terabithia;Katherine Paterson;Fantasy Children's
 18;The Lion, the Witch and the Wardrobe;C.S. Lewis;Children's Fantasy Adventure
-19;Bunnicula;James Howe;Children's Fantasy Mystery
-21;The Gashlycrumb Tinies;Edward Gorey;Children's Art Poetry Horror
+19;Bunnicula;James Howe;Children's Fantasy Mystery4
 20;Coraline;Neil Gaiman;Mystery Horror Children's
+21;The Gashlycrumb Tinies;Edward Gorey;Children's Art Poetry Horror

@@ -17,8 +17,7 @@ namespace VirtualLibrarian
         {
             InitializeComponent();
         }
-        //file storage path
-        //public readonly string loginInfo = @"C:\Users\login.txt";
+
         //for passing User class object parameters between forms
         internal User user { get; set; }
 
@@ -51,6 +50,7 @@ namespace VirtualLibrarian
             button2.Visible = false;
             buttonSave.Visible = true;
         }
+        
         //Save changes
         private void buttonSave_Click(object sender, EventArgs e)
         {
