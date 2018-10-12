@@ -19,6 +19,7 @@ namespace VirtualLibrarian
         }
 
         List<Book> bookList = new List<Book>();
+        
 
         //for passing User class object parameters between forms
         internal User user { get; set; }
@@ -49,7 +50,8 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
             //Functions class method
-            Functions.loadLibraryBooks(bookList);
+            bookList.fillBookList();
+            //Functions.loadLibraryBooks(bookList);
 
             //get which genres chosen
             List<string> checkedGenres = new List<string>();

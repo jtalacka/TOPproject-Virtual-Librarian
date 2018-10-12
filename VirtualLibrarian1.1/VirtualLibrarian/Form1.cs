@@ -106,9 +106,8 @@ namespace VirtualLibrarian
             this.ActiveControl = textBoxName;
         }
 
-        private void test_Click(object sender, EventArgs e)
-        {
-            new ISBNScanner().Show();
-        }
+
+
+  
     }
 }
