@@ -44,7 +44,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(23, 25);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(213, 329);
+            this.pictureBox1.Size = new System.Drawing.Size(213, 312);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 376);
+            this.ClientSize = new System.Drawing.Size(682, 358);
             this.Controls.Add(this.richTextBox3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.richTextBox4);
@@ -144,7 +144,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "BookView";
-            this.Text = "Form2";
+            this.Text = "About";
             this.Load += new System.EventHandler(this.BookView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

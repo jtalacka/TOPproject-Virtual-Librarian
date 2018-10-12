@@ -24,7 +24,7 @@ namespace VirtualLibrarian
         {
             foreach (Book tempBook in Book.bookList)
             {               
-                listBox1.Items.Add(Functions.objectToString(tempBook));
+                listBox1.Items.Add(tempBook.ObToString(tempBook));
             }
         }
         

@@ -26,10 +26,12 @@ namespace VirtualLibrarian
             buttonTake.Visible = false;
             buttonReturn.Visible = false;
             textBoxReader.Clear();
+            label4.Visible = false;
             //Show library management buttons
             buttonAdd.Visible = true;
             buttonEdit.Visible = true;
             buttonDel.Visible = true;
+            label3.Visible = true;
 
             //clear main window
             listBoxMain.Items.Clear();
@@ -138,9 +140,11 @@ namespace VirtualLibrarian
             buttonEdit.Visible = false;
             buttonDel.Visible = false;
             textBoxBook.Clear();
+            label3.Visible = false;
             //Show reader management functions
             buttonTake.Visible = true;
             buttonReturn.Visible = true;
+            label4.Visible = true;
 
             //clear main window
             listBoxMain.Items.Clear();

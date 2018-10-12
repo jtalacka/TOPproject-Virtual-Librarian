@@ -53,17 +53,6 @@ namespace VirtualLibrarian
         }
 
 
-        //pass Book object - return its parameters as string
-        public static string objectToString(Book currentBook)
-        {
-            string genres = string.Join(" ", currentBook.genres);
-
-            string infoToDisplay = currentBook.ISBN + " --- " + currentBook.title + " --- "
-                                 + currentBook.author + " --- " + genres;
-            return infoToDisplay;
-        }
-
-
         //searches Book object - if it fits, returns obj. info to display as a string
         public static string search(string searchInfo, Book currentBook)
         {
@@ -71,10 +60,7 @@ namespace VirtualLibrarian
 
             if (currentBook.title.Contains(searchInfo) || currentBook.author.Contains(searchInfo))
             {
-                //all search results to list for potential sorting
-                Book.sortList.Add(new Book(currentBook.ISBN, currentBook.title, currentBook.author, currentBook.genres));
-
-                return Functions.objectToString(currentBook);
+                return currentBook.ObToString(currentBook);
             }
 
             return infoToDisplay;

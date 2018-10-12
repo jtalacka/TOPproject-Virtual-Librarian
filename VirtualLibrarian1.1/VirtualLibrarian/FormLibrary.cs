@@ -51,6 +51,8 @@ namespace VirtualLibrarian
         //search by genre
         private void buttonGenre_Click(object sender, EventArgs e)
         {
+            Book.sortList.Clear();
+            buttonSort.Visible = true;
             //clear main window
             listBoxMain.Items.Clear();
 
@@ -70,7 +72,11 @@ namespace VirtualLibrarian
                         if (bg == g)
                         {
                             //returns object parameter string
-                            listBoxMain.Items.Add(Functions.objectToString(tempBook));
+                            listBoxMain.Items.Add(tempBook.ObToString(tempBook));
+
+                            //all search results to list for potential sorting
+                            Book.sortList.Add(tempBook);
+
                             matchFound = true;
                             break;
                         }
@@ -104,6 +110,9 @@ namespace VirtualLibrarian
                 //checks tempBook - if it fits, returns tempBook info to display            
                 if (Functions.search(textBox1.Text, tempBook) != "no match")
                 {
+                    //all search results to list for potential sorting
+                    Book.sortList.Add(tempBook);
+
                     listBoxMain.Items.Add(Functions.search(textBox1.Text, tempBook));
                 }
             }
@@ -151,6 +160,11 @@ namespace VirtualLibrarian
                 text = text.Replace(" --- ", ";");
                 int exists = 0;
 
+                //form date when taken
+                string dateTaken = DateTime.Now.ToShortDateString();
+                //form return date
+                var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
+
                 string path = userBooks;
                 string line;
                 if (System.IO.File.Exists(path))
@@ -158,11 +172,9 @@ namespace VirtualLibrarian
                     StreamReader file = new StreamReader(userBooks);
                     while ((line = file.ReadLine()) != null)
                     {
-                        if (line == text)
+                        if (line == text + ";" + dateTaken + ";" + dateReturn)
                         {
-                            MessageBox.Show(line);
-                            MessageBox.Show(text);
-
+                            MessageBox.Show("You have already taken this book");
                             exists = 1;
                             break;
                         }
@@ -171,15 +183,11 @@ namespace VirtualLibrarian
                 }
                 if (exists == 0)
                 {
-                    MessageBox.Show(text);
                     using (StreamWriter sw = File.AppendText(path))
                     {
-                        sw.WriteLine(text);
+                        sw.WriteLine(text + ";" + dateTaken + ";" + dateReturn);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("You have already taken this book");
+                    MessageBox.Show("Book \n" + text + " \nadded ");
                 }
             }
         }
@@ -204,10 +212,17 @@ namespace VirtualLibrarian
         private void buttonMore_Click(object sender, EventArgs e)
         {
             string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
+            if (text == "")
+            {
+                MessageBox.Show("Please select a book to view");
+                return;
+            }
             foreach (Book tempBook in Book.bookList)
             {
                 if (text == tempBook.ISBN + " --- " + tempBook.title + " --- "
-                    + tempBook.author + " --- " + Functions.genresToDisplay(tempBook.genres))
+                    + tempBook.author + " --- " + Functions.genresToDisplay(tempBook.genres)
+                    || text == tempBook.title + " --- " + tempBook.author + " --- "
+                        + Functions.genresToDisplay(tempBook.genres))
                 {
                     //searches for a book that matches the selected
                     new BookView(tempBook).Show();
@@ -228,7 +243,6 @@ namespace VirtualLibrarian
                 string genres = string.Join(" ", item.genres);
                 listBoxMain.Items.Add(item.title + " --- " + item.author + " --- " + genres);
             }
-
         }
 
 
@@ -239,15 +253,15 @@ namespace VirtualLibrarian
 
             //get genres of books this reader has taken
             List<string> genres = new List<string>();
-            string line;         
+            string line;
             StreamReader file = new StreamReader(userBooks);
-            while (( line = file.ReadLine()) != null)
+            while ((line = file.ReadLine()) != null)
             {
                 string[] lineSplit = line.Split(';');
                 string[] genreSplit = lineSplit[3].Split(' ');
-                for (int i=0; i<genreSplit.Length; i++)
+                for (int i = 0; i < genreSplit.Length; i++)
                 {
-                    if(!genres.Contains(genreSplit[i]))
+                    if (!genres.Contains(genreSplit[i]))
                         genres.Add(genreSplit[i]);
                 }
             }
@@ -263,7 +277,7 @@ namespace VirtualLibrarian
                         if (bg == g)
                         {
                             //returns object parameter string
-                            listBoxMain.Items.Add(Functions.objectToString(tempBook));
+                            listBoxMain.Items.Add(tempBook.ObToString(tempBook));
                             matchFound = true;
                             break;
                         }

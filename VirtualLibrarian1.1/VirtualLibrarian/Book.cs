@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VirtualLibrarian
 {
-    class Book : IComparable<Book>
+    class Book : IComparable, IFormattable
     {
         //a constructor
         public Book(int isbn, string t, string a, List<string> g)
@@ -47,13 +47,34 @@ namespace VirtualLibrarian
         public static List<Book> sortList = new List<Book>();
 
 
-        public int CompareTo(Book book)
+
+        //  for Book.sortList.Sort();
+        public int CompareTo(object obj)
         {
-            if (this.title == book.title)
-            {
-                return this.title.CompareTo(book.title);
-            }
-            return this.title.CompareTo(book.title);
+            if (obj == null) return 1;
+
+            Book otherBook = obj as Book;
+            if (otherBook != null)
+                return this.title.CompareTo(otherBook.title);
+            else
+                throw new ArgumentException("Object is not a Book");
+        }
+
+
+
+        Book currentBook;
+        //pass Book object - return its parameters as string
+        public string ObToString(Book currentBook)
+        {
+            this.currentBook = currentBook;
+            return this.ToString(null, null);
+        }
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            string genres = string.Join(" ", currentBook.genres);
+            string infoToDisplay = currentBook.ISBN + " --- " + currentBook.title + " --- "
+                                 + currentBook.author + " --- " + genres;
+            return infoToDisplay;
         }
     }
 }

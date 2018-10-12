@@ -19,3 +19,4 @@
 19;Bunnicula;James Howe;Children's Fantasy Mystery
 20;Coraline;Neil Gaiman;Mystery Horror Children's
 21;The Gashlycrumb Tinies;Edward Gorey;Children's Art Poetry Horror
+22;SQL for dummies;Romas Baronas;Encyclopedias

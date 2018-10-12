@@ -18,11 +18,6 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        //Class User object
-        User user = new User();
-        //file storage path
-        //public readonly string loginInfo=@"C:\Users\login.txt";
-
         //Button Log in
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
@@ -49,14 +44,8 @@ namespace VirtualLibrarian
                 {
                     if (lineSplit[1] == pass)
                     {
-                        //file.Close();
                         //define user object parameters
-                        user.username = username;
-                        user.password = pass;
-                        user.name = lineSplit[2];
-                        user.surname = lineSplit[3];
-                        user.email = lineSplit[4];
-                        user.birth = lineSplit[5];
+                        User user = new User(username, pass, lineSplit[2], lineSplit[3], lineSplit[4], lineSplit[5]);
                         if (lineSplit[6] == "reader")
                         { user.type = User.userType.reader; }
                         else if (lineSplit[6] == "employee")

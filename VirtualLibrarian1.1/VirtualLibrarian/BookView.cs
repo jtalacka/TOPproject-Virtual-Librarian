@@ -19,7 +19,8 @@ namespace VirtualLibrarian
             this.book = book;
         }
 
-        private void BookView_Load(object sender, EventArgs e)// displays information about the book
+        // displays information about the book
+        private void BookView_Load(object sender, EventArgs e)
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             if (book.image == "")

@@ -170,6 +170,7 @@
             this.label3.Size = new System.Drawing.Size(162, 13);
             this.label3.TabIndex = 33;
             this.label3.Text = "ISBN --- Title --- Author --- Genres";
+            this.label3.Visible = false;
             // 
             // buttonExit
             // 
@@ -189,6 +190,7 @@
             this.label4.Size = new System.Drawing.Size(255, 13);
             this.label4.TabIndex = 35;
             this.label4.Text = "Username --- Name --- Surname --- Email --- Birth date";
+            this.label4.Visible = false;
             // 
             // FormLibSys
             // 
