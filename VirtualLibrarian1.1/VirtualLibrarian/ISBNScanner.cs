@@ -17,6 +17,7 @@ namespace VirtualLibrarian
 {
     public partial class ISBNScanner : Form
     {
+       public static string results="";
         string file;
         VideoCaptureDevice FinalVideo;
         FilterInfoCollection VideoCaptureDevices;
@@ -39,6 +40,9 @@ namespace VirtualLibrarian
             }
 
         }
+        public string returnisbn() {
+            return results;
+        }
 
         private void video_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
@@ -52,7 +56,7 @@ namespace VirtualLibrarian
             Bitmap barcodeBitmap;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Image files(*.jpg, *.jpeg,*.bmp,*.png) | *.jpg; *.jpeg;*.png;*.bmp;";
-            openFileDialog1.Title = "Alllll";
+            openFileDialog1.Title = "All";
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -72,8 +76,10 @@ namespace VirtualLibrarian
             if (result != null)
             {
                 //  MessageBox.Show(result.BarcodeFormat.ToString());
-                MessageBox.Show(result.Text);
+          //      MessageBox.Show(result.Text);
             }
+            results = result.Text;
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)

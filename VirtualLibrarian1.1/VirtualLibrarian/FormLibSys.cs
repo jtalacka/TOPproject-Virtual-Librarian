@@ -276,6 +276,17 @@ namespace VirtualLibrarian
 
         private void button1_Click(object sender, EventArgs e)
         {
+         ISBNScanner isbn = new ISBNScanner();
+            if (isbn.ShowDialog() != DialogResult.OK)
+            {
+                if (ISBNScanner.results != "")
+                {
+                    textBoxBook.Text = ISBNScanner.results;
+                    buttonSearchBook_Click(sender, e);
+                    ISBNScanner.results = "";
+                }
+            }
+
         }
     }
 }
