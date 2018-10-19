@@ -15,6 +15,7 @@ using AForge.Video.DirectShow;
 
 namespace VirtualLibrarian
 {
+    public delegate void CloseDelagate();
     public partial class ISBNScanner : Form
     {
        public static string results="";
@@ -76,10 +77,14 @@ namespace VirtualLibrarian
             if (result != null)
             {
                 //  MessageBox.Show(result.BarcodeFormat.ToString());
-          //      MessageBox.Show(result.Text);
+                //      MessageBox.Show(result.Text);
+                results = result.Text;
+                try
+                {
+                    this.BeginInvoke((MethodInvoker)delegate { this.Close(); });
+                }
+                catch { }
             }
-            results = result.Text;
-            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
