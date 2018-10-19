@@ -79,12 +79,11 @@ namespace VirtualLibrarian
                 //  MessageBox.Show(result.BarcodeFormat.ToString());
                 //      MessageBox.Show(result.Text);
                 results = result.Text;
-                try
-                {
-                    this.BeginInvoke((MethodInvoker)delegate { this.Close(); });
-                }
-                catch { }
-            }
+                FinalVideo.SignalToStop();
+                
+                this.BeginInvoke((MethodInvoker)delegate { this.Close(); });
+            }    
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -100,7 +99,7 @@ namespace VirtualLibrarian
                     FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[comboBox1.SelectedIndex].MonikerString);
                     FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
                     FinalVideo.Start();
-
+                    
                 }
             }
         }
