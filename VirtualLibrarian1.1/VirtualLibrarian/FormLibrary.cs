@@ -103,7 +103,7 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
             //load all books into list
-            Functions.loadLibraryBooks(bookList);
+            bookList.fillBookList();
 
             //what to look for
             string searchBA = textBox1.Text;
