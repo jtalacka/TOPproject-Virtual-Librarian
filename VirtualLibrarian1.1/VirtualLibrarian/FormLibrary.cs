@@ -18,6 +18,7 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
+
         //for passing User class object parameters between forms
         internal User user { get; set; }
 

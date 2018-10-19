@@ -94,5 +94,9 @@ namespace VirtualLibrarian
             //on form load, focus on username textbox
             this.ActiveControl = textBoxName;
         }
+
+
+
+  
     }
 }
