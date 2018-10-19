@@ -279,6 +279,7 @@ namespace VirtualLibrarian
          ISBNScanner isbn = new ISBNScanner();
             if (isbn.ShowDialog() != DialogResult.OK)
             {
+                MessageBox.Show(ISBNScanner.results);
                 if (ISBNScanner.results != "")
                 {
                     textBoxBook.Text = ISBNScanner.results;
@@ -289,6 +290,9 @@ namespace VirtualLibrarian
 
         }
 
+        private void FormLibSys_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
