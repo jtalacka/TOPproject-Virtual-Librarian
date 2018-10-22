@@ -28,6 +28,7 @@ namespace VirtualLibrarian
             textBoxISBN.Text = book.ISBN.ToString();
             textBoxTitle.Text = book.title;
             textBoxAuthor.Text = book.author;
+            textBoxQ.Text = book.quantity.ToString();
             textBoxGenres.Text = String.Join(" ", book.genres);
         }
 
@@ -40,6 +41,22 @@ namespace VirtualLibrarian
         //save changes
         private void buttonEdit_Click(object sender, EventArgs e)
         {
+            //check if valid ISBN w regex
+            if (Functions.inputCheck(textBoxISBN.Text, 3) == 0)
+            {
+                MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
+                textBoxISBN.Focus();
+                return;
+            }
+            //check quantity
+            int qua;
+            if (!Int32.TryParse(textBoxQ.Text, out qua))
+            {
+                MessageBox.Show("Please enter a valid quantity");
+                textBoxQ.Focus();
+                return;
+            }
+
             string line;
             StreamReader file = new StreamReader("books.txt");
             //read line by line and look for ISBN
@@ -48,11 +65,11 @@ namespace VirtualLibrarian
                 string[] lineSplit = line.Split(';');
 
                 //if found our line (unique ISBN)
-                if (lineSplit[0] == book.ISBN.ToString())
+                if (lineSplit[0] == book.ISBN)
                 {
                     //save old info
-                    string[] oInfo = { book.ISBN.ToString(), book.title,
-                                        book.author, textBoxGenres.Text };
+                    string[] oInfo = { book.ISBN, book.title,
+                                        book.author, textBoxGenres.Text, book.quantity.ToString() };
                     //all old info in one string
                     string oLine = string.Join(";", oInfo);
                     //new info
@@ -68,13 +85,13 @@ namespace VirtualLibrarian
 
                         //form new info string
                         nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
-                                                textBoxAuthor.Text, checkedG);
+                                                textBoxAuthor.Text, checkedG, textBoxQ.Text);
                     }
                     else
                     {
                         //form new info string
                         nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
-                                                textBoxAuthor.Text, textBoxGenres.Text); ;
+                                                textBoxAuthor.Text, textBoxGenres.Text, textBoxQ.Text); ;
                     }
                     file.Close();
 

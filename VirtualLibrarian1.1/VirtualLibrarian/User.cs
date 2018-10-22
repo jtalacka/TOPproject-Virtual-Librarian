@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualLibrarian
 {
-    class User
+    public class User
     {
         //a constructor
         public User()

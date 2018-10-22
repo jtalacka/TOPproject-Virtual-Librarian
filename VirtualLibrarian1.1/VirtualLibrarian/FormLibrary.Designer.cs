@@ -58,7 +58,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(246, 9);
+            this.label2.Location = new System.Drawing.Point(290, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(300, 25);
             this.label2.TabIndex = 1;
@@ -113,7 +113,7 @@
             // 
             // buttonGenre
             // 
-            this.buttonGenre.Location = new System.Drawing.Point(574, 54);
+            this.buttonGenre.Location = new System.Drawing.Point(705, 51);
             this.buttonGenre.Name = "buttonGenre";
             this.buttonGenre.Size = new System.Drawing.Size(94, 25);
             this.buttonGenre.TabIndex = 8;
@@ -123,7 +123,7 @@
             // 
             // buttonManageLibrary
             // 
-            this.buttonManageLibrary.Location = new System.Drawing.Point(678, 375);
+            this.buttonManageLibrary.Location = new System.Drawing.Point(805, 375);
             this.buttonManageLibrary.Name = "buttonManageLibrary";
             this.buttonManageLibrary.Size = new System.Drawing.Size(136, 41);
             this.buttonManageLibrary.TabIndex = 10;
@@ -160,7 +160,7 @@
             "Romance",
             "Science-fiction",
             "Travel"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(678, 54);
+            this.checkedListBoxGenre.Location = new System.Drawing.Point(805, 54);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
             this.checkedListBoxGenre.Size = new System.Drawing.Size(136, 139);
             this.checkedListBoxGenre.Sorted = true;
@@ -173,7 +173,7 @@
             this.listBoxMain.ItemHeight = 18;
             this.listBoxMain.Location = new System.Drawing.Point(12, 95);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(656, 274);
+            this.listBoxMain.Size = new System.Drawing.Size(787, 274);
             this.listBoxMain.TabIndex = 16;
             // 
             // label3
@@ -181,14 +181,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(11, 80);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 13);
+            this.label3.Size = new System.Drawing.Size(216, 13);
             this.label3.TabIndex = 17;
-            this.label3.Text = "ISBN --- Title --- Author --- Genres";
+            this.label3.Text = "ISBN --- Title --- Author --- Genres --- Quantity";
             // 
             // takebook
             // 
             this.takebook.BackColor = System.Drawing.SystemColors.Control;
-            this.takebook.Location = new System.Drawing.Point(678, 344);
+            this.takebook.Location = new System.Drawing.Point(805, 344);
             this.takebook.Margin = new System.Windows.Forms.Padding(2);
             this.takebook.Name = "takebook";
             this.takebook.Size = new System.Drawing.Size(136, 26);
@@ -223,7 +223,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 422);
+            this.ClientSize = new System.Drawing.Size(953, 425);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.buttonMore);
             this.Controls.Add(this.takebook);

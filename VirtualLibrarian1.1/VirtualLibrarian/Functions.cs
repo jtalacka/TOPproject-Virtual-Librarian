@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace VirtualLibrarian
 {
-    class Functions
+     public class Functions
     {
         //Gets all books from file into list
         public static void loadLibraryBooks()
@@ -39,7 +39,8 @@ namespace VirtualLibrarian
         {
             string infoToDisplay = "no match";
 
-            if (currentBook.title.Contains(searchInfo) || currentBook.author.Contains(searchInfo))
+            if (currentBook.title.ToLower().Contains(searchInfo.ToLower()) 
+                || currentBook.author.ToLower().Contains(searchInfo.ToLower()))
             {
                 return currentBook.ObToString(currentBook);
             }
@@ -59,7 +60,6 @@ namespace VirtualLibrarian
                               + currentU.surname + " --- " + currentU.email + " --- " + currentU.birth;
                 return infoToDisplay;
             }
-
             return infoToDisplay;
         }
 
@@ -90,11 +90,12 @@ namespace VirtualLibrarian
         }
 
 
-        //input validation - email, date of birth
+        //input validation - email, date of birth, ISBN
         public static int inputCheck(string whatToCheck, int c)
         {
-            Regex emailRegex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");
+            Regex emailRegex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");         
             var dateFormats = new[] { "yyyy.MM.dd", "yyyy-MM-dd" };
+            Regex ISBNRegex = new Regex(@"^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$");
 
             if (c == 1)
             {
@@ -114,6 +115,14 @@ namespace VirtualLibrarian
                     return 0;
                 else
                     return 1;
+            }
+            else if (c == 3)
+            {
+                //3. isbn check - if NOT ok - returns 0
+                if (ISBNRegex.IsMatch(whatToCheck))
+                    return 1;
+                else
+                    return 0;
             }
             else
                 return 1;

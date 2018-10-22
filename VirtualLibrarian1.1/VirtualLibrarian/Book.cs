@@ -7,42 +7,54 @@ using System.Threading.Tasks;
 
 namespace VirtualLibrarian
 {
-    class Book : IComparable, IFormattable
+    public class Book : IComparable, IFormattable
     {
-        //a constructor
-        public Book(int isbn, string t, string a, List<string> g)
+        //constructors
+        public Book(string isbn, string t, string a, List<string> g, int q)
         {
             this.ISBN = isbn;
             this.title = t;
             this.author = a;
             this.genres = g;
+            this.quantity = q;
+
             this.image = "";
         }
-        public Book(int isbn, string t, string a, List<string> g, string lineRead)
+        public Book(string isbn, string t, string a, List<string> g)
         {
             this.ISBN = isbn;
             this.title = t;
             this.author = a;
             this.genres = g;
+
             this.image = "";
+        }
+        public Book(string isbn, string t, string a, List<string> g, string lineRead)
+        {
+            this.ISBN = isbn;
+            this.title = t;
+            this.author = a;
+            this.genres = g;
             this.bookLineRead = lineRead;
+
+            this.image = "";
         }
 
         public Book(string line) { }
         public Book() { }
 
         //properties (in same order as written in in the file)
-        public int ISBN;
+        public string ISBN;
         public string title;
-        public string image;
-        public string description;
         public string author;
-        public string bookLineRead;//the line read from file
         public List<string> genres;
-        public DateTime Dtaken;
-        public DateTime Dreturned;
+        public int quantity;
 
-        //List for all books
+        public string image;
+        //public string description;    
+        public string bookLineRead;//the line read from file       
+
+        //List for all books AND books to sort
         public static List<Book> bookList = new List<Book>();
         public static List<Book> sortList = new List<Book>();
 
@@ -61,7 +73,6 @@ namespace VirtualLibrarian
         }
 
 
-
         Book currentBook;
         //pass Book object - return its parameters as string
         public string ObToString(Book currentBook)
@@ -73,7 +84,8 @@ namespace VirtualLibrarian
         {
             string genres = string.Join(" ", currentBook.genres);
             string infoToDisplay = currentBook.ISBN + " --- " + currentBook.title + " --- "
-                                 + currentBook.author + " --- " + genres;
+                                 + currentBook.author + " --- " + genres + " --- "
+                                 + currentBook.quantity;
             return infoToDisplay;
         }
     }

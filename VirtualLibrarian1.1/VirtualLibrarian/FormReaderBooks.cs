@@ -35,15 +35,13 @@ namespace VirtualLibrarian
             { buttonSelect.Visible = true; }
 
             returnedBookInfo = "none";
-            string line;
-            string path = @"D:\" + username + ".txt";         
-            StreamReader file = new StreamReader(path);
+
+            string line;        
+            StreamReader file = new StreamReader(@"D:\" + username + ".txt");
             while ((line = file.ReadLine()) != null)
             {
-                string[] lineSplit = line.Split(';');
-                listBox1.Items.Add(lineSplit[0] + " --- " + lineSplit[1] + " --- " 
-                    + lineSplit[2] + " --- " + lineSplit[3] + " --- " 
-                    + lineSplit[4] + " --- " + lineSplit[5]);
+                line = line.Replace(";", " --- ");
+                listBox1.Items.Add(line);
             }
             file.Close();
         }
@@ -66,6 +64,5 @@ namespace VirtualLibrarian
                 this.Close();
             }
         }
-
     }
 }

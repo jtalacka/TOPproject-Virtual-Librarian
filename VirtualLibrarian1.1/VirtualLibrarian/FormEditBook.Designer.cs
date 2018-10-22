@@ -39,14 +39,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxGenres = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.textBoxQ = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(215, 201);
+            this.buttonEdit.Location = new System.Drawing.Point(215, 246);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(97, 27);
-            this.buttonEdit.TabIndex = 27;
+            this.buttonEdit.TabIndex = 7;
             this.buttonEdit.Text = "Save changes";
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
@@ -87,10 +89,10 @@
             "Romance",
             "Science-fiction",
             "Travel"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(101, 115);
+            this.checkedListBoxGenre.Location = new System.Drawing.Point(99, 160);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
-            this.checkedListBoxGenre.Size = new System.Drawing.Size(211, 79);
-            this.checkedListBoxGenre.TabIndex = 5;
+            this.checkedListBoxGenre.Size = new System.Drawing.Size(213, 79);
+            this.checkedListBoxGenre.TabIndex = 6;
             this.checkedListBoxGenre.Click += new System.EventHandler(this.checkedListBoxGenre_Click);
             // 
             // textBoxAuthor
@@ -111,7 +113,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label3.Location = new System.Drawing.Point(12, 89);
+            this.label3.Location = new System.Drawing.Point(12, 131);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 18);
             this.label3.TabIndex = 55;
@@ -140,27 +142,48 @@
             // textBoxGenres
             // 
             this.textBoxGenres.Cursor = System.Windows.Forms.Cursors.No;
-            this.textBoxGenres.Location = new System.Drawing.Point(99, 87);
+            this.textBoxGenres.Location = new System.Drawing.Point(99, 131);
             this.textBoxGenres.Name = "textBoxGenres";
             this.textBoxGenres.ReadOnly = true;
             this.textBoxGenres.Size = new System.Drawing.Size(213, 20);
-            this.textBoxGenres.TabIndex = 4;
+            this.textBoxGenres.TabIndex = 5;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label5.Location = new System.Drawing.Point(12, 133);
+            this.label5.Location = new System.Drawing.Point(11, 178);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 36);
             this.label5.TabIndex = 56;
             this.label5.Text = "Select new \r\ngenres:";
             // 
+            // textBoxQ
+            // 
+            this.textBoxQ.Location = new System.Drawing.Point(99, 94);
+            this.textBoxQ.Multiline = true;
+            this.textBoxQ.Name = "textBoxQ";
+            this.textBoxQ.Size = new System.Drawing.Size(58, 24);
+            this.textBoxQ.TabIndex = 4;
+            this.textBoxQ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label6.Location = new System.Drawing.Point(12, 88);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 36);
+            this.label6.TabIndex = 58;
+            this.label6.Text = "Current \r\nquantitty:";
+            // 
             // FormEditBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 237);
+            this.ClientSize = new System.Drawing.Size(332, 279);
+            this.Controls.Add(this.textBoxQ);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxGenres);
             this.Controls.Add(this.buttonEdit);
@@ -193,5 +216,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxGenres;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxQ;
+        private System.Windows.Forms.Label label6;
     }
 }

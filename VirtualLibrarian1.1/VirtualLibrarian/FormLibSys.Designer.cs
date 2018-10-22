@@ -44,6 +44,7 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.buttonChange = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBoxMain
@@ -53,7 +54,7 @@
             this.listBoxMain.ItemHeight = 18;
             this.listBoxMain.Location = new System.Drawing.Point(12, 92);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(730, 256);
+            this.listBoxMain.Size = new System.Drawing.Size(868, 256);
             this.listBoxMain.TabIndex = 17;
             // 
             // textBoxBook
@@ -87,7 +88,7 @@
             // 
             // textBoxReader
             // 
-            this.textBoxReader.Location = new System.Drawing.Point(497, 54);
+            this.textBoxReader.Location = new System.Drawing.Point(635, 54);
             this.textBoxReader.Name = "textBoxReader";
             this.textBoxReader.Size = new System.Drawing.Size(245, 20);
             this.textBoxReader.TabIndex = 24;
@@ -105,7 +106,7 @@
             // 
             // buttonSearchReader
             // 
-            this.buttonSearchReader.Location = new System.Drawing.Point(408, 53);
+            this.buttonSearchReader.Location = new System.Drawing.Point(546, 53);
             this.buttonSearchReader.Name = "buttonSearchReader";
             this.buttonSearchReader.Size = new System.Drawing.Size(83, 20);
             this.buttonSearchReader.TabIndex = 27;
@@ -115,7 +116,7 @@
             // 
             // buttonReturn
             // 
-            this.buttonReturn.Location = new System.Drawing.Point(580, 18);
+            this.buttonReturn.Location = new System.Drawing.Point(718, 18);
             this.buttonReturn.Name = "buttonReturn";
             this.buttonReturn.Size = new System.Drawing.Size(77, 25);
             this.buttonReturn.TabIndex = 28;
@@ -136,7 +137,7 @@
             // 
             // buttonTake
             // 
-            this.buttonTake.Location = new System.Drawing.Point(497, 18);
+            this.buttonTake.Location = new System.Drawing.Point(635, 18);
             this.buttonTake.Name = "buttonTake";
             this.buttonTake.Size = new System.Drawing.Size(77, 25);
             this.buttonTake.TabIndex = 30;
@@ -157,7 +158,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(663, 17);
+            this.label2.Location = new System.Drawing.Point(801, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 26);
             this.label2.TabIndex = 32;
@@ -168,14 +169,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 13);
+            this.label3.Size = new System.Drawing.Size(216, 13);
             this.label3.TabIndex = 33;
-            this.label3.Text = "ISBN --- Title --- Author --- Genres";
+            this.label3.Text = "ISBN --- Title --- Author --- Genres --- Quantity";
             this.label3.Visible = false;
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(696, 354);
+            this.buttonExit.Location = new System.Drawing.Point(834, 354);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(45, 23);
             this.buttonExit.TabIndex = 34;
@@ -186,7 +187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(486, 78);
+            this.label4.Location = new System.Drawing.Point(624, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(255, 13);
             this.label4.TabIndex = 35;
@@ -197,17 +198,29 @@
             // 
             this.button1.Location = new System.Drawing.Point(261, 18);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 23);
+            this.button1.Size = new System.Drawing.Size(83, 25);
             this.button1.TabIndex = 36;
             this.button1.Text = "search by isbn";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // buttonChange
+            // 
+            this.buttonChange.Location = new System.Drawing.Point(546, 18);
+            this.buttonChange.Name = "buttonChange";
+            this.buttonChange.Size = new System.Drawing.Size(83, 25);
+            this.buttonChange.TabIndex = 37;
+            this.buttonChange.Text = "Change info.";
+            this.buttonChange.UseVisualStyleBackColor = true;
+            this.buttonChange.Visible = false;
+            this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
+            // 
             // FormLibSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 383);
+            this.ClientSize = new System.Drawing.Size(892, 383);
+            this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonExit);
@@ -249,5 +262,6 @@
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonChange;
     }
 }

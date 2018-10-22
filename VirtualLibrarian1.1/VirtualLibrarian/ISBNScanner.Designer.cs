@@ -81,7 +81,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Name = "ISBNScanner";
-            this.Text = "Form2";
+            this.Text = "Scanner";
             this.Load += new System.EventHandler(this.ISBNScanner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

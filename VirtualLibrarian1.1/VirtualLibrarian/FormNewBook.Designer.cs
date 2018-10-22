@@ -37,13 +37,15 @@
             this.checkedListBoxGenre = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxISBN = new System.Windows.Forms.TextBox();
+            this.textBoxQ = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Location = new System.Drawing.Point(9, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 18);
             this.label1.TabIndex = 18;
@@ -53,7 +55,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(14, 63);
+            this.label2.Location = new System.Drawing.Point(9, 63);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 18);
             this.label2.TabIndex = 19;
@@ -63,7 +65,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label3.Location = new System.Drawing.Point(14, 109);
+            this.label3.Location = new System.Drawing.Point(14, 141);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 18);
             this.label3.TabIndex = 20;
@@ -85,10 +87,10 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(265, 177);
+            this.buttonAdd.Location = new System.Drawing.Point(265, 209);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(40, 27);
-            this.buttonAdd.TabIndex = 5;
+            this.buttonAdd.TabIndex = 6;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -112,17 +114,17 @@
             "Romance",
             "Science-fiction",
             "Travel"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(94, 90);
+            this.checkedListBoxGenre.Location = new System.Drawing.Point(94, 122);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
             this.checkedListBoxGenre.Size = new System.Drawing.Size(211, 79);
             this.checkedListBoxGenre.Sorted = true;
-            this.checkedListBoxGenre.TabIndex = 4;
+            this.checkedListBoxGenre.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label4.Location = new System.Drawing.Point(12, 9);
+            this.label4.Location = new System.Drawing.Point(9, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 18);
             this.label4.TabIndex = 17;
@@ -135,11 +137,30 @@
             this.textBoxISBN.Size = new System.Drawing.Size(213, 20);
             this.textBoxISBN.TabIndex = 1;
             // 
+            // textBoxQ
+            // 
+            this.textBoxQ.Location = new System.Drawing.Point(92, 90);
+            this.textBoxQ.Name = "textBoxQ";
+            this.textBoxQ.Size = new System.Drawing.Size(213, 20);
+            this.textBoxQ.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label5.Location = new System.Drawing.Point(9, 92);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 18);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Quantity:";
+            // 
             // FormNewBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 213);
+            this.ClientSize = new System.Drawing.Size(316, 247);
+            this.Controls.Add(this.textBoxQ);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxISBN);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkedListBoxGenre);
@@ -151,7 +172,6 @@
             this.Controls.Add(this.label1);
             this.Name = "FormNewBook";
             this.Text = "New Book";
-//            this.Load += new System.EventHandler(this.FormNewBook_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,5 +188,7 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxGenre;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxISBN;
+        private System.Windows.Forms.TextBox textBoxQ;
+        private System.Windows.Forms.Label label5;
     }
 }

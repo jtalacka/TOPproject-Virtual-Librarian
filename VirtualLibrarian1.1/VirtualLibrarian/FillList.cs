@@ -30,7 +30,18 @@ namespace VirtualLibrarian
                 {
                     genres.Add(genreSplit[i]);
                 }
-                Book.bookList.Add(new Book(Int32.Parse(lineSplit[0]), lineSplit[1], lineSplit[2], genres, templine));
+
+                try
+                {
+                    Book.bookList.Add(new Book(lineSplit[0], lineSplit[1], lineSplit[2], genres, Int32.Parse(lineSplit[4])));
+                }
+                catch (System.IndexOutOfRangeException e)
+                {
+                    System.Windows.Forms.MessageBox.Show("Error: array index out of bounds. " +
+                        "\nSomething wrong in file data layout.", "Error message", 
+                        System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    System.Windows.Forms.Application.Exit();
+                }
             }
             file.Close();
         }

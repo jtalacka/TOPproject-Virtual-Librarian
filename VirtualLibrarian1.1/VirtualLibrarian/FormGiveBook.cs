@@ -18,14 +18,17 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
-        public static string givenBookInfo = "none";
+        public static string givenBookInfo;
 
         private void FormGiveBook_Load(object sender, EventArgs e)
         {
+            //display books, that are available => quantity > 0
             foreach (Book tempBook in Book.bookList)
-            {               
-                listBox1.Items.Add(tempBook.ObToString(tempBook));
+            {   
+                if(tempBook.quantity > 0)
+                    listBox1.Items.Add(tempBook.ObToString(tempBook));
             }
+            givenBookInfo = "none";
         }
         
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -44,6 +47,23 @@ namespace VirtualLibrarian
             else
             {
                 this.Close();
+            }
+        }
+
+
+        //search
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            //clear main window
+            listBox1.Items.Clear();
+
+            foreach (Book tempBook in Book.bookList)
+            {
+                //checks tempBook - if it fits, returns tempBook info to display            
+                if (Functions.search(textBox1.Text, tempBook) != "no match")
+                {
+                    listBox1.Items.Add(Functions.search(textBox1.Text, tempBook));
+                }
             }
         }
     }

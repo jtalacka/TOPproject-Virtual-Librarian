@@ -25,12 +25,20 @@ namespace VirtualLibrarian
             if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
             { MessageBox.Show("Please enter login info."); return; }
 
-            int ISBN;
-            //is ISBN integer?
-            if (!int.TryParse(textBoxISBN.Text, out ISBN))
+            //check if valid ISBN w regex
+            string ISBN = textBoxISBN.Text;
+            if (Functions.inputCheck(ISBN, 3) == 0)
             {
-                MessageBox.Show("Incorrect ISBN code type");
+                MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
                 textBoxISBN.Focus();
+                return;
+            }
+
+            int qua;
+            if(!Int32.TryParse(textBoxQ.Text, out qua) && qua > 0)
+            {
+                MessageBox.Show("Please enter a valid quantity");
+                textBoxQ.Focus();
                 return;
             }
 
@@ -39,7 +47,7 @@ namespace VirtualLibrarian
             if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
 
             //define Book
-            Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres);
+            Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres, qua);
 
             //check if ISBN already exists in file
             if (Functions.checkIfExistsInFile("books.txt", textBoxISBN.Text) == true)
@@ -52,14 +60,15 @@ namespace VirtualLibrarian
             using (StreamWriter w = File.AppendText("books.txt"))
             {
                 //information layout in file
-                w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres));
-                //Book.bookList.Add(new Book(book.ISBN + ";" + book.title + ";" + book.author + ";" + string.Join(" ", checkedGenres)));
+                w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + 
+                    string.Join(" ", checkedGenres) + ";" + book.quantity.ToString());
             }
 
             MessageBox.Show("Book '" + book.title + "' added");
             textBoxISBN.Clear();
             textBoxTitle.Clear();
             textBoxAuthor.Clear();
+            textBoxQ.Clear();
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
