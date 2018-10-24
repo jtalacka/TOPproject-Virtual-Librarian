@@ -42,6 +42,7 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxBirth = new System.Windows.Forms.TextBox();
+            this.buttonDel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -170,11 +171,23 @@
             this.textBoxBirth.Size = new System.Drawing.Size(203, 20);
             this.textBoxBirth.TabIndex = 45;
             // 
+            // buttonDel
+            // 
+            this.buttonDel.Location = new System.Drawing.Point(193, 188);
+            this.buttonDel.Name = "buttonDel";
+            this.buttonDel.Size = new System.Drawing.Size(57, 37);
+            this.buttonDel.TabIndex = 47;
+            this.buttonDel.Text = "Delete account";
+            this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Visible = false;
+            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
+            // 
             // FormAccountInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 234);
+            this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.textBoxBirth);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxName);
@@ -213,5 +226,6 @@
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxBirth;
+        private System.Windows.Forms.Button buttonDel;
     }
 }

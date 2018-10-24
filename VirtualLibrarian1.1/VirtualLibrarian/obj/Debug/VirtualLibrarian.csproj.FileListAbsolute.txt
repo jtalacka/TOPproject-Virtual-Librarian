@@ -193,3 +193,69 @@ C:\Users\user\Desktop\VirtualLibrarian1.7\VirtualLibrarian\bin\Debug\zxing.xml
 C:\Users\user\Desktop\VirtualLibrarian1.7\VirtualLibrarian\bin\Debug\zxing.presentation.pdb
 C:\Users\user\Desktop\VirtualLibrarian1.7\VirtualLibrarian\bin\Debug\zxing.presentation.xml
 C:\Users\user\Desktop\VirtualLibrarian1.7\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CopyComplete
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe.config
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\VirtualLibrarian.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\AForge.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\AForge.Video.DirectShow.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\AForge.Video.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\zxing.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\zxing.presentation.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\AForge.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\AForge.Video.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\zxing.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\zxing.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\zxing.presentation.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\bin\Debug\zxing.presentation.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.csprojAssemblyReference.cache
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.BookView.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.Form1.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.ISBNScanner.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormAccountInfo.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormEditBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormGiveBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormLibrary.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormLibSys.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormNewBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormReaderBooks.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormSignup.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.Properties.Resources.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.GenerateResource.cache
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CopyComplete
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
+C:\Users\user\Desktop\VirtualLibrarian1.8 DONE\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe.config
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\VirtualLibrarian.exe
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\VirtualLibrarian.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\AForge.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\AForge.Video.DirectShow.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\AForge.Video.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\zxing.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\zxing.presentation.dll
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\AForge.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\AForge.Video.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\zxing.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\zxing.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\zxing.presentation.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\bin\Debug\zxing.presentation.xml
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.csprojAssemblyReference.cache
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.BookView.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.Form1.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.ISBNScanner.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormAccountInfo.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormEditBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormGiveBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormLibrary.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormLibSys.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormNewBook.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormReaderBooks.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.FormSignup.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.Properties.Resources.resources
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.GenerateResource.cache
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CopyComplete
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
+C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb

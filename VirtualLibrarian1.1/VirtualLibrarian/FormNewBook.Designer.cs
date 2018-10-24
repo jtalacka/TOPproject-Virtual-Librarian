@@ -141,7 +141,7 @@
             // 
             this.textBoxQ.Location = new System.Drawing.Point(92, 90);
             this.textBoxQ.Name = "textBoxQ";
-            this.textBoxQ.Size = new System.Drawing.Size(213, 20);
+            this.textBoxQ.Size = new System.Drawing.Size(49, 20);
             this.textBoxQ.TabIndex = 4;
             // 
             // label5

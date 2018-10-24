@@ -30,15 +30,12 @@ namespace VirtualLibrarian
             }
             givenBookInfo = "none";
         }
-        
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //get selected book info
-            givenBookInfo = listBox1.GetItemText(listBox1.SelectedItem);
-        }
 
         private void buttonSelect_Click(object sender, EventArgs e)
-        {          
+        {    
+            //get selected book info
+            givenBookInfo = listBox1.GetItemText(listBox1.SelectedItem);
+
             if (givenBookInfo == "none")
             {
                 MessageBox.Show("Select a book");

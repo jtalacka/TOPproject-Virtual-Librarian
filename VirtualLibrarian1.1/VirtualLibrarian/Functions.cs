@@ -53,8 +53,9 @@ namespace VirtualLibrarian
         {
             string infoToDisplay = "no match";
 
-            if (currentU.username.Contains(searchInfo) || currentU.name.Contains(searchInfo)
-                || currentU.surname.Contains(searchInfo))
+            if (currentU.username.ToLower().Contains(searchInfo.ToLower()) || 
+                currentU.name.ToLower().Contains(searchInfo.ToLower())
+                || currentU.surname.ToLower().Contains(searchInfo.ToLower()))
             {
                 infoToDisplay = currentU.username + " --- " + currentU.name + " --- "
                               + currentU.surname + " --- " + currentU.email + " --- " + currentU.birth;

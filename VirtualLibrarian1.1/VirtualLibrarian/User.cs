@@ -21,6 +21,14 @@ namespace VirtualLibrarian
             this.email = e;
             this.birth = b;
         }
+        public User(string u, string n, string s, string e, string b)
+        {
+            this.username = u;
+            this.name = n;
+            this.surname = s;
+            this.email = e;
+            this.birth = b;
+        }
 
         //properties (in same order as written in in the file)
         public string username;

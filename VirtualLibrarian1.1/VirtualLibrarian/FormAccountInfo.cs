@@ -32,7 +32,7 @@ namespace VirtualLibrarian
         private void FormAccountInfo_Load(object sender, EventArgs e)
         {
             //what functions available in this case?
-            if (displayAll == "all" || user.type.ToString() == "employee")
+            if (displayAll == "all")
             {
                 //display all functions
                 textBoxUsername.ReadOnly = false;
@@ -42,6 +42,7 @@ namespace VirtualLibrarian
                 textBoxSurname.ReadOnly = false;
                 textBoxEmail.ReadOnly = false;
                 textBoxBirth.ReadOnly = false;
+                buttonDel.Visible = true;
             }
             else
             {
@@ -125,6 +126,24 @@ namespace VirtualLibrarian
 
             Functions.loadReaders();
             MessageBox.Show("Changes saved");
+            this.Close();
+        }
+
+        private void buttonDel_Click(object sender, EventArgs e)
+        {
+            DialogResult result;
+            result = MessageBox.Show("Are you sure you want to delete " + user.username + " account?", 
+                "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                //read all
+                var Lines = File.ReadAllLines("login.txt");
+                //Username must be unique, so look for it in the line
+                var newLines = Lines.Where(line => !line.Contains(user.username + ";" + user.password));
+                File.WriteAllLines("login.txt", newLines);
+
+                MessageBox.Show("User " + user.username + " deleted");
+            }
             this.Close();
         }
     }

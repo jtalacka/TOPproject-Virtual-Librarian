@@ -353,6 +353,8 @@ namespace VirtualLibrarian
             accInfo.user = passUser;
             accInfo.ShowDialog();
 
+            //clear main window
+            listBoxMain.Items.Clear();
             Functions.loadReaders();
         }
 

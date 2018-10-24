@@ -46,14 +46,11 @@ namespace VirtualLibrarian
             file.Close();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void buttonSelect_Click(object sender, EventArgs e)
         {
             //get selected book info
             returnedBookInfo = listBox1.GetItemText(listBox1.SelectedItem);
-        }
 
-        private void buttonSelect_Click(object sender, EventArgs e)
-        {
             if (returnedBookInfo == "none")
             {
                 MessageBox.Show("Select a book");
