@@ -48,6 +48,28 @@ namespace VirtualLibrarian
             }
         }
 
+        //Search by author or book title
+        private void buttonSearch_Click(object sender, EventArgs e) //same implementation as search by genre
+        {
+            Book.sortList.Clear();
+            buttonSort.Visible = true;
+            //clear main window
+            listBoxMain.Items.Clear();
+
+            //checks all the books in the bookList (filled on form load)
+            foreach (Book tempBook in Book.bookList)
+            {
+                //checks tempBook - if it fits, returns tempBook info to display            
+                if (Functions.search(textBox1.Text, tempBook) != "no match")
+                {
+                    listBoxMain.Items.Add(Functions.search(textBox1.Text, tempBook));
+
+                    //all search results to list for potential sorting
+                    Book.sortList.Add(tempBook);
+                }
+            }
+        }
+
         //search by genre
         private void buttonGenre_Click(object sender, EventArgs e)
         {
@@ -55,10 +77,11 @@ namespace VirtualLibrarian
             buttonSort.Visible = true;
             //clear main window
             listBoxMain.Items.Clear();
+            textBox1.Clear();
 
             //get which genres chosen
             List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
-            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
+            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return; }
 
             //checks all books in bookList
             foreach (Book tempBook in Book.bookList)
@@ -84,29 +107,6 @@ namespace VirtualLibrarian
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
-            }
-            textBox1.Clear();
-        }
-
-        //Search by author or book title
-        private void buttonSearch_Click(object sender, EventArgs e) //same implementation as search by genre
-        {
-            Book.sortList.Clear();
-            buttonSort.Visible = true;
-            //clear main window
-            listBoxMain.Items.Clear();
-
-            //checks all the books in the bookList (filled on form load)
-            foreach (Book tempBook in Book.bookList)
-            {
-                //checks tempBook - if it fits, returns tempBook info to display            
-                if (Functions.search(textBox1.Text, tempBook) != "no match")
-                {
-                    listBoxMain.Items.Add(Functions.search(textBox1.Text, tempBook));
-
-                    //all search results to list for potential sorting
-                    Book.sortList.Add(tempBook);
-                }
             }
         }
 
@@ -140,7 +140,7 @@ namespace VirtualLibrarian
         }
 
 
-        // writes books into the file called username.txt
+        //Take a book
         private void takebook_Click(object sender, EventArgs e)
         {
             //gets selected info about the book
@@ -148,62 +148,47 @@ namespace VirtualLibrarian
             if (text == "")
             { MessageBox.Show("Please select a book"); return; }
 
-            // saves the text in format  isbn;title;author;genres;old quantity
+            // saves the text in format ( isbn;title;author;genres;old_quantity )
             text = text.Replace(" --- ", ";");
             string[] splitInfo = text.Split(';');
-            //exists in reader file? 0=no
-            int exists = 0;
 
             //is quantity = 0?
             int quo = Int32.Parse(splitInfo[4]);
             if (quo == 0)
-            {
-                MessageBox.Show("All copies of this book are taken");
-                return;
-            }
+            { MessageBox.Show("All copies of this book are taken"); return; }
             quo = quo - 1;
 
+            //exists in reader file?
+            bool exists = false;
+            if (System.IO.File.Exists(userBooks))
+            {
+                exists = Functions.checkIfExistsInFile(userBooks, splitInfo[0]);
+            }
+            if (exists == true)
+            { MessageBox.Show("You have already taken this book"); return; }
+
+
+            //ALL GOOD -> WRITE INFO. INTO FILES: username.txt, taken.txt, books.txt
             //form date when taken
             string dateTaken = DateTime.Now.ToShortDateString();
             //form return date
             var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
+            //form information to write
+            string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
+                                   splitInfo[3] + ";" + dateTaken + ";" + dateReturn;
 
-            string line;
-            if (System.IO.File.Exists(userBooks))
-            {
-                StreamReader file = new StreamReader(userBooks);
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line == text + ";" + dateTaken + ";" + dateReturn)
-                    {
-                        MessageBox.Show("You have already taken this book");
-                        exists = 1;
-                        break;
-                    }
-                }
-                file.Close();
-            }
-            if (exists == 0)
-            {
-                using (StreamWriter sw = File.AppendText(userBooks))
-                {
-                    sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                           splitInfo[3] + ";" + dateTaken + ";" + dateReturn);
-                }
-                //track taken
-                using (StreamWriter sw = File.AppendText("taken.txt"))
-                {
-                    sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                            splitInfo[3]+ ";" + dateTaken + ";" + dateReturn + ";" + user.username);
-                }
+            using (StreamWriter sw = File.AppendText(userBooks))
+            { sw.WriteLine(infoAboutBook); }
+            //track all taken books
+            using (StreamWriter sw = File.AppendText("taken.txt"))
+            { sw.WriteLine(infoAboutBook + ";" + user.username); }
 
-                MessageBox.Show("Book \n" + text + " \nadded ");
-            }
+            MessageBox.Show("Book \n" + text + " \nadded ");
 
             //change quantity in file
             //read all text
             string Ftext = File.ReadAllText("books.txt");
-            //old line (in format isbn;title;author;genres;old quantity)
+            //old line (in format isbn;title;author;genres;old_quantity)
             string oLine = text;
             //new line
             string nLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
@@ -229,7 +214,7 @@ namespace VirtualLibrarian
             }
             else
             {
-                MessageBox.Show("You haven't taken any books (no file created)");
+                MessageBox.Show("You haven't ever taken any books (no file created)");
                 return;
             }
         }
@@ -300,7 +285,6 @@ namespace VirtualLibrarian
 
             foreach (Book tempBook in Book.bookList)
             {
-                bool matchFound = false;
                 foreach (string g in genres)
                 {
                     foreach (string bg in tempBook.genres)
@@ -310,16 +294,14 @@ namespace VirtualLibrarian
                         {
                             //returns object parameter string
                             listBoxMain.Items.Add(tempBook.ObToString(tempBook));
-                            matchFound = true;
                             break;
                         }
-                    }
-                    if (matchFound)
-                    {
-                        break;
                     }
                 }
             }
         }
+
+
+
     }
 }

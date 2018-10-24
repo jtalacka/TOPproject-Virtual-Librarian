@@ -131,12 +131,15 @@ namespace VirtualLibrarian
 
 
         //check if username / ISBN exists in file 
+        // if very_first_string_in_line == whatToLookFor => returns true;
         public static bool checkIfExistsInFile(string fileName, string whatToLookFor)
         {
             bool ExistsResult = false;
+
             string line;
             string[] lineSplit;
             StreamReader file = new StreamReader(fileName);
+
             while ((line = file.ReadLine()) != null)
             {
                 lineSplit = line.Split(';');

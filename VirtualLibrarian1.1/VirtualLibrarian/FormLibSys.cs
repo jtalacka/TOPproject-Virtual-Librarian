@@ -67,16 +67,14 @@ namespace VirtualLibrarian
             //gets selected info about the book
             string info = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (info == "")
-            {
-                MessageBox.Show("Please select a book to edit");
-                return;
-            }
+            { MessageBox.Show("Please select a book to edit"); return; }
+
             info = info.Replace(" --- ", ";");
             string[] lineSplit = info.Split(';');
 
             //define book
             Book book = new Book(lineSplit[0], lineSplit[1], lineSplit[2],
-                lineSplit[3].Split(new char[] { ' ' }).ToList(), Int32.Parse(lineSplit[4]));
+                lineSplit[3].Split(' ').ToList(), Int32.Parse(lineSplit[4]));
 
             FormEditBook eb = new FormEditBook();
             //pass defined book
@@ -171,9 +169,9 @@ namespace VirtualLibrarian
             if (readerInfo == "")
             { MessageBox.Show("Please select a reader account"); return; }
 
-
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
+
             //new form - to get info. about the book being taken
             FormGiveBook gb = new FormGiveBook();
             gb.ShowDialog();
@@ -186,56 +184,45 @@ namespace VirtualLibrarian
 
             if (givenBookInfo != "none")
             {
-                //quantity is never 0, because in FormGiveBook books with quantity=0 are not dispayed
+                //is quantity != 0?
                 int quo = Int32.Parse(splitInfo[4]);
+                if (quo == 0)
+                { MessageBox.Show("All copies of this book are taken"); return; }
                 quo = quo - 1;
 
-                //write info about book into their file
-                //their file  
+                //write info about book into their file 
                 string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
 
-                //is this book already taken by this reader?
-                int exists = 0;
-                string line;
-                //file already exists
+                //exists in reader file?
+                bool exists = false;
                 if (System.IO.File.Exists(userBooks))
                 {
-                    StreamReader file = new StreamReader(userBooks);
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        if (line.Contains(splitInfo[0] + ";" + splitInfo[1]))
-                        {
-                            MessageBox.Show("This reader has already taken this book");
-                            exists = 1;
-                            break;
-                        }
-                    }
-                    file.Close();
+                    exists = Functions.checkIfExistsInFile(userBooks, splitInfo[0]);
                 }
-                //if book new - write it in
+                if (exists == true)
+                { MessageBox.Show("You have already taken this book"); return; }
 
+                //ALL GOOD -> WRITE NEEDED INFO. INTO FILES: username.txt, taken.txt, books.txt
                 //form date when taken
                 string dateTaken = DateTime.Now.ToShortDateString();
                 //form return date
                 var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
+                //form information to write
+                string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
+                                       splitInfo[3] + ";" + dateTaken + ";" + dateReturn;
 
-                if (exists == 0)
+                using (StreamWriter sw = File.AppendText(userBooks))
                 {
-                    using (StreamWriter sw = File.AppendText(userBooks))
-                    {
-                        sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                           splitInfo[3] + ";" + dateTaken + ";" + dateReturn);
-                    }
-                    //track taken
-                    using (StreamWriter sw = File.AppendText("taken.txt"))
-                    {
-                        sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                           splitInfo[3] + ";" + dateTaken + ";" + dateReturn+ ";" + readerInfoSplit[0]);
-                    }
-
-                    MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
-
+                    sw.WriteLine(infoAboutBook);
                 }
+                //track all taken books
+                using (StreamWriter sw = File.AppendText("taken.txt"))
+                {
+                    sw.WriteLine(infoAboutBook + ";" + readerInfoSplit[0]);
+                }
+
+                MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
+
                 //change quantity in file
                 //read all text
                 string Ftext = File.ReadAllText("books.txt");
@@ -249,6 +236,8 @@ namespace VirtualLibrarian
                 //write it back
                 File.WriteAllText("books.txt", Ftext);
 
+                //if changes ever made to file --- reload the list!
+                Functions.loadLibraryBooks();
             }
         }
 
@@ -258,7 +247,7 @@ namespace VirtualLibrarian
             //get info about selected reader
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
-            { MessageBox.Show("Please select a reader account"); return; }
+                { MessageBox.Show("Please select a reader account"); return; }
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
@@ -268,7 +257,7 @@ namespace VirtualLibrarian
 
             if (!System.IO.File.Exists(userBooks))
             {
-                MessageBox.Show("This reader has never taken any books (no file created)");
+                MessageBox.Show("Selected reader has never taken any books (no file created)");
                 return;
             }
             else
@@ -281,7 +270,7 @@ namespace VirtualLibrarian
 
             //info about book being returned => returnedBookInfo
             string returnedBookInfo = FormReaderBooks.returnedBookInfo;
-            //format of returnedBookInfo isbn;title;author;genres;date taken;date returned
+            //format of returnedBookInfo   isbn;title;author;genres;date taken;date returned
             returnedBookInfo = returnedBookInfo.Replace(" --- ", ";");
             string[] splitInfo = returnedBookInfo.Split(';');
 
@@ -292,7 +281,7 @@ namespace VirtualLibrarian
                 if (DateTime.Parse(splitInfo[5]) < DateTime.Parse(dateToday))
                 {
                     var late = DateTime.Parse(dateToday) - DateTime.Parse(splitInfo[5]);
-                    MessageBox.Show(readerInfoSplit[0] + " is late to return this book by: " + late + "days");
+                    MessageBox.Show(readerInfoSplit[0] + " is late to return this book by: " + late.Days + "days");
                 }
 
                 //delete in user file
@@ -304,13 +293,11 @@ namespace VirtualLibrarian
 
                 //delete in taken.txt
                 Lines = File.ReadAllLines("taken.txt");
-                newLines = Lines.Where(line => !line.Contains(
-                    returnedBookInfo + ";" + readerInfoSplit[0]));
+                newLines = Lines.Where(line => !line.Contains(returnedBookInfo + ";" + readerInfoSplit[0]));
                 File.WriteAllLines("taken.txt", newLines);
 
 
-              
-                //change quantity in file
+                //change (add) quantity in books.txt
                 //read all text
                 string Ftext = File.ReadAllText("books.txt");
 
@@ -319,27 +306,31 @@ namespace VirtualLibrarian
                 //checks all the books in the list bookList
                 foreach (Book tempBook in Book.bookList)
                 {
-                    if (tempBook.ISBN == splitInfo[0] && tempBook.author == splitInfo[1])
+                    if (tempBook.ISBN == splitInfo[0] && tempBook.title == splitInfo[1])
                     {
                         quo = tempBook.quantity;
                         break;
                     }
                 }
 
+                string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + 
+                                       splitInfo[2] + ";" + splitInfo[3];
                 //old line
-                string oLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                               splitInfo[3] + ";" + quo.ToString();
+                string oLine = infoAboutBook + ";" + quo.ToString();
 
                 quo = quo + 1;
 
                 //new line
-                string nLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                               splitInfo[3] + ";" + quo.ToString();
+                string nLine = infoAboutBook + ";" + quo.ToString();
+
 
                 //modifiy old text
                 Ftext = Ftext.Replace(oLine, nLine);
                 //write it back
                 File.WriteAllText("books.txt", Ftext);
+
+                //if changes ever made to file --- reload the list!
+                Functions.loadLibraryBooks();
             }
         }
 
@@ -351,10 +342,11 @@ namespace VirtualLibrarian
             User passUser = new User();
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
-            { MessageBox.Show("Please select a reader account"); return; }
+                { MessageBox.Show("Please select a reader account"); return; }
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
+            //get ALL info. about reader
             foreach (User reader in User.readerList)
             {
                 if (reader.username == readerInfoSplit[0])
