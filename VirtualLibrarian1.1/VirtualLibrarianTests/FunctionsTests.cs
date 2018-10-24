@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
 
 namespace VirtualLibrarian.Tests
 {
@@ -16,40 +18,58 @@ namespace VirtualLibrarian.Tests
         {
             //variables
             string infoToLookFor = "Sherlock";
-            string resultOfSearch = "none";
-            string forseenResult =
-           "978-0486474915;The Adventures of Sherlock Holmes;Arthur Conan Doyle;Adventure Mystery;0";
 
-            //do the search in bookList
-            foreach (Book bookFromList in Book.bookList)
-            {
-                if (Functions.search(infoToLookFor, bookFromList) != "no match")
+            List<string> g = new List<string> { "Adventure", "Mystery" };
+            List<Book> bookList = new List<Book>
                 {
-                    resultOfSearch = Functions.search(infoToLookFor, bookFromList);
-                    resultOfSearch = resultOfSearch.Replace(" --- ", ";");
+                new Book("978-1786298997", "A Brush with Chaos", "Ken Melber", g, 1), 
+                new Book("978-0486275437", "Alice in Woderland", "Lewis Carol", g, 2),
+                new Book("978-0486474915", "The Adventures of Sherlock Holmes", "Arthur Conan Doyle", g, 1)
+                };
+
+
+            string forseenResult =
+           "978-0486474915 --- The Adventures of Sherlock Holmes --- " +
+           "Arthur Conan Doyle --- Adventure Mystery --- 1";
+            string testRes = "";
+
+
+            //checks all the books in the list bookList
+            foreach (Book tempBook in bookList)
+            {
+                //checks tempBook - if it fits, returns tempBook info to display            
+                if (Functions.search(infoToLookFor, tempBook) != "no match")
+                {
+                    testRes = Functions.search(infoToLookFor, tempBook);
                     break;
                 }
             }
             //found the right book?
-            StringAssert.Contains(resultOfSearch, forseenResult);
+            Assert.AreEqual(testRes, forseenResult);
         }
 
         [TestMethod()]
         public void searchRTest()
         {
             //variables
-            string infoToLookFor = "move";
-            string resultOfSearch = "none";
+            string infoToLookFor = "move4582";
+            List<User> readerList = new List<User>
+                {
+                new User("user1", "Lazy", "Batch", "email.com", "2000"), 
+                new User("test", "move", "4582", "bing.@com", "2018-10-24"),
+                new User("move4582", "monika", "vedrickaite", "email@email.com", "1998")
+                };
+
+            string resultOfSearch = "";
             string forseenResult =
-           "move4582 --- monika --- vedrickaite --- email@email.com  --- 1998";
+           "move4582 --- monika --- vedrickaite --- email@email.com --- 1998";
 
             //do the search
-            foreach (User reader in User.readerList)
+            foreach (User reader in readerList)
             {
                 if (Functions.searchR(infoToLookFor, reader) != "no match")
                 {
                     resultOfSearch = Functions.searchR(infoToLookFor, reader);
-                    resultOfSearch = resultOfSearch.Replace(" --- ", ";");
                     break;
                 }
             }
