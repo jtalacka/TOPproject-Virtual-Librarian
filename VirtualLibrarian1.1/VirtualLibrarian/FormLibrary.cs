@@ -190,6 +190,13 @@ namespace VirtualLibrarian
                     sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
                            splitInfo[3] + ";" + dateTaken + ";" + dateReturn);
                 }
+                //track taken
+                using (StreamWriter sw = File.AppendText("taken.txt"))
+                {
+                    sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
+                            splitInfo[3]+ ";" + dateTaken + ";" + dateReturn + ";" + user.username);
+                }
+
                 MessageBox.Show("Book \n" + text + " \nadded ");
             }
 

@@ -57,6 +57,7 @@ namespace VirtualLibrarian
         //List for all books AND books to sort
         public static List<Book> bookList = new List<Book>();
         public static List<Book> sortList = new List<Book>();
+        public static List<string> takenBookList = new List<string>();
 
 
 

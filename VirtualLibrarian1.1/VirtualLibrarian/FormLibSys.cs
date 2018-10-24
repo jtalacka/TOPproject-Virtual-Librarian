@@ -203,7 +203,7 @@ namespace VirtualLibrarian
                     StreamReader file = new StreamReader(userBooks);
                     while ((line = file.ReadLine()) != null)
                     {
-                        if (line == givenBookInfo)
+                        if (line.Contains(splitInfo[0] + ";" + splitInfo[1]))
                         {
                             MessageBox.Show("This reader has already taken this book");
                             exists = 1;
@@ -225,8 +225,16 @@ namespace VirtualLibrarian
                     {
                         sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
                            splitInfo[3] + ";" + dateTaken + ";" + dateReturn);
-                        MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
                     }
+                    //track taken
+                    using (StreamWriter sw = File.AppendText("taken.txt"))
+                    {
+                        sw.WriteLine(splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
+                           splitInfo[3] + ";" + dateTaken + ";" + dateReturn+ ";" + readerInfoSplit[0]);
+                    }
+
+                    MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
+
                 }
                 //change quantity in file
                 //read all text
@@ -287,13 +295,21 @@ namespace VirtualLibrarian
                     MessageBox.Show(readerInfoSplit[0] + " is late to return this book by: " + late + "days");
                 }
 
-                //delete
+                //delete in user file
                 var Lines = File.ReadAllLines(userBooks);
                 var newLines = Lines.Where(line => !line.Contains(returnedBookInfo));
                 File.WriteAllLines(userBooks, newLines);
+
                 MessageBox.Show("Book\n" + splitInfo[1] + "\ndeleted from reader account");
 
+                //delete in taken.txt
+                Lines = File.ReadAllLines("taken.txt");
+                newLines = Lines.Where(line => !line.Contains(
+                    returnedBookInfo + ";" + readerInfoSplit[0]));
+                File.WriteAllLines("taken.txt", newLines);
 
+
+              
                 //change quantity in file
                 //read all text
                 string Ftext = File.ReadAllText("books.txt");
@@ -339,9 +355,9 @@ namespace VirtualLibrarian
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
-            foreach(User reader in User.readerList)
+            foreach (User reader in User.readerList)
             {
-                if(reader.username == readerInfoSplit[0])
+                if (reader.username == readerInfoSplit[0])
                 {
                     passUser = reader;
                     break;

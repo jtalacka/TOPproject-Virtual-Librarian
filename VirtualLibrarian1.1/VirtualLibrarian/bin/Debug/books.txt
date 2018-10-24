@@ -6,12 +6,12 @@
 978-0439708180;Harry Potter and the Sorcerer's Stone;J.K. Rowling;Fantasy Adventure Mystery;3
 978-0671722852;Romeo and Juliet;William Shakespeare;Romance Drama;0
 978-0062315007;The Alchemist;Paulo Coelho;Philosophy;1
-978-1451673319;Fahrenheit 451;Ray Bradbury;Science-fiction;0
-978-1476731421;A Lady in Shadows;Lene Kaaberbol;Mystery;5
-978-0307949486;The Girl with the Dragon Tattoo;Stieg Larsson;Mystery Drama;6
+978-1451673319;Fahrenheit 451;Ray Bradbury;Science-fiction;1
+978-1476731421;A Lady in Shadows;Lene Kaaberbol;Mystery;3
+978-0307949486;The Girl with the Dragon Tattoo;Stieg Larsson;Mystery Drama;3
 978-0385074070;The Complete Stories and Poems;Edgar Allan Poe;Horror Poetry;1
 978-0399226908;The Very Hungry Caterpillar;Eric Carle;Children's;3
-978-0142402498;Pippi Longstocking;Astrid Lindgren;Children's;5
+978-0142402498;Pippi Longstocking;Astrid Lindgren;Children's;3
 978-0142410318;Charlie and the Chocolate Factory;Roald Dahl;Children's;2
 978-1505280951;The Wonderful Wizard of Oz;L. Frank Baum;Children's Adventure;6
 978-0064401845;Bridge to Terabithia;Katherine Paterson;Fantasy Children's;4
