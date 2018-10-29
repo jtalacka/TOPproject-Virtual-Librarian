@@ -63,7 +63,7 @@ namespace VirtualLibrarian
             {
                 openFileDialog1.OpenFile();
                 barcodeBitmap = new Bitmap(openFileDialog1.FileName);
-                // MessageBox.Show(openFileDialog1.FileName);
+           //      MessageBox.Show(openFileDialog1.FileName);
 
                 readISBN(barcodeBitmap);
 
@@ -71,21 +71,23 @@ namespace VirtualLibrarian
             }
 
         }
-        private void readISBN(Bitmap barcodeBitmap) {
+        public string readISBN(Bitmap barcodeBitmap) {
             IBarcodeReader reader = new BarcodeReader();
             var result = reader.Decode(barcodeBitmap);
             if (result != null)
             {
-                //  MessageBox.Show(result.BarcodeFormat.ToString());
-                //      MessageBox.Show(result.Text);
+                  MessageBox.Show(result.BarcodeFormat.ToString());
+                     MessageBox.Show(result.Text);
                 results = result.Text;
                 if (FinalVideo!=null)
                 {
                     FinalVideo.SignalToStop();
                 }
                 
-                this.BeginInvoke((MethodInvoker)delegate { this.Close(); });
-            }    
+                return results;
+            }
+            return "";
+            
             
         }
 
@@ -107,11 +109,15 @@ namespace VirtualLibrarian
             }
         }
         private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs) {
+            string res;
             Bitmap video = (Bitmap)eventArgs.Frame.Clone();
             Bitmap video2 = new Bitmap(video);
             pictureBox1.Image = video;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-             readISBN(video2);
+            res=readISBN(video2);
+            if (res != "") {
+                this.BeginInvoke((MethodInvoker)delegate { this.Close(); });
+            }
 
  
         }
