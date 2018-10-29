@@ -45,16 +45,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonChange = new System.Windows.Forms.Button();
+            this.buttonTaken = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBoxMain
             // 
             this.listBoxMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.listBoxMain.FormattingEnabled = true;
+            this.listBoxMain.HorizontalScrollbar = true;
             this.listBoxMain.ItemHeight = 18;
             this.listBoxMain.Location = new System.Drawing.Point(12, 92);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(868, 256);
+            this.listBoxMain.Size = new System.Drawing.Size(916, 256);
             this.listBoxMain.TabIndex = 17;
             // 
             // textBoxBook
@@ -88,7 +90,7 @@
             // 
             // textBoxReader
             // 
-            this.textBoxReader.Location = new System.Drawing.Point(635, 54);
+            this.textBoxReader.Location = new System.Drawing.Point(683, 54);
             this.textBoxReader.Name = "textBoxReader";
             this.textBoxReader.Size = new System.Drawing.Size(245, 20);
             this.textBoxReader.TabIndex = 24;
@@ -106,9 +108,9 @@
             // 
             // buttonSearchReader
             // 
-            this.buttonSearchReader.Location = new System.Drawing.Point(546, 53);
+            this.buttonSearchReader.Location = new System.Drawing.Point(594, 53);
             this.buttonSearchReader.Name = "buttonSearchReader";
-            this.buttonSearchReader.Size = new System.Drawing.Size(83, 20);
+            this.buttonSearchReader.Size = new System.Drawing.Size(83, 22);
             this.buttonSearchReader.TabIndex = 27;
             this.buttonSearchReader.Text = "Search reader";
             this.buttonSearchReader.UseVisualStyleBackColor = true;
@@ -116,7 +118,7 @@
             // 
             // buttonReturn
             // 
-            this.buttonReturn.Location = new System.Drawing.Point(718, 18);
+            this.buttonReturn.Location = new System.Drawing.Point(766, 18);
             this.buttonReturn.Name = "buttonReturn";
             this.buttonReturn.Size = new System.Drawing.Size(77, 25);
             this.buttonReturn.TabIndex = 28;
@@ -127,9 +129,9 @@
             // 
             // buttonSearchBook
             // 
-            this.buttonSearchBook.Location = new System.Drawing.Point(260, 54);
+            this.buttonSearchBook.Location = new System.Drawing.Point(260, 53);
             this.buttonSearchBook.Name = "buttonSearchBook";
-            this.buttonSearchBook.Size = new System.Drawing.Size(84, 20);
+            this.buttonSearchBook.Size = new System.Drawing.Size(84, 21);
             this.buttonSearchBook.TabIndex = 29;
             this.buttonSearchBook.Text = "Search book";
             this.buttonSearchBook.UseVisualStyleBackColor = true;
@@ -137,7 +139,7 @@
             // 
             // buttonTake
             // 
-            this.buttonTake.Location = new System.Drawing.Point(635, 18);
+            this.buttonTake.Location = new System.Drawing.Point(683, 18);
             this.buttonTake.Name = "buttonTake";
             this.buttonTake.Size = new System.Drawing.Size(77, 25);
             this.buttonTake.TabIndex = 30;
@@ -158,7 +160,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(801, 17);
+            this.label2.Location = new System.Drawing.Point(849, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 26);
             this.label2.TabIndex = 32;
@@ -176,7 +178,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(834, 354);
+            this.buttonExit.Location = new System.Drawing.Point(883, 354);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(45, 23);
             this.buttonExit.TabIndex = 34;
@@ -187,7 +189,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(624, 78);
+            this.label4.Location = new System.Drawing.Point(672, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(255, 13);
             this.label4.TabIndex = 35;
@@ -206,7 +208,7 @@
             // 
             // buttonChange
             // 
-            this.buttonChange.Location = new System.Drawing.Point(546, 18);
+            this.buttonChange.Location = new System.Drawing.Point(594, 18);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(83, 25);
             this.buttonChange.TabIndex = 37;
@@ -215,11 +217,22 @@
             this.buttonChange.Visible = false;
             this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
             // 
+            // buttonTaken
+            // 
+            this.buttonTaken.Location = new System.Drawing.Point(12, 354);
+            this.buttonTaken.Name = "buttonTaken";
+            this.buttonTaken.Size = new System.Drawing.Size(100, 23);
+            this.buttonTaken.TabIndex = 38;
+            this.buttonTaken.Text = "All taken books";
+            this.buttonTaken.UseVisualStyleBackColor = true;
+            this.buttonTaken.Click += new System.EventHandler(this.buttonTaken_Click);
+            // 
             // FormLibSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 383);
+            this.ClientSize = new System.Drawing.Size(939, 383);
+            this.Controls.Add(this.buttonTaken);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
@@ -263,5 +276,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonChange;
+        private System.Windows.Forms.Button buttonTaken;
     }
 }

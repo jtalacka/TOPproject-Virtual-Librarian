@@ -169,34 +169,9 @@ namespace VirtualLibrarian
 
 
             //ALL GOOD -> WRITE INFO. INTO FILES: username.txt, taken.txt, books.txt
-            //form date when taken
-            string dateTaken = DateTime.Now.ToShortDateString();
-            //form return date
-            var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
-            //form information to write
-            string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                                   splitInfo[3] + ";" + dateTaken + ";" + dateReturn;
-
-            using (StreamWriter sw = File.AppendText(userBooks))
-            { sw.WriteLine(infoAboutBook); }
-            //track all taken books
-            using (StreamWriter sw = File.AppendText("taken.txt"))
-            { sw.WriteLine(infoAboutBook + ";" + user.username); }
+            Functions.takeORGiveBook(splitInfo, text, userBooks, user.username, quo);
 
             MessageBox.Show("Book \n" + text + " \nadded ");
-
-            //change quantity in file
-            //read all text
-            string Ftext = File.ReadAllText("books.txt");
-            //old line (in format isbn;title;author;genres;old_quantity)
-            string oLine = text;
-            //new line
-            string nLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                           splitInfo[3] + ";" + quo.ToString();
-            //modifiy old text
-            Ftext = Ftext.Replace(oLine, nLine);
-            //write it back
-            File.WriteAllText("books.txt", Ftext);
 
             listBoxMain.Items.Clear();
             //if changes ever made to file --- reload the list!

@@ -126,6 +126,26 @@ namespace VirtualLibrarian
             lib.user = user;
             lib.Show();
         }
+        //display all taken books
+        private void buttonTaken_Click(object sender, EventArgs e)
+        {
+            //clear main window
+            listBoxMain.Items.Clear();
+            //Hide buttons realted to library management
+            buttonAdd.Visible = false;
+            buttonEdit.Visible = false;
+            buttonDel.Visible = false;
+            textBoxBook.Clear();
+            label3.Visible = false;
+
+            string line;
+            StreamReader file = new StreamReader("taken.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                listBoxMain.Items.Add(line.Replace(";", " --- "));
+            }
+            file.Close();
+        }
 
 
 
@@ -203,38 +223,9 @@ namespace VirtualLibrarian
                 { MessageBox.Show("You have already taken this book"); return; }
 
                 //ALL GOOD -> WRITE NEEDED INFO. INTO FILES: username.txt, taken.txt, books.txt
-                //form date when taken
-                string dateTaken = DateTime.Now.ToShortDateString();
-                //form return date
-                var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
-                //form information to write
-                string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                                       splitInfo[3] + ";" + dateTaken + ";" + dateReturn;
-
-                using (StreamWriter sw = File.AppendText(userBooks))
-                {
-                    sw.WriteLine(infoAboutBook);
-                }
-                //track all taken books
-                using (StreamWriter sw = File.AppendText("taken.txt"))
-                {
-                    sw.WriteLine(infoAboutBook + ";" + readerInfoSplit[0]);
-                }
+                Functions.takeORGiveBook(splitInfo, givenBookInfo, userBooks, readerInfoSplit[0], quo);
 
                 MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
-
-                //change quantity in file
-                //read all text
-                string Ftext = File.ReadAllText("books.txt");
-                //old line
-                string oLine = givenBookInfo;
-                //new line
-                string nLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                               splitInfo[3] + ";" + quo.ToString();
-                //modifiy old text
-                Ftext = Ftext.Replace(oLine, nLine);
-                //write it back
-                File.WriteAllText("books.txt", Ftext);
 
                 //if changes ever made to file --- reload the list!
                 Functions.loadLibraryBooks();
@@ -247,7 +238,7 @@ namespace VirtualLibrarian
             //get info about selected reader
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
-                { MessageBox.Show("Please select a reader account"); return; }
+            { MessageBox.Show("Please select a reader account"); return; }
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
@@ -313,7 +304,7 @@ namespace VirtualLibrarian
                     }
                 }
 
-                string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + 
+                string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" +
                                        splitInfo[2] + ";" + splitInfo[3];
                 //old line
                 string oLine = infoAboutBook + ";" + quo.ToString();
@@ -342,7 +333,7 @@ namespace VirtualLibrarian
             User passUser = new User();
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
-                { MessageBox.Show("Please select a reader account"); return; }
+            { MessageBox.Show("Please select a reader account"); return; }
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
