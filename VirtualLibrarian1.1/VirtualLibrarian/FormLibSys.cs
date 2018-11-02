@@ -38,15 +38,15 @@ namespace VirtualLibrarian
             listBoxMain.Items.Clear();
 
             //reload books in case changes were made in file
-            Functions.loadLibraryBooks();
+            Library.loadLibraryBooks();
 
             //checks all the books in the list bookList
             foreach (Book tempBook in Book.bookList)
             {
                 //checks tempBook - if it fits, returns tempBook info to display            
-                if (Functions.search(textBoxBook.Text, tempBook) != "no match")
+                if (Library.searchAuthororTitle(textBoxBook.Text, tempBook) != "no match")
                 {
-                    listBoxMain.Items.Add(Functions.search(textBoxBook.Text, tempBook));
+                    listBoxMain.Items.Add(Library.searchAuthororTitle(textBoxBook.Text, tempBook));
                 }
             }
         }
@@ -106,11 +106,7 @@ namespace VirtualLibrarian
             result = MessageBox.Show("Are you sure you want to delete '" + t + "'?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                //read all
-                var Lines = File.ReadAllLines("books.txt");
-                //ISBN must be unique, so look for it in the line
-                var newLines = Lines.Where(line => !line.Contains(code + ";" + t));
-                File.WriteAllLines("books.txt", newLines);
+                Library_System.deleteBook(code, t);
 
                 MessageBox.Show("Book " + t + " deleted");
                 //clear main window
@@ -126,6 +122,7 @@ namespace VirtualLibrarian
             lib.user = user;
             lib.Show();
         }
+
         //display all taken books
         private void buttonTaken_Click(object sender, EventArgs e)
         {
@@ -174,9 +171,9 @@ namespace VirtualLibrarian
             foreach (User reader in User.readerList)
             {
                 //checks reader - if it fits, returns reader info to display            
-                if (Functions.searchR(textBoxReader.Text, reader) != "no match")
+                if (Library_System.searchR(textBoxReader.Text, reader) != "no match")
                 {
-                    listBoxMain.Items.Add(Functions.searchR(textBoxReader.Text, reader));
+                    listBoxMain.Items.Add(Library_System.searchR(textBoxReader.Text, reader));
                 }
             }
         }
@@ -210,25 +207,25 @@ namespace VirtualLibrarian
                 { MessageBox.Show("All copies of this book are taken"); return; }
                 quo = quo - 1;
 
-                //write info about book into their file 
+                //their file 
                 string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
 
                 //exists in reader file?
                 bool exists = false;
                 if (System.IO.File.Exists(userBooks))
                 {
-                    exists = Functions.checkIfExistsInFile(userBooks, splitInfo[0]);
+                    exists = Login_or_Signup.checkIfExistsInFile(userBooks, splitInfo[0]);
                 }
                 if (exists == true)
                 { MessageBox.Show("You have already taken this book"); return; }
 
                 //ALL GOOD -> WRITE NEEDED INFO. INTO FILES: username.txt, taken.txt, books.txt
-                Functions.takeORGiveBook(splitInfo, givenBookInfo, userBooks, readerInfoSplit[0], quo);
+                Library.takeORGiveBook(splitInfo, givenBookInfo, userBooks, readerInfoSplit[0], quo);
 
                 MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
 
                 //if changes ever made to file --- reload the list!
-                Functions.loadLibraryBooks();
+                Library.loadLibraryBooks();
             }
         }
 
@@ -275,53 +272,14 @@ namespace VirtualLibrarian
                     MessageBox.Show(readerInfoSplit[0] + " is late to return this book by: " + late.Days + "days");
                 }
 
-                //delete in user file
-                var Lines = File.ReadAllLines(userBooks);
-                var newLines = Lines.Where(line => !line.Contains(returnedBookInfo));
-                File.WriteAllLines(userBooks, newLines);
+                //delete in user file AND in taken.txt, ALSO add quantity in books.txt
+                Library_System.deleteBookFromReaderFile(userBooks, returnedBookInfo, 
+                    readerInfoSplit[0], splitInfo);
 
                 MessageBox.Show("Book\n" + splitInfo[1] + "\ndeleted from reader account");
 
-                //delete in taken.txt
-                Lines = File.ReadAllLines("taken.txt");
-                newLines = Lines.Where(line => !line.Contains(returnedBookInfo + ";" + readerInfoSplit[0]));
-                File.WriteAllLines("taken.txt", newLines);
-
-
-                //change (add) quantity in books.txt
-                //read all text
-                string Ftext = File.ReadAllText("books.txt");
-
-                //what's the current quantity in list?
-                int quo = 0;
-                //checks all the books in the list bookList
-                foreach (Book tempBook in Book.bookList)
-                {
-                    if (tempBook.ISBN == splitInfo[0] && tempBook.title == splitInfo[1])
-                    {
-                        quo = tempBook.quantity;
-                        break;
-                    }
-                }
-
-                string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" +
-                                       splitInfo[2] + ";" + splitInfo[3];
-                //old line
-                string oLine = infoAboutBook + ";" + quo.ToString();
-
-                quo = quo + 1;
-
-                //new line
-                string nLine = infoAboutBook + ";" + quo.ToString();
-
-
-                //modifiy old text
-                Ftext = Ftext.Replace(oLine, nLine);
-                //write it back
-                File.WriteAllText("books.txt", Ftext);
-
                 //if changes ever made to file --- reload the list!
-                Functions.loadLibraryBooks();
+                Library.loadLibraryBooks();
             }
         }
 
@@ -354,7 +312,7 @@ namespace VirtualLibrarian
 
             //clear main window
             listBoxMain.Items.Clear();
-            Functions.loadReaders();
+            Library.loadReaders();
         }
 
 

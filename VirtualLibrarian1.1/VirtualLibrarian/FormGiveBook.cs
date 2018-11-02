@@ -57,9 +57,9 @@ namespace VirtualLibrarian
             foreach (Book tempBook in Book.bookList)
             {
                 //checks tempBook - if it fits, returns tempBook info to display            
-                if (Functions.search(textBox1.Text, tempBook) != "no match")
+                if (Library.searchAuthororTitle(textBox1.Text, tempBook) != "no match")
                 {
-                    listBox1.Items.Add(Functions.search(textBox1.Text, tempBook));
+                    listBox1.Items.Add(Library.searchAuthororTitle(textBox1.Text, tempBook));
                 }
             }
         }

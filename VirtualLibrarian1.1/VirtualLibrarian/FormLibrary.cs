@@ -28,8 +28,8 @@ namespace VirtualLibrarian
         private void FormLibrary_Load(object sender, EventArgs e)
         {
             //FillList class extended method to fill bookList with all books from file
-            Functions.loadLibraryBooks();
-            Functions.loadReaders();
+            Library.loadLibraryBooks();
+            Library.loadReaders();
 
             //form a path to taken user books
             userBooks = @"D:\" + user.username + ".txt";
@@ -49,7 +49,7 @@ namespace VirtualLibrarian
         }
 
         //Search by author or book title
-        private void buttonSearch_Click(object sender, EventArgs e) //same implementation as search by genre
+        private void buttonSearch_Click(object sender, EventArgs e) 
         {
             Book.sortList.Clear();
             buttonSort.Visible = true;
@@ -60,9 +60,9 @@ namespace VirtualLibrarian
             foreach (Book tempBook in Book.bookList)
             {
                 //checks tempBook - if it fits, returns tempBook info to display            
-                if (Functions.search(textBox1.Text, tempBook) != "no match")
+                if (Library.searchAuthororTitle(textBox1.Text, tempBook) != "no match")
                 {
-                    listBoxMain.Items.Add(Functions.search(textBox1.Text, tempBook));
+                    listBoxMain.Items.Add(Library.searchAuthororTitle(textBox1.Text, tempBook));
 
                     //all search results to list for potential sorting
                     Book.sortList.Add(tempBook);
@@ -80,7 +80,7 @@ namespace VirtualLibrarian
             textBox1.Clear();
 
             //get which genres chosen
-            List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
+            List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
             if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return; }
 
             //checks all books in bookList
@@ -162,20 +162,20 @@ namespace VirtualLibrarian
             bool exists = false;
             if (System.IO.File.Exists(userBooks))
             {
-                exists = Functions.checkIfExistsInFile(userBooks, splitInfo[0]);
+                exists = Login_or_Signup.checkIfExistsInFile(userBooks, splitInfo[0]);
             }
             if (exists == true)
             { MessageBox.Show("You have already taken this book"); return; }
 
 
             //ALL GOOD -> WRITE INFO. INTO FILES: username.txt, taken.txt, books.txt
-            Functions.takeORGiveBook(splitInfo, text, userBooks, user.username, quo);
+            Library.takeORGiveBook(splitInfo, text, userBooks, user.username, quo);
 
             MessageBox.Show("Book \n" + text + " \nadded ");
 
             listBoxMain.Items.Clear();
             //if changes ever made to file --- reload the list!
-            Functions.loadLibraryBooks();
+            Library.loadLibraryBooks();
         }
 
         //show new form with taken books
@@ -199,10 +199,7 @@ namespace VirtualLibrarian
         {
             string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (text == "")
-            {
-                MessageBox.Show("Please select a book to view");
-                return;
-            }
+            { MessageBox.Show("Please select a book to view"); return; }
 
             //LINQ 
             var aboutBook = from book in Book.bookList
@@ -237,26 +234,11 @@ namespace VirtualLibrarian
             listBoxMain.Items.Clear();
 
             if (!System.IO.File.Exists(userBooks))
-            {
-                MessageBox.Show("You don't have any books taken, so recommendations can't be formed");
-                return;
-            }
+            { MessageBox.Show("You don't have any books taken, so recommendations can't be formed");
+                return; }
 
             //get genres of books this reader has taken
-            List<string> genres = new List<string>();
-            string line;
-            StreamReader file = new StreamReader(userBooks);
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
-                string[] genreSplit = lineSplit[3].Split(' ');
-                for (int i = 0; i < genreSplit.Length; i++)
-                {
-                    if (!genres.Contains(genreSplit[i]))
-                        genres.Add(genreSplit[i]);
-                }
-            }
-            file.Close();
+            List<string> genres = Library.reccomendations(userBooks);
 
             foreach (Book tempBook in Book.bookList)
             {

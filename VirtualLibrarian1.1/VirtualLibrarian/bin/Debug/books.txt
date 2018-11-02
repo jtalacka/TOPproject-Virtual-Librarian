@@ -22,4 +22,4 @@
 9955-680-09-1;SQL for dummies;Romas Baronas;Encyclopedias;120
 978-1510106284;Six of Crows;Leigh Bardugo;Children's Fantasy;2
 978-1-59116-920-8;Fullmetal Alchemist vol. 1;Hiromu Arakawa;Adventure Drama Fantasy Travel;8
-978-10555289-50;TEST;na;Adventure Mystery;99
+976-0486954;test;test;Art;500

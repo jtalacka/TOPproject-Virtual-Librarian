@@ -21,6 +21,7 @@ namespace VirtualLibrarian
         internal Book book { get; set; }
 
         bool genresChanged = false;
+        string checkedG;
 
         //on load display information
         private void FormEditBook_Load(object sender, EventArgs e)
@@ -36,19 +37,24 @@ namespace VirtualLibrarian
         private void checkedListBoxGenre_Click(object sender, EventArgs e)
         {
             genresChanged = true;
+
+            //get which genres chosen and put into List
+            List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
+            //List into string
+            checkedG = string.Join(" ", checkedGenres.ToArray());
         }
 
         //save changes
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             //check if valid ISBN w regex
-            if (Functions.inputCheck(textBoxISBN.Text, 3) == 0)
+            if (Login_or_Signup.inputCheck(textBoxISBN.Text, 3) == 0)
             {
                 MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
                 textBoxISBN.Focus();
                 return;
             }
-            //check quantity
+            //check if valid quantity
             int qua;
             if (!Int32.TryParse(textBoxQ.Text, out qua))
             {
@@ -57,55 +63,8 @@ namespace VirtualLibrarian
                 return;
             }
 
-            string line;
-            StreamReader file = new StreamReader("books.txt");
-            //read line by line and look for ISBN
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
-
-                //if found our line (unique ISBN)
-                if (lineSplit[0] == book.ISBN)
-                {
-                    //save old info
-                    string[] oInfo = { book.ISBN, book.title,
-                                        book.author, textBoxGenres.Text, book.quantity.ToString() };
-                    //all old info in one string
-                    string oLine = string.Join(";", oInfo);
-                    //new info
-                    string nLine;
-
-                    //if new genres selected 
-                    if (genresChanged == true)
-                    {
-                        //get which genres chosen and put into List
-                        List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
-                        //List into string
-                        string checkedG = string.Join(" ", checkedGenres.ToArray());
-
-                        //form new info string
-                        nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
-                                                textBoxAuthor.Text, checkedG, textBoxQ.Text);
-                    }
-                    else
-                    {
-                        //form new info string
-                        nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
-                                                textBoxAuthor.Text, textBoxGenres.Text, textBoxQ.Text); ;
-                    }
-                    file.Close();
-
-                    //read all text
-                    string text = File.ReadAllText("books.txt");
-                    //modifiy old text
-                    text = text.Replace(oLine, nLine);
-                    //write it back
-                    File.WriteAllText("books.txt", text);
-
-                    //end the madness
-                    break;
-                }
-            }
+            Library_System.editBook(book, textBoxGenres.Text, checkedG, genresChanged,
+                 textBoxISBN.Text, textBoxTitle.Text, textBoxAuthor.Text, textBoxQ.Text);
 
             MessageBox.Show("Changes saved");
             this.Close();

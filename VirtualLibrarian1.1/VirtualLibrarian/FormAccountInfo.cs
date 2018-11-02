@@ -64,14 +64,14 @@ namespace VirtualLibrarian
         private void buttonSave_Click(object sender, EventArgs e)
         {
             //check if valid email w regex
-            if (Functions.inputCheck(textBoxEmail.Text, 1) == 0)
+            if (Login_or_Signup.inputCheck(textBoxEmail.Text, 1) == 0)
             {
                 MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
                 textBoxEmail.Focus();
                 return;
             }
             //check if date the right format
-            if (Functions.inputCheck(textBoxBirth.Text, 2) == 0)
+            if (Login_or_Signup.inputCheck(textBoxBirth.Text, 2) == 0)
             {
                 MessageBox.Show("Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)");
                 textBoxBirth.Focus();
@@ -124,7 +124,7 @@ namespace VirtualLibrarian
                 }
             }
 
-            Functions.loadReaders();
+            Library.loadReaders();
             MessageBox.Show("Changes saved");
             this.Close();
         }

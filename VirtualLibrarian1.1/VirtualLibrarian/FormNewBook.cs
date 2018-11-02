@@ -27,15 +27,22 @@ namespace VirtualLibrarian
 
             //check if valid ISBN w regex
             string ISBN = textBoxISBN.Text;
-            if (Functions.inputCheck(ISBN, 3) == 0)
+            if (Login_or_Signup.inputCheck(ISBN, 3) == 0)
             {
                 MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
                 textBoxISBN.Focus();
                 return;
             }
-
+            //check if ISBN already exists in file
+            if (Login_or_Signup.checkIfExistsInFile("books.txt", textBoxISBN.Text) == true)
+            {
+                MessageBox.Show("Book with this ISBN code already exists");
+                textBoxISBN.Focus();
+                return;
+            }
+            //check if valid quantity
             int qua;
-            if(!Int32.TryParse(textBoxQ.Text, out qua) && qua > 0)
+            if(!Int32.TryParse(textBoxQ.Text, out qua) && qua == 0)
             {
                 MessageBox.Show("Please enter a valid quantity");
                 textBoxQ.Focus();
@@ -43,26 +50,14 @@ namespace VirtualLibrarian
             }
 
             //get which genres chosen
-            List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
+            List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
             if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
 
             //define Book
             Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres, qua);
 
-            //check if ISBN already exists in file
-            if (Functions.checkIfExistsInFile("books.txt", textBoxISBN.Text) == true)
-            {
-                MessageBox.Show("Book with this ISBN code already exists");
-                textBoxISBN.Focus();
-                return;
-            }
             //if ISBN unique - add book to the file
-            using (StreamWriter w = File.AppendText("books.txt"))
-            {
-                //information layout in file
-                w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" + 
-                    string.Join(" ", checkedGenres) + ";" + book.quantity.ToString());
-            }
+            Library_System.addBook(book, checkedGenres);
 
             MessageBox.Show("Book '" + book.title + "' added");
             textBoxISBN.Clear();
