@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -17,48 +18,59 @@ namespace VirtualLibrarian
         //       login,
         //       signup,
         //       inputCheck,
-        //       checkIfExistsInFile
+        //       checkIfExistsInDBUsers
+        //       checkIfExistsInDBBooks
+        //
 
         public static User user = null;
 
         //On buttonLogIn_Click
         public static string login(string username, string pass)
         {
-            string line;
+            //does username exist in db, is password correct, etc.
             bool correct = false;
 
-            //check if input exists in login info file
-            StreamReader file = new StreamReader("login.txt");
-            while ((line = file.ReadLine()) != null)
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            SqlCommand command = new SqlCommand("Select * from Users", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                //split line into strings
-                string[] lineSplit = line.Split(';');
-                //check if input correct / exists
-                //first two strings in file are username and password
-                if (lineSplit[0] == username)
+                while (reader.Read())
                 {
-                    if (lineSplit[1] == pass)
+                    if (reader.GetString(reader.GetOrdinal("Username")) == username)
                     {
-                        //define user object parameters
-                        user = new User(username, pass, lineSplit[2], lineSplit[3], lineSplit[4], lineSplit[5]);
-                        //the 6th string is user type (reader or employee)
-                        if (lineSplit[6] == "reader")
-                        { user.type = User.userType.reader; }
-                        else if (lineSplit[6] == "employee")
-                        { user.type = User.userType.employee; }
-                        else
-                            return "wrong user type";
+                        if (reader.GetString(reader.GetOrdinal("Password")) == pass)
+                        {
+                            //define user object parameters
+                            user = new User(
+                             reader.GetString(reader.GetOrdinal("Username")),
+                             reader.GetString(reader.GetOrdinal("Password")),
+                             reader.GetString(reader.GetOrdinal("Name")),
+                             reader.GetString(reader.GetOrdinal("Surname")),
+                             reader.GetString(reader.GetOrdinal("Email")),
+                             reader.GetDataTypeName(reader.GetOrdinal("Birth")));
 
-                        correct = true;
-                        return "correct";
-                    }
-                    else
-                    {
-                        return "Incorrect password";
+                            //the 6th string is user type (reader or employee)
+                            if (reader.GetString(reader.GetOrdinal("UserType")) == "reader")
+                            { user.type = User.userType.reader; }
+                            else if (reader.GetString(reader.GetOrdinal("UserType")) == "employee")
+                            { user.type = User.userType.employee; }
+                            else
+                                return "wrong specified user type";
+
+                            correct = true;
+                            return "correct";
+                        }
+                        else
+                        {
+                            return "Incorrect password";
+                        }
                     }
                 }
             }
-            file.Close();
+            conn.Close();
 
             if (correct == false)
             {
@@ -77,11 +89,26 @@ namespace VirtualLibrarian
             //by default any new user is a reader
             user.type = User.userType.reader;
 
-            using (StreamWriter w = File.AppendText("login.txt"))
+            //using (StreamWriter w = File.AppendText("login.txt"))
+            //{
+            //    //information layout in file
+            //    w.WriteLine(username + ";" + pass + ";" + name + ";" + surname + ";" + email + ";" + birth + ";" + user.type);
+            //}
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            string sql = "Insert into Users " +
+                "([Username], [Password], [Name], [Surname], [Email], [Birth], [UserType]) " +
+                "values(username, pass, name, surname, email, birth, User.userType.reader)";
+            using (conn)
             {
-                //information layout in file
-                w.WriteLine(username + ";" + pass + ";" + name + ";" + surname + ";" + email + ";" + birth + ";" + user.type);
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
+            conn.Close();
             return "new reader added";
         }
 
@@ -124,29 +151,58 @@ namespace VirtualLibrarian
                 return 1;
         }
 
-        //check if username / ISBN exists in file 
-        // if very_first_string_in_line == whatToLookFor => returns true;
-        public static bool checkIfExistsInFile(string fileName, string whatToLookFor)
+        //check if username exists in db
+        public static bool checkIfExistsInDBUsers(string whatToLookFor)
         {
             bool ExistsResult = false;
 
-            string line;
-            string[] lineSplit;
-            StreamReader file = new StreamReader(fileName);
-
-            while ((line = file.ReadLine()) != null)
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            SqlCommand command = new SqlCommand("Select Username from Users", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                lineSplit = line.Split(';');
-                if (lineSplit[0] == whatToLookFor)
+                while (reader.Read())
                 {
-                    //found that already exists
-                    ExistsResult = true;
-                    file.Close();
-                    return ExistsResult;
+                    if (reader.GetString(reader.GetOrdinal("Username")) == whatToLookFor)
+                    {
+                        //found that already exists
+                        ExistsResult = true;
+                        conn.Close();
+                        return ExistsResult;
+                    }
                 }
+                conn.Close();
+                return ExistsResult;
             }
-            file.Close();
-            return ExistsResult;
+        }
+
+        //check if ISBN exists in db Books
+        public static bool checkIfExistsInDBBooks(string comma, string whatToLookFor)
+        {
+            bool ExistsResult = false;
+
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            SqlCommand command = new SqlCommand(comma, conn);
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetString(reader.GetOrdinal("ISBN")) == whatToLookFor)
+                    {
+                        //found that already exists
+                        ExistsResult = true;
+                        conn.Close();
+                        return ExistsResult;
+                    }
+                }
+                conn.Close();
+                return ExistsResult;
+            }
         }
 
 

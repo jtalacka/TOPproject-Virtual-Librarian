@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,25 +21,47 @@ namespace VirtualLibrarian
         //          takeORGiveBook,
         //          reccomendations
 
-        //Gets all books from file into list
+        //Gets all books from DB into list
         public static void loadLibraryBooks()
         {
             //clear book list
             Book.bookList.fillBookList();
         }
 
-        //Gets all readers from file into list
+        //Gets all readers from DB into list
         public static void loadReaders()
         {
             User.readerList.Clear();
-            string line;
-            StreamReader file = new StreamReader("login.txt");
-            while ((line = file.ReadLine()) != null)
+            
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            SqlCommand command = new SqlCommand("Select * from Users", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                string[] lineSplit = line.Split(';');
-                User.readerList.Add(new User(lineSplit[0], lineSplit[1], lineSplit[2], lineSplit[3], lineSplit[4], lineSplit[5]));
+                while (reader.Read())
+                {
+                    try
+                    {
+                        User.readerList.Add(new User(
+                             reader.GetString(reader.GetOrdinal("Username")),
+                             reader.GetString(reader.GetOrdinal("Password")),
+                             reader.GetString(reader.GetOrdinal("Name")),
+                             reader.GetString(reader.GetOrdinal("Surname")),
+                             reader.GetString(reader.GetOrdinal("Email")),
+                             reader.GetDataTypeName(reader.GetOrdinal("Birth"))));
+                    }
+                     catch(System.Data.SqlClient.SqlException ex)
+                    {
+                        MessageBox.Show("Error: Sql Exception. " +
+                        "\nSomething went wrong when connecting to the database.", "Error message",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
             }
-            file.Close();
+            conn.Close();
         }
 
         //searches Book object - if it fits, returns obj. info to display as a string

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace VirtualLibrarian
 {
@@ -31,6 +32,7 @@ namespace VirtualLibrarian
             if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
             { MessageBox.Show("Please enter login info."); return; }
 
+            //check if login info. correct
             string checkRes = Login_or_Signup.login(textBoxName.Text, textBoxPassword.Text);
             if (checkRes == "correct" && Login_or_Signup.user != null)
             {
@@ -55,7 +57,7 @@ namespace VirtualLibrarian
             }
             else
             {
-                MessageBox.Show("Something's wrong in the file");
+                MessageBox.Show("Something's wrong in the database");
                 this.Close();
             }
         }

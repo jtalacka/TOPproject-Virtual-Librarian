@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace VirtualLibrarian
 {
@@ -14,36 +15,38 @@ namespace VirtualLibrarian
         {
             //clear book list
             Book.bookList.Clear();
-            string line;
-            string templine;
-            StreamReader file = new StreamReader("books.txt");
-            while ((line = file.ReadLine()) != null)
+
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            SqlCommand command = new SqlCommand("Select * from Books", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                templine = line;
-                //split line into strings
-                string[] lineSplit = line.Split(';');
-                //lineSplit[3] contains the genres separated with spaces
-                string[] genreSplit = lineSplit[3].Split(' ');
+                while (reader.Read())
+                {
+                    string gs = reader.GetString(reader.GetOrdinal("Genres"));
+                    List<string> genres = gs.Split(' ').ToList();
 
-                List<string> genres = new List<string>();
-                for (int i = 0; i < genreSplit.Length; i++)
-                {
-                    genres.Add(genreSplit[i]);
-                }
-
-                try
-                {
-                    Book.bookList.Add(new Book(lineSplit[0], lineSplit[1], lineSplit[2], genres, Int32.Parse(lineSplit[4])));
-                }
-                catch (System.IndexOutOfRangeException e)
-                {
-                    System.Windows.Forms.MessageBox.Show("Error: array index out of bounds. " +
-                        "\nSomething wrong in file data layout.", "Error message", 
+                    try
+                    {
+                        Book.bookList.Add(new Book(
+                            reader.GetString(reader.GetOrdinal("ISBN")),
+                            reader.GetString(reader.GetOrdinal("Title")),
+                            reader.GetString(reader.GetOrdinal("Author")),
+                            genres,
+                            reader.GetInt32(reader.GetOrdinal("Quantity"))));
+                    }
+                    catch(System.Data.SqlClient.SqlException ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Error: Sql Exception. " +
+                        "\nSomething went wrong when connecting to the database.", "Error message",
                         System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                    System.Windows.Forms.Application.Exit();
+                        return;
+                    }
                 }
             }
-            file.Close();
+            conn.Close();
         }
     }
 }

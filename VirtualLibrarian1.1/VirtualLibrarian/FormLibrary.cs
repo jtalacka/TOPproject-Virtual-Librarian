@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -153,19 +154,20 @@ namespace VirtualLibrarian
             string[] splitInfo = text.Split(';');
 
             //is quantity = 0?
-            int quo = Int32.Parse(splitInfo[4]);
+            int quo = Int32.Parse(splitInfo[splitInfo.Length-1]);
             if (quo == 0)
             { MessageBox.Show("All copies of this book are taken"); return; }
             quo = quo - 1;
 
             //exists in reader file?
-            bool exists = false;
-            if (System.IO.File.Exists(userBooks))
-            {
-                exists = Login_or_Signup.checkIfExistsInFile(userBooks, splitInfo[0]);
-            }
-            if (exists == true)
-            { MessageBox.Show("You have already taken this book"); return; }
+            //bool exists = false;
+            //if (System.IO.File.Exists(userBooks))
+            //{
+            //   string comma = "Select ISBN from userBooks";
+            //    exists = Login_or_Signup.checkIfExistsInDBBooks(comma, splitInfo[0]);
+            //}
+            //if (exists == true)
+            //{ MessageBox.Show("You have already taken this book"); return; }
 
 
             //ALL GOOD -> WRITE INFO. INTO FILES: username.txt, taken.txt, books.txt

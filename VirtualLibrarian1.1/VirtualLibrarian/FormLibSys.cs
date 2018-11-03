@@ -211,13 +211,14 @@ namespace VirtualLibrarian
                 string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
 
                 //exists in reader file?
-                bool exists = false;
-                if (System.IO.File.Exists(userBooks))
-                {
-                    exists = Login_or_Signup.checkIfExistsInFile(userBooks, splitInfo[0]);
-                }
-                if (exists == true)
-                { MessageBox.Show("You have already taken this book"); return; }
+                //bool exists = false;
+                //if (System.IO.File.Exists(userBooks))
+                //{
+                //    string comma = "Select ISBN from Taken";
+                //    exists = Login_or_Signup.checkIfExistsInDBBooks(comma, splitInfo[0]);
+                //}
+                //if (exists == true)
+                //{ MessageBox.Show("You have already taken this book"); return; }
 
                 //ALL GOOD -> WRITE NEEDED INFO. INTO FILES: username.txt, taken.txt, books.txt
                 Library.takeORGiveBook(splitInfo, givenBookInfo, userBooks, readerInfoSplit[0], quo);
@@ -273,7 +274,7 @@ namespace VirtualLibrarian
                 }
 
                 //delete in user file AND in taken.txt, ALSO add quantity in books.txt
-                Library_System.deleteBookFromReaderFile(userBooks, returnedBookInfo, 
+                Library_System.deleteBookFromReaderFile(userBooks, returnedBookInfo,
                     readerInfoSplit[0], splitInfo);
 
                 MessageBox.Show("Book\n" + splitInfo[1] + "\ndeleted from reader account");

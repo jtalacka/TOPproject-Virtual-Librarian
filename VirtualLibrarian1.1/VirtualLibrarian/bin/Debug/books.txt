@@ -6,7 +6,7 @@
 978-0439708180;Harry Potter and the Sorcerer's Stone;J.K. Rowling;Fantasy Adventure Mystery;5
 978-0671722852;Romeo and Juliet;William Shakespeare;Romance Drama;3
 978-0062315007;The Alchemist;Paulo Coelho;Philosophy;2
-978-1451673319;Fahrenheit 451;Ray Bradbury;Science-fiction;449
+978-1451673319;Fahrenheit 451;Ray Bradbury;Science-fiction;449;448
 978-1476731421;A Lady in Shadows;Lene Kaaberbol;Mystery;12
 978-0307949486;The Girl with the Dragon Tattoo;Stieg Larsson;Mystery Drama;3
 978-0385074070;The Complete Stories and Poems;Edgar Allan Poe;Horror Poetry;5
@@ -15,7 +15,7 @@
 978-0142410318;Charlie and the Chocolate Factory;Roald Dahl;Children's;2
 978-1505280951;The Wonderful Wizard of Oz;L. Frank Baum;Children's Adventure;4
 978-0064401845;Bridge to Terabithia;Katherine Paterson;Fantasy Children's;4
-978-0064404990;The Lion, the Witch and the Wardrobe;C.S. Lewis;Children's Fantasy Adventure;6
+978-0064404990;The Lion, the Witch and the Wardrobe;C. S. Lewis;Children's Fantasy Adventure;6
 978-1416928171;Bunnicula;James Howe;Children's Fantasy Mystery;2
 978-0380807345;Coraline;Neil Gaiman;Mystery Horror Children's;3
 978-0151003082;The Gashlycrumb Tinies;Edward Gorey;Children's Art Poetry Horror;126

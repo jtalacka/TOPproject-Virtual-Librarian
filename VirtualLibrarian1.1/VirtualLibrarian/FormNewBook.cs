@@ -34,7 +34,8 @@ namespace VirtualLibrarian
                 return;
             }
             //check if ISBN already exists in file
-            if (Login_or_Signup.checkIfExistsInFile("books.txt", textBoxISBN.Text) == true)
+            string comma = "Select ISBN from Books";
+            if (Login_or_Signup.checkIfExistsInDBBooks(comma, textBoxISBN.Text) == true)
             {
                 MessageBox.Show("Book with this ISBN code already exists");
                 textBoxISBN.Focus();

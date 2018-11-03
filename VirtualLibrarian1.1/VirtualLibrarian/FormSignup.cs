@@ -42,10 +42,10 @@ namespace VirtualLibrarian
                 return;
             }
 
-            //check if username already exists in login info file
-            bool exists = Login_or_Signup.checkIfExistsInFile("login.txt", textBoxUsername.Text);
+            //check if username already exists in db table Users
+            bool exists = Login_or_Signup.checkIfExistsInDBUsers(textBoxUsername.Text);
 
-            //if username unique - add user info. to the file
+            //if username unique - add user info. to db
             if (exists == false)
             {
                 string result =

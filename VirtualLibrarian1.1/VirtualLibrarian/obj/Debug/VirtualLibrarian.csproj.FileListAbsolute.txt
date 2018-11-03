@@ -259,3 +259,5 @@ C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibr
 C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.csproj.CopyComplete
 C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.exe
 C:\Users\user\Desktop\VirtualLibrarian1.8\VirtualLibrarian\obj\Debug\VirtualLibrarian.pdb
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL.mdf
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL_log.ldf
