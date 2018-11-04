@@ -63,8 +63,16 @@ namespace VirtualLibrarian
                 return;
             }
 
-            Library_System.editBook(book, textBoxGenres.Text, checkedG, genresChanged,
-                 textBoxISBN.Text, textBoxTitle.Text, textBoxAuthor.Text, textBoxQ.Text);
+            //depending if new genres were selected, we pass diferent checkedG value
+            if (genresChanged == false)
+                checkedG = textBoxGenres.Text;
+
+            //update info.
+            string sql = "Update Books set " +
+                "ISBN='" + textBoxISBN.Text + "', " + "Title='" + textBoxTitle.Text + "', " +
+                "Author='" + textBoxAuthor.Text + "', " + "Genres='" + checkedG + "', " +
+                "Quantity='" + textBoxQ.Text + "' Where ISBN='" + book.ISBN + "'";
+            Library_System.editBook(sql);
 
             MessageBox.Show("Changes saved");
             this.Close();

@@ -22,18 +22,11 @@ namespace VirtualLibrarian
         //for passing User class object parameters between forms
         internal User user { get; set; }
 
-        //FILES: BOOKS.TXT AND LOGIN.TXT ARE IN BIN/DEBUG
-        //this is for taken user books
-        public string userBooks;
-
         private void FormLibrary_Load(object sender, EventArgs e)
         {
             //FillList class extended method to fill bookList with all books from file
             Library.loadLibraryBooks();
             Library.loadReaders();
-
-            //form a path to taken user books
-            userBooks = @"D:\" + user.username + ".txt";
 
             //determine, if the user is reader or employee
             if (user.type.ToString() == "employee")
@@ -50,7 +43,7 @@ namespace VirtualLibrarian
         }
 
         //Search by author or book title
-        private void buttonSearch_Click(object sender, EventArgs e) 
+        private void buttonSearch_Click(object sender, EventArgs e)
         {
             Book.sortList.Clear();
             buttonSort.Visible = true;
@@ -89,7 +82,8 @@ namespace VirtualLibrarian
             {
                 foreach (string g in checkedGenres)
                 {
-                    foreach (string bg in tempBook.genres) //genres from book class
+                    //genres from book class
+                    foreach (string bg in tempBook.genres)
                     {
                         //if matches - add to main listBox
                         if (bg == g)
@@ -104,7 +98,7 @@ namespace VirtualLibrarian
                 }
             }
 
-            //clear checked items and search box
+            //clear checked items
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
@@ -154,26 +148,15 @@ namespace VirtualLibrarian
             string[] splitInfo = text.Split(';');
 
             //is quantity = 0?
-            int quo = Int32.Parse(splitInfo[splitInfo.Length-1]);
+            int quo = Int32.Parse(splitInfo[splitInfo.Length - 1]);
             if (quo == 0)
             { MessageBox.Show("All copies of this book are taken"); return; }
             quo = quo - 1;
 
-            //exists in reader file?
-            //bool exists = false;
-            //if (System.IO.File.Exists(userBooks))
-            //{
-            //   string comma = "Select ISBN from userBooks";
-            //    exists = Login_or_Signup.checkIfExistsInDBBooks(comma, splitInfo[0]);
-            //}
-            //if (exists == true)
-            //{ MessageBox.Show("You have already taken this book"); return; }
-
-
             //ALL GOOD -> WRITE INFO. INTO FILES: username.txt, taken.txt, books.txt
-            Library.takeORGiveBook(splitInfo, text, userBooks, user.username, quo);
+            Library.takeORGiveBook(splitInfo, user.username, quo);
 
-            MessageBox.Show("Book \n" + text + " \nadded ");
+            MessageBox.Show("Book \n" + splitInfo[1] + " \nadded");
 
             listBoxMain.Items.Clear();
             //if changes ever made to file --- reload the list!
@@ -183,27 +166,19 @@ namespace VirtualLibrarian
         //show new form with taken books
         private void buttonTakenBooks_Click_1(object sender, EventArgs e)
         {
-            if (System.IO.File.Exists(userBooks))
-            {
-                FormReaderBooks rb = new FormReaderBooks("show");
-                rb.username = user.username;
-                rb.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("You haven't ever taken any books (no file created)");
-                return;
-            }
+            FormReaderBooks rb = new FormReaderBooks("show");
+            rb.username = user.username;
+            rb.ShowDialog();
         }
 
-        // opens a new form with more about the book
+        //opens a new form with more about the book
         private void buttonMore_Click(object sender, EventArgs e)
         {
             string text = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (text == "")
             { MessageBox.Show("Please select a book to view"); return; }
 
-            //LINQ 
+            //LINQ gets all info about selected book
             var aboutBook = from book in Book.bookList
                             where text.Contains(book.ISBN + " --- " + book.title) ||
                                   text.Contains(book.title + " --- " + book.author)
@@ -212,7 +187,6 @@ namespace VirtualLibrarian
             {
                 new BookView(book).Show();
             }
-
         }
 
         private void buttonSort_Click(object sender, EventArgs e)
@@ -235,12 +209,20 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
-            if (!System.IO.File.Exists(userBooks))
-            { MessageBox.Show("You don't have any books taken, so recommendations can't be formed");
-                return; }
-
             //get genres of books this reader has taken
-            List<string> genres = Library.reccomendations(userBooks);
+            List<string> genres = Library.reccomendations(user.username);
+
+            if (genres.Count == 0)
+            {
+                MessageBox.Show("You don't have any books taken, so recommendations can't be formed");
+                return;
+            }
+            string test = null;
+            foreach (string item in genres)
+            {
+                test += " " + item;
+            }
+            MessageBox.Show("Favourite genres: " + test);
 
             foreach (Book tempBook in Book.bookList)
             {
@@ -253,8 +235,9 @@ namespace VirtualLibrarian
                         {
                             //returns object parameter string
                             listBoxMain.Items.Add(tempBook.ObToString(tempBook));
-                            break;
+
                         }
+                        break;
                     }
                 }
             }

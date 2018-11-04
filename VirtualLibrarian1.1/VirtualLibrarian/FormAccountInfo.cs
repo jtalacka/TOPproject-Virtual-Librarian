@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -78,69 +79,40 @@ namespace VirtualLibrarian
                 return;
             }
 
+            string sql = 
+                "Update Users set " +
+                "Username='" + textBoxUsername.Text + "', " + "Password='" + textBoxPass.Text + "', " + 
+                "Name='" + textBoxName.Text + "', " + "Surname='" + textBoxSurname.Text + "', " + 
+                "Email='" + textBoxEmail.Text + "', " + "Birth='" + textBoxBirth.Text + "'" + 
+                "Where Username='" + user.username + "'";
+            //update table Users
+            Library.updateReaderInfo(sql);
 
-            string line;
-            StreamReader file = new StreamReader("login.txt");
-            //read line by line and look for Username
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
-
-                //if found our line (unique Username)
-                if (lineSplit[0] == user.username)
-                {
-                    //save old info
-                    string[] oInfo = { user.username, user.password,
-                                        user.name, user.surname,
-                                        user.email, user.birth };
-                    //all old info in one string
-                    string oLine = string.Join(";", oInfo);
-
-                    //new info
-                    string nLine;
-                    //form new info string
-                    nLine = string.Join(";", textBoxUsername.Text, textBoxPass.Text,
-                                            textBoxName.Text, textBoxSurname.Text, 
-                                            textBoxEmail.Text, textBoxBirth.Text);
-                    //change current user
-                    user.username = textBoxUsername.Text;
-                    user.password = textBoxPass.Text;
-                    user.name = textBoxName.Text;
-                    user.surname = textBoxSurname.Text;
-                    user.email = textBoxEmail.Text;
-                    user.birth = textBoxBirth.Text;
-
-                    file.Close();
-
-                    //read all text
-                    string text = File.ReadAllText("login.txt");
-                    //modifiy old text
-                    text = text.Replace(oLine, nLine);
-                    //write it back
-                    File.WriteAllText("login.txt", text);
-
-                    //end the madness
-                    break;
-                }
-            }
+            //change current user object
+            user.username = textBoxUsername.Text;
+            user.password = textBoxPass.Text;
+            user.name = textBoxName.Text;
+            user.surname = textBoxSurname.Text;
+            user.email = textBoxEmail.Text;
+            user.birth = textBoxBirth.Text;
 
             Library.loadReaders();
             MessageBox.Show("Changes saved");
             this.Close();
         }
 
+
         private void buttonDel_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            result = MessageBox.Show("Are you sure you want to delete " + user.username + " account?", 
+            result = MessageBox.Show("Are you sure you want to delete " + user.username + " account?",
                 "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                //read all
-                var Lines = File.ReadAllLines("login.txt");
-                //Username must be unique, so look for it in the line
-                var newLines = Lines.Where(line => !line.Contains(user.username + ";" + user.password));
-                File.WriteAllLines("login.txt", newLines);
+                string sql =
+                "Delete from Users where " +
+                "Username='"+user.username+"' and Name='"+user.name+"' and Surname='"+user.surname+"'";
+                Library.updateReaderInfo(sql);
 
                 MessageBox.Show("User " + user.username + " deleted");
             }

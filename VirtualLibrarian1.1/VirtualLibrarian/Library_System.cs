@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,84 +11,110 @@ namespace VirtualLibrarian
     class Library_System
     {
         //FUNCTIONALITY from FormLibSys/NewBook/EditBook/...:
+        //      checkIfExistsInDBBooks
         //      addBook,
         //      editBook,
-        //      deleteBook
         //
+        //      allTakenBooks
         //      searchR,
         //      deleteBookFromReaderFile,
-        //      
+        //     
+
+
+        //for connecting to the db
+        public static SqlConnection conn = new SqlConnection();
+        static string conectionS = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+        //query
+        public static SqlCommand command;
+
+
+        //check if ISBN exists in db Books, before adding a new one
+        public static bool checkIfExistsInDBBooks(string whatToLookFor)
+        {
+            bool ExistsResult = false;
+
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            command = new SqlCommand("Select ISBN from Books", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetString(reader.GetOrdinal("ISBN")) == whatToLookFor)
+                    {
+                        //found that already exists
+                        conn.Close();
+                        ExistsResult = true;
+                        return ExistsResult;
+                    }
+                }
+                conn.Close();
+                return ExistsResult;
+            }
+        }
 
         public static void addBook(Book book, List<string> checkedGenres)
         {
-            using (StreamWriter w = File.AppendText("books.txt"))
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            string sql = "Insert into Books " +
+                "(ISBN, Title, Author, Genres, Quantity) " +
+                "values('" + book.ISBN + "', '" + book.title + "', '" + book.author + "', " +
+                       "'" + string.Join(" ", checkedGenres) + "', '" + book.quantity.ToString() + "')";
+            using (conn)
             {
-                //information layout in file
-                w.WriteLine(book.ISBN + ";" + book.title + ";" + book.author + ";" +
-                    string.Join(" ", checkedGenres) + ";" + book.quantity.ToString());
-            }
-        }
-
-
-        public static void editBook(Book book,
-            string oGenres, string checkedG, bool genresChanged,
-            string nISBN, string nTitle, string nAuthor, string nQuantity)
-        {
-            string line;
-            StreamReader file = new StreamReader("books.txt");
-            //read line by line and look for ISBN
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
-
-                //if found our line (unique ISBN)
-                if (lineSplit[0] == book.ISBN)
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    //save old info
-                    string[] oInfo = { book.ISBN, book.title,
-                                        book.author, oGenres, book.quantity.ToString() };
-                    //all old info in one string
-                    string oLine = string.Join(";", oInfo);
-                    //new info
-                    string nLine;
-
-                    //if new genres selected 
-                    if (genresChanged == true)
-                    {
-                        //form new info string
-                        nLine = string.Join(";", nISBN, nTitle,
-                                                nAuthor, checkedG, nQuantity);
-                    }
-                    else
-                    {
-                        //form new info string
-                        nLine = string.Join(";", nISBN, nTitle,
-                                                nAuthor, oGenres, nQuantity); ;
-                    }
-                    file.Close();
-
-                    //read all text
-                    string text = File.ReadAllText("books.txt");
-                    //modifiy old text
-                    text = text.Replace(oLine, nLine);
-                    //write it back
-                    File.WriteAllText("books.txt", text);
-
-                    //end the madness
-                    break;
+                    cmd.ExecuteNonQuery();
                 }
             }
+            conn.Close();
         }
 
-
-        public static void deleteBook(string code, string t)
+        //edit/delete Book info. in table
+        public static void editBook(string COMMAND)
         {
-            //read all
-            var Lines = File.ReadAllLines("books.txt");
-            //ISBN must be unique, so look for it in the line
-            var newLines = Lines.Where(line => !line.Contains(code + ";" + t));
-            File.WriteAllLines("books.txt", newLines);
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            using (conn)
+            {
+                using (command = new SqlCommand(COMMAND, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            conn.Close();
         }
+
+
+        //gets all taken books into list
+        public static List<string> allTakenBooks()
+        {
+            List<string> taken = new List<string>();
+            string item;
+
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            command = new SqlCommand("Select * From  Taken", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                // Check is the reader has any rows at all before starting to read.
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        item = reader.GetString(reader.GetOrdinal("ISBN")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("Username")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("DateTaken")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("DateReturn"));
+                        taken.Add(item);
+                    }
+                }
+            }
+            conn.Close();
+            return taken;
+        }
+
 
 
 
@@ -108,23 +135,23 @@ namespace VirtualLibrarian
         }
 
 
-        public static void deleteBookFromReaderFile(string userBooks,
-            string returnedBookInfo, string readerInfo, string[] splitInfo)
+        //When a book is being returned - 
+        //WRITE NEW INFO. INTO TABLES: Taken, Books
+        public static void deleteBookFromReader(string COMMAND, string[] splitInfo)
         {
-            //1. delete in user file
-            var Lines = File.ReadAllLines(userBooks);
-            var newLines = Lines.Where(line => !line.Contains(returnedBookInfo));
-            File.WriteAllLines(userBooks, newLines);
+            //delete in Taken
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            using (conn)
+            {
+                using (command = new SqlCommand(COMMAND, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            conn.Close();
 
-            //2. delete in taken.txt
-            Lines = File.ReadAllLines("taken.txt");
-            newLines = Lines.Where(line => !line.Contains(returnedBookInfo + ";" + readerInfo));
-            File.WriteAllLines("taken.txt", newLines);
-
-            //3. change (add) quantity in books.txt
-            //read all text
-            string Ftext = File.ReadAllText("books.txt");
-
+            //change (add) quantity in Books
             //what's the current quantity in list?
             int quo = 0;
             //checks all the books in the list bookList
@@ -136,22 +163,21 @@ namespace VirtualLibrarian
                     break;
                 }
             }
-
-            string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" +
-                                   splitInfo[2] + ";" + splitInfo[3];
-            //old line
-            string oLine = infoAboutBook + ";" + quo.ToString();
-
             quo = quo + 1;
-
-            //new line
-            string nLine = infoAboutBook + ";" + quo.ToString();
-
-
-            //modifiy old text
-            Ftext = Ftext.Replace(oLine, nLine);
-            //write it back
-            File.WriteAllText("books.txt", Ftext);
+            
+            COMMAND = "Update Books set " +
+            "Quantity='" + quo + "' Where ISBN='" + splitInfo[0] + "'";
+            
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            using (conn)
+            {
+                using (command = new SqlCommand(COMMAND, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            conn.Close();
         }
 
 

@@ -11,10 +11,11 @@ namespace VirtualLibrarian
     static class FillList
     {
         static public void fillBookList(this List<Book> bookList)
-
         {
             //clear book list
             Book.bookList.Clear();
+            string gs;
+            List<string> genres;
 
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString =
@@ -25,8 +26,8 @@ namespace VirtualLibrarian
             {
                 while (reader.Read())
                 {
-                    string gs = reader.GetString(reader.GetOrdinal("Genres"));
-                    List<string> genres = gs.Split(' ').ToList();
+                    gs = reader.GetString(reader.GetOrdinal("Genres"));
+                    genres = gs.Split(' ').ToList();
 
                     try
                     {
@@ -37,7 +38,7 @@ namespace VirtualLibrarian
                             genres,
                             reader.GetInt32(reader.GetOrdinal("Quantity"))));
                     }
-                    catch(System.Data.SqlClient.SqlException ex)
+                    catch(System.Data.SqlClient.SqlException)
                     {
                         System.Windows.Forms.MessageBox.Show("Error: Sql Exception. " +
                         "\nSomething went wrong when connecting to the database.", "Error message",

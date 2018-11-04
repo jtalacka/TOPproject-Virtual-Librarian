@@ -72,7 +72,7 @@ namespace VirtualLibrarian
             info = info.Replace(" --- ", ";");
             string[] lineSplit = info.Split(';');
 
-            //define book
+            //define book to edit
             Book book = new Book(lineSplit[0], lineSplit[1], lineSplit[2],
                 lineSplit[3].Split(' ').ToList(), Int32.Parse(lineSplit[4]));
 
@@ -106,7 +106,9 @@ namespace VirtualLibrarian
             result = MessageBox.Show("Are you sure you want to delete '" + t + "'?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                Library_System.deleteBook(code, t);
+                string sql =
+                "Delete from Books Where ISBN='" + code + "' and Title='" + t + "'";
+                Library.updateReaderInfo(sql);
 
                 MessageBox.Show("Book " + t + " deleted");
                 //clear main window
@@ -128,20 +130,26 @@ namespace VirtualLibrarian
         {
             //clear main window
             listBoxMain.Items.Clear();
-            //Hide buttons realted to library management
+            //Hide buttons realted to library and user management
             buttonAdd.Visible = false;
             buttonEdit.Visible = false;
             buttonDel.Visible = false;
             textBoxBook.Clear();
             label3.Visible = false;
 
-            string line;
-            StreamReader file = new StreamReader("taken.txt");
-            while ((line = file.ReadLine()) != null)
+            buttonTake.Visible = false;
+            buttonReturn.Visible = false;
+            buttonChange.Visible = false;
+            textBoxReader.Clear();
+            label4.Visible = false;
+
+
+            List<string> ALLtaken = Library_System.allTakenBooks();
+            foreach (var item in ALLtaken)
             {
-                listBoxMain.Items.Add(line.Replace(";", " --- "));
+                listBoxMain.Items.Add(item);
             }
-            file.Close();
+
         }
 
 
@@ -178,7 +186,7 @@ namespace VirtualLibrarian
             }
         }
 
-        //add new taken book to user account
+        //add new taken book
         private void buttonTake_Click(object sender, EventArgs e)
         {
             //get info about selected reader
@@ -207,21 +215,8 @@ namespace VirtualLibrarian
                 { MessageBox.Show("All copies of this book are taken"); return; }
                 quo = quo - 1;
 
-                //their file 
-                string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
-
-                //exists in reader file?
-                //bool exists = false;
-                //if (System.IO.File.Exists(userBooks))
-                //{
-                //    string comma = "Select ISBN from Taken";
-                //    exists = Login_or_Signup.checkIfExistsInDBBooks(comma, splitInfo[0]);
-                //}
-                //if (exists == true)
-                //{ MessageBox.Show("You have already taken this book"); return; }
-
-                //ALL GOOD -> WRITE NEEDED INFO. INTO FILES: username.txt, taken.txt, books.txt
-                Library.takeORGiveBook(splitInfo, givenBookInfo, userBooks, readerInfoSplit[0], quo);
+                //ALL GOOD -> WRITE NEEDED INFO. INTO TABLES: Taken, Books
+                Library.takeORGiveBook(splitInfo, readerInfoSplit[0], quo);
 
                 MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
 
@@ -241,21 +236,10 @@ namespace VirtualLibrarian
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
 
-            //their file  
-            string userBooks = @"D:\" + readerInfoSplit[0] + ".txt";
-
-            if (!System.IO.File.Exists(userBooks))
-            {
-                MessageBox.Show("Selected reader has never taken any books (no file created)");
-                return;
-            }
-            else
-            {
-                //new form
-                FormReaderBooks rb = new FormReaderBooks();
-                rb.username = readerInfoSplit[0];
-                rb.ShowDialog();
-            }
+            //new form
+            FormReaderBooks rb = new FormReaderBooks();
+            rb.username = readerInfoSplit[0];
+            rb.ShowDialog();
 
             //info about book being returned => returnedBookInfo
             string returnedBookInfo = FormReaderBooks.returnedBookInfo;
@@ -273,9 +257,11 @@ namespace VirtualLibrarian
                     MessageBox.Show(readerInfoSplit[0] + " is late to return this book by: " + late.Days + "days");
                 }
 
-                //delete in user file AND in taken.txt, ALSO add quantity in books.txt
-                Library_System.deleteBookFromReaderFile(userBooks, returnedBookInfo,
-                    readerInfoSplit[0], splitInfo);
+                //delete in Taken and add quantity in Books
+                string sql =
+                "Delete from Taken where " +
+                "ISBN='"+splitInfo[0]+"' and Username='"+readerInfoSplit[0]+"'";
+                Library_System.deleteBookFromReader(sql, splitInfo);
 
                 MessageBox.Show("Book\n" + splitInfo[1] + "\ndeleted from reader account");
 

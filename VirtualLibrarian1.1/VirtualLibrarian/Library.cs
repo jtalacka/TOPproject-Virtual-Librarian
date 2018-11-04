@@ -16,10 +16,24 @@ namespace VirtualLibrarian
         //          loadLibraryBooks,
         //          loadReaders,
         //          searchAuthororTitle,
+
         //          genresSelected,
         //          genresToDisplay,
+
         //          takeORGiveBook,
         //          reccomendations
+        //          updateReaderInfo
+
+        //          selectTakenBooks
+        //
+
+
+        //for connecting to the db
+        public static SqlConnection conn = new SqlConnection();
+        static string conectionS = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+        //query
+        public static SqlCommand command;
+
 
         //Gets all books from DB into list
         public static void loadLibraryBooks()
@@ -32,17 +46,15 @@ namespace VirtualLibrarian
         public static void loadReaders()
         {
             User.readerList.Clear();
-            
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+
+            conn.ConnectionString = conectionS;
             conn.Open();
-            SqlCommand command = new SqlCommand("Select * from Users", conn);
-            using (SqlDataReader reader = command.ExecuteReader())
+            command = new SqlCommand("Select * from Users", conn);
+            try
             {
-                while (reader.Read())
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    try
+                    while (reader.Read())
                     {
                         User.readerList.Add(new User(
                              reader.GetString(reader.GetOrdinal("Username")),
@@ -50,18 +62,18 @@ namespace VirtualLibrarian
                              reader.GetString(reader.GetOrdinal("Name")),
                              reader.GetString(reader.GetOrdinal("Surname")),
                              reader.GetString(reader.GetOrdinal("Email")),
-                             reader.GetDataTypeName(reader.GetOrdinal("Birth"))));
-                    }
-                     catch(System.Data.SqlClient.SqlException ex)
-                    {
-                        MessageBox.Show("Error: Sql Exception. " +
-                        "\nSomething went wrong when connecting to the database.", "Error message",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                             reader.GetString(reader.GetOrdinal("Birth"))));
                     }
                 }
+                conn.Close();
             }
-            conn.Close();
+            catch (SqlException)
+            {
+                MessageBox.Show("Error: Sql Exception " +
+                "\nSomething went wrong when connecting to the database.", "Error message",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         //searches Book object - if it fits, returns obj. info to display as a string
@@ -102,56 +114,124 @@ namespace VirtualLibrarian
         }
 
         //When a book is being taken/given - 
-        //WRITE NEW INFO. INTO FILES: username.txt, taken.txt, books.txt
-        public static void takeORGiveBook(string[] splitInfo, string text, string userBooks, string user, int quo)
+        //WRITE NEW INFO. INTO TABLES: Taken, Books
+        public static void takeORGiveBook(string[] splitInfo, string user, int quo)
         {
             //form date when taken
             string dateTaken = DateTime.Now.ToShortDateString();
             //form return date
             var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
-            //form information to write
-            string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                                   splitInfo[3] + ";" + dateTaken + ";" + dateReturn;
 
-            using (StreamWriter sw = File.AppendText(userBooks))
-            { sw.WriteLine(infoAboutBook); }
+            string code = splitInfo[0];
 
-            //track all taken books
-            using (StreamWriter sw = File.AppendText("taken.txt"))
-            { sw.WriteLine(infoAboutBook + ";" + user); }
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            //track all taken books in table Taken
+            string sql = "Insert into Taken " +
+                         "(ISBN, Username, DateTaken, DateReturn) " +
+                         "values('"+code+"', '"+user+"', '"+dateTaken+"', '"+dateReturn+"')";
+            using (conn)
+            {
+                using (SqlCommand command = new SqlCommand(sql, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            //change quantity in table Books
+            sql = "Update Books set Quantity='" + quo + "' where ISBN='" + splitInfo[0] + "'";
+            using (conn)
+            {
+                using (command = new SqlCommand(sql, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            conn.Close();
+        }
 
-            //change quantity in file
-            //read all text
-            string Ftext = File.ReadAllText("books.txt");
-            //old line (in format isbn;title;author;genres;old_quantity)
-            string oLine = text;
-            //new line
-            string nLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
-                           splitInfo[3] + ";" + quo.ToString();
-            //modifiy old text
-            Ftext = Ftext.Replace(oLine, nLine);
-            //write it back
-            File.WriteAllText("books.txt", Ftext);
+        //get genres of books that the user has taken
+        public static List<string> reccomendations(string username)
+        {
+            List<string> genres = new List<string>();
+
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            command = new SqlCommand("Select Books.Genres " +
+                                     "From Books INNER JOIN Taken " +
+                                     "On Books.ISBN=Taken.ISBN " +
+                                     "Where Username=@Username", conn);
+            command.Parameters.AddWithValue("Username", username);
+            using (SqlDataReader reader = command.ExecuteReader())
+            {             
+                // Check is the reader has any rows at all before starting to read.
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string[] genreSplit = reader.GetString(reader.GetOrdinal("Genres")).Split(' ');
+                        for (int i = 0; i < genreSplit.Length; i++)
+                        {
+                            if (!genres.Contains(genreSplit[i]))
+                                genres.Add(genreSplit[i]);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return genres;
         }
 
 
-        public static List<string> reccomendations(string userBooks)
+        //update/delete User info in table
+        public static void updateReaderInfo(string COMMAND)
         {
-            List<string> genres = new List<string>();
-            string line;
-            StreamReader file = new StreamReader(userBooks);
-            while ((line = file.ReadLine()) != null)
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            using (conn)
             {
-                string[] lineSplit = line.Split(';');
-                string[] genreSplit = lineSplit[3].Split(' ');
-                for (int i = 0; i < genreSplit.Length; i++)
+                using (command = new SqlCommand(COMMAND, conn))
                 {
-                    if (!genres.Contains(genreSplit[i]))
-                        genres.Add(genreSplit[i]);
+                    command.ExecuteNonQuery();
                 }
             }
-            file.Close();
-            return genres;
+            conn.Close();
+        }
+
+
+
+        //gets all taken reader books into list
+        public static List<string> selectTakenBooks(string user)
+        {
+            List<string> taken = new List<string>();
+            string item;
+
+            conn.ConnectionString = conectionS;
+            conn.Open();
+            command = new SqlCommand("Select Taken.ISBN, Books.Title, Books.Author, Books.Genres, Taken.DateTaken, Taken.DateReturn " +
+                                     "From Books INNER JOIN Taken " +
+                                     "On Books.ISBN=Taken.ISBN " +
+                                     "Where Taken.Username='" + user + "'", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                // Check is the reader has any rows at all before starting to read.
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        item = reader.GetString(reader.GetOrdinal("ISBN")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("Title")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("Author")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("Genres")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("DateTaken")) + " --- " +
+                            reader.GetString(reader.GetOrdinal("DateReturn"));
+                        taken.Add(item);
+                    }
+                }
+            }
+            conn.Close();
+            return taken;
         }
     }
 }

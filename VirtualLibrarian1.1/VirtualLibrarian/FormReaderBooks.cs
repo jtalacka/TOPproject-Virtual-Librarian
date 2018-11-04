@@ -23,27 +23,28 @@ namespace VirtualLibrarian
         public FormReaderBooks(string buttonShow)
         {
             this.s = buttonShow;
-             InitializeComponent();
+            InitializeComponent();
         }
 
+        //what to retun
         public static string returnedBookInfo;
+        //what username passed
         public string username;
 
         private void FormReaderBooks_Load(object sender, EventArgs e)
         {
-            if(s != "show")
+            //determine if show button 'Select'
+            if (s != "show")
             { buttonSelect.Visible = true; }
 
             returnedBookInfo = "none";
 
-            string line;        
-            StreamReader file = new StreamReader(@"D:\" + username + ".txt");
-            while ((line = file.ReadLine()) != null)
+            //get taken books from table Taken into list
+            List<string> taken = Library.selectTakenBooks(username);
+            foreach (string item in taken)
             {
-                line = line.Replace(";", " --- ");
-                listBox1.Items.Add(line);
+                listBox1.Items.Add(item);
             }
-            file.Close();
         }
 
         private void buttonSelect_Click(object sender, EventArgs e)

@@ -34,8 +34,8 @@ namespace VirtualLibrarian
                 return;
             }
             //check if ISBN already exists in file
-            string comma = "Select ISBN from Books";
-            if (Login_or_Signup.checkIfExistsInDBBooks(comma, textBoxISBN.Text) == true)
+            //string comma = "Select ISBN from Books";
+            if (Library_System.checkIfExistsInDBBooks(textBoxISBN.Text) == true)
             {
                 MessageBox.Show("Book with this ISBN code already exists");
                 textBoxISBN.Focus();
@@ -52,12 +52,12 @@ namespace VirtualLibrarian
 
             //get which genres chosen
             List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
-            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); }
+            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return;  }
 
             //define Book
             Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres, qua);
 
-            //if ISBN unique - add book to the file
+            //if ISBN unique - add book to table Books
             Library_System.addBook(book, checkedGenres);
 
             MessageBox.Show("Book '" + book.title + "' added");
