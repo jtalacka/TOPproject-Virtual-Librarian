@@ -67,6 +67,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VirtualLibrarian\VirtualLibrarian.csproj">
+      <Project>{52f883ea-9ba6-4ce4-add1-03e32638962d}</Project>
+      <Name>VirtualLibrarian</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
