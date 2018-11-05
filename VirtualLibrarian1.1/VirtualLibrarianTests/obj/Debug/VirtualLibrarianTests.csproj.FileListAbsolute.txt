@@ -76,3 +76,5 @@ C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibra
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarianTests\obj\Debug\VirtualLibrarianTests.csproj.CopyComplete
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarianTests\obj\Debug\VirtualLibrarianTests.dll
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarianTests\obj\Debug\VirtualLibrarianTests.pdb
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarianTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarianTests\bin\Debug\Newtonsoft.Json.xml

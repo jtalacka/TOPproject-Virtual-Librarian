@@ -60,17 +60,12 @@
   <ItemGroup>
     <Compile Include="BookTests.cs" />
     <Compile Include="FunctionsTests.cs" />
+    <Compile Include="GoogleBooksTests.cs" />
     <Compile Include="ISBNScannerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VirtualLibrarian\VirtualLibrarian.csproj">
-      <Project>{52F883EA-9BA6-4CE4-ADD1-03E32638962D}</Project>
-      <Name>VirtualLibrarian</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
