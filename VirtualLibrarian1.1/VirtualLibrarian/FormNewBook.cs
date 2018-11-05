@@ -75,6 +75,23 @@ namespace VirtualLibrarian
             }
         }
 
+        private void isbn_Click(object sender, EventArgs e)
+        {
+            ISBNScanner isbn = new ISBNScanner();
+            if (isbn.ShowDialog() != DialogResult.OK)
+            {
+                if (ISBNScanner.results != "")
+                {
+                    Book tempBook = GoogleBooks.Search(ISBNScanner.results).Result;
+                    if (tempBook != null) {
+                        textBoxISBN.Text=tempBook.ISBN;
+                        textBoxTitle.Text=tempBook.title;
+                        textBoxAuthor.Text=tempBook.author;
+                    }
 
+                    ISBNScanner.results = "";
+                }
+            }
+        }
     }
 }

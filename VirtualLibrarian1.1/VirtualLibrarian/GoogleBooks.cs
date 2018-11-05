@@ -14,7 +14,7 @@ namespace VirtualLibrarian
 {
    public class GoogleBooks
     {
-        public async Task<TResult> Search(string isbn)
+        public static async Task<Book> Search(string isbn)
         {
             var service = new BooksService(new BaseClientService.Initializer()
             {
@@ -27,14 +27,17 @@ namespace VirtualLibrarian
                 foreach (var item in volumes.Items)
                 {
                     MessageBox.Show(item.VolumeInfo.Title);
-                    return item;
-                    break;
+                    foreach (var author in item.VolumeInfo.Authors)
+                    {
+                        return new Book(isbn, item.VolumeInfo.Title,author,null);
+                    }
                 }
             }
             catch
             {
                 MessageBox.Show("No books was found with this isbn");
             }
+            return null;
         }
 
 

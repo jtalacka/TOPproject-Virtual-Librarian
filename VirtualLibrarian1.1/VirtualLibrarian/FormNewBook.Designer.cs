@@ -39,6 +39,7 @@
             this.textBoxISBN = new System.Windows.Forms.TextBox();
             this.textBoxQ = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.isbn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -154,11 +155,22 @@
             this.label5.TabIndex = 24;
             this.label5.Text = "Quantity:";
             // 
+            // isbn
+            // 
+            this.isbn.Location = new System.Drawing.Point(12, 213);
+            this.isbn.Name = "isbn";
+            this.isbn.Size = new System.Drawing.Size(93, 23);
+            this.isbn.TabIndex = 25;
+            this.isbn.Text = "search by isbn";
+            this.isbn.UseVisualStyleBackColor = true;
+            this.isbn.Click += new System.EventHandler(this.isbn_Click);
+            // 
             // FormNewBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 247);
+            this.Controls.Add(this.isbn);
             this.Controls.Add(this.textBoxQ);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxISBN);
@@ -190,5 +202,6 @@
         private System.Windows.Forms.TextBox textBoxISBN;
         private System.Windows.Forms.TextBox textBoxQ;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button isbn;
     }
 }

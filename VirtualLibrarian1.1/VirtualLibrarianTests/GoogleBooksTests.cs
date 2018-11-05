@@ -14,9 +14,13 @@ namespace VirtualLibrarian.Tests
         [TestMethod()]
         public void SearchTest()
         {
-            GoogleBooks book;
-            book = new GoogleBooks();
-            book.Search("9789986029199");
+
+
+            Book tempBook = GoogleBooks.Search("9789986029199").Result;
+            if (tempBook != null)
+            {
+                MessageBox.Show(tempBook.ISBN + tempBook.title + tempBook.author);
+            }
 
         }
     }
