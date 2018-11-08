@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace VirtualLibrarian
 {
-    class Library
+    class Library : I_InLibrary
     {
         //
         // FUNCTIONALITY from FormLibrary and Functions:
@@ -36,14 +36,15 @@ namespace VirtualLibrarian
 
 
         //Gets all books from DB into list
-        public static void loadLibraryBooks()
+       public void loadLibraryBooks()
         {
             //clear book list
             Book.bookList.fillBookList();
+             //FillList class extended method to fill bookList with all books from file
         }
 
         //Gets all readers from DB into list
-        public static void loadReaders()
+        public void loadReaders()
         {
             User.readerList.Clear();
 
@@ -77,7 +78,7 @@ namespace VirtualLibrarian
         }
 
         //searches Book object - if it fits, returns obj. info to display as a string
-        public static string searchAuthororTitle(string searchInfo, Book currentBook)
+        public string searchAuthororTitle(string searchInfo, Book currentBook)
         {
             string infoToDisplay = "no match";
 
@@ -90,7 +91,7 @@ namespace VirtualLibrarian
         }
 
         //get which genres chosen
-        public static List<string> genresSelected(CheckedListBox.CheckedItemCollection checkedItems)
+        public List<string> genresSelected(CheckedListBox.CheckedItemCollection checkedItems)
         {
             List<string> checkedGenres = new List<string>();
             foreach (string g in checkedItems)
@@ -101,7 +102,7 @@ namespace VirtualLibrarian
         }
 
         //returns genres as string
-        public static string genresToDisplay(List<string> genres)
+        public string genresToDisplay(List<string> genres)
         {
             string tempGenres = "";
             foreach (string g in genres)
@@ -113,9 +114,10 @@ namespace VirtualLibrarian
             return tempGenres;
         }
 
+
         //When a book is being taken/given - 
         //WRITE NEW INFO. INTO TABLES: Taken, Books
-        public static void takeORGiveBook(string[] splitInfo, string user, int quo)
+        public void takeORGiveBook(string[] splitInfo, string user, int quo)
         {
             //form date when taken
             string dateTaken = DateTime.Now.ToShortDateString();
@@ -152,7 +154,7 @@ namespace VirtualLibrarian
         }
 
         //get genres of books that the user has taken
-        public static List<string> reccomendations(string username)
+        public List<string> reccomendations(string username)
         {
             List<string> genres = new List<string>();
 
@@ -185,7 +187,7 @@ namespace VirtualLibrarian
 
 
         //update/delete User info in table
-        public static void updateReaderInfo(string COMMAND)
+        public void updateReaderInfo(string COMMAND)
         {
             conn.ConnectionString = conectionS;
             conn.Open();
@@ -202,7 +204,7 @@ namespace VirtualLibrarian
 
 
         //gets all taken reader books into list
-        public static List<string> selectTakenBooks(string user)
+        public List<string> selectTakenBooks(string user)
         {
             List<string> taken = new List<string>();
             string item;

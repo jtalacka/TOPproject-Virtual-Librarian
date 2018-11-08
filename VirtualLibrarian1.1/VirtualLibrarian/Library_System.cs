@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VirtualLibrarian
 {
-    class Library_System
+    class Library_System : I_InLibSystem
     {
         //FUNCTIONALITY from FormLibSys/NewBook/EditBook/...:
         //      checkIfExistsInDBBooks
@@ -29,7 +29,7 @@ namespace VirtualLibrarian
 
 
         //check if ISBN exists in db Books, before adding a new one
-        public static bool checkIfExistsInDBBooks(string whatToLookFor)
+        public bool checkIfExistsInDBBooks(string whatToLookFor)
         {
             bool ExistsResult = false;
 
@@ -53,7 +53,7 @@ namespace VirtualLibrarian
             }
         }
 
-        public static void addBook(Book book, List<string> checkedGenres)
+        public void addBook(Book book, List<string> checkedGenres)
         {
             conn.ConnectionString = conectionS;
             conn.Open();
@@ -72,7 +72,7 @@ namespace VirtualLibrarian
         }
 
         //edit/delete Book info. in table
-        public static void editBook(string COMMAND)
+        public void editBook(string COMMAND)
         {
             conn.ConnectionString = conectionS;
             conn.Open();
@@ -88,7 +88,7 @@ namespace VirtualLibrarian
 
 
         //gets all taken books into list
-        public static List<string> allTakenBooks()
+        public List<string> allTakenBooks()
         {
             List<string> taken = new List<string>();
             string item;
@@ -119,7 +119,7 @@ namespace VirtualLibrarian
 
 
         //searches User object - if it fits, returns obj. info to display as a string
-        public static string searchR(string searchInfo, User currentU)
+        public string searchR(string searchInfo, User currentU)
         {
             string infoToDisplay = "no match";
 
@@ -137,7 +137,7 @@ namespace VirtualLibrarian
 
         //When a book is being returned - 
         //WRITE NEW INFO. INTO TABLES: Taken, Books
-        public static void deleteBookFromReader(string COMMAND, string[] splitInfo)
+        public void deleteBookFromReader(string COMMAND, string[] splitInfo)
         {
             //delete in Taken
             conn.ConnectionString = conectionS;

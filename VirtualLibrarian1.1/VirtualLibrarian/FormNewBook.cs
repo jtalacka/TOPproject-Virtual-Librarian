@@ -18,6 +18,10 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
+        I_NewLogin L_or_S = new Login_or_Signup();
+        I_InLibrary Lib = new Library();
+        I_InLibSystem LibSys = new Library_System();
+
         //add book to file
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -27,7 +31,7 @@ namespace VirtualLibrarian
 
             //check if valid ISBN w regex
             string ISBN = textBoxISBN.Text;
-            if (Login_or_Signup.inputCheck(ISBN, 3) == 0)
+            if (L_or_S.inputCheck(ISBN, 3) == 0)
             {
                 MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
                 textBoxISBN.Focus();
@@ -35,7 +39,7 @@ namespace VirtualLibrarian
             }
             //check if ISBN already exists in file
             //string comma = "Select ISBN from Books";
-            if (Library_System.checkIfExistsInDBBooks(textBoxISBN.Text) == true)
+            if (LibSys.checkIfExistsInDBBooks(textBoxISBN.Text) == true)
             {
                 MessageBox.Show("Book with this ISBN code already exists");
                 textBoxISBN.Focus();
@@ -43,7 +47,7 @@ namespace VirtualLibrarian
             }
             //check if valid quantity
             int qua;
-            if(!Int32.TryParse(textBoxQ.Text, out qua) && qua == 0)
+            if (!Int32.TryParse(textBoxQ.Text, out qua) && qua == 0)
             {
                 MessageBox.Show("Please enter a valid quantity");
                 textBoxQ.Focus();
@@ -51,14 +55,14 @@ namespace VirtualLibrarian
             }
 
             //get which genres chosen
-            List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
-            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return;  }
+            List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
+            if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return; }
 
             //define Book
             Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres, qua);
 
             //if ISBN unique - add book to table Books
-            Library_System.addBook(book, checkedGenres);
+            LibSys.addBook(book, checkedGenres);
 
             MessageBox.Show("Book '" + book.title + "' added");
             textBoxISBN.Clear();

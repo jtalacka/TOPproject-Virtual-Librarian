@@ -14,33 +14,36 @@ namespace VirtualLibrarian
     public partial class FormReaderBooks : Form
     {
 
-        public FormReaderBooks()
+        public FormReaderBooks(string user)
         {
             InitializeComponent();
+            username = user;
         }
 
-        private string s;
-        public FormReaderBooks(string buttonShow)
+        //what username passed
+        string username;
+        string showSelect = "show";
+        public FormReaderBooks(string buttonShow, string user)
         {
-            this.s = buttonShow;
             InitializeComponent();
+            showSelect = buttonShow;
+            username = user;
         }
 
         //what to retun
-        public static string returnedBookInfo;
-        //what username passed
-        public string username;
+        public static string returnedBookInfo;        
 
         private void FormReaderBooks_Load(object sender, EventArgs e)
         {
             //determine if show button 'Select'
-            if (s != "show")
+            if (showSelect == "show")
             { buttonSelect.Visible = true; }
 
             returnedBookInfo = "none";
 
             //get taken books from table Taken into list
-            List<string> taken = Library.selectTakenBooks(username);
+            I_InLibrary Lib = new Library();
+            List<string> taken = Lib.selectTakenBooks(username);
             foreach (string item in taken)
             {
                 listBox1.Items.Add(item);

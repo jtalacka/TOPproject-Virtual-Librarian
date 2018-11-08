@@ -18,7 +18,7 @@ namespace VirtualLibrarian
     public delegate void CloseDelagate();
     public partial class ISBNScanner : Form
     {
-       public static string results="";
+        public static string results = "";
         string file;
         VideoCaptureDevice FinalVideo;
         FilterInfoCollection VideoCaptureDevices;
@@ -31,17 +31,20 @@ namespace VirtualLibrarian
 
         private void ISBNScanner_Load(object sender, EventArgs e)
         {
-            VideoCaptureDevices= new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            VideoCaptureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            foreach (FilterInfo VideoCaptureDevice in VideoCaptureDevices) {
+            foreach (FilterInfo VideoCaptureDevice in VideoCaptureDevices)
+            {
                 comboBox1.Items.Add(VideoCaptureDevice.Name);
             }
-            if (comboBox1.Items.Count > 0) {
+            if (comboBox1.Items.Count > 0)
+            {
                 comboBox1.SelectedIndex = 0;
             }
 
         }
-        public string returnisbn() {
+        public string returnisbn()
+        {
             return results;
         }
 
@@ -66,12 +69,11 @@ namespace VirtualLibrarian
                 // MessageBox.Show(openFileDialog1.FileName);
 
                 readISBN(barcodeBitmap);
-
-
             }
 
         }
-        private void readISBN(Bitmap barcodeBitmap) {
+        private void readISBN(Bitmap barcodeBitmap)
+        {
             IBarcodeReader reader = new BarcodeReader();
             var result = reader.Decode(barcodeBitmap);
             if (result != null)
@@ -79,14 +81,14 @@ namespace VirtualLibrarian
                 //  MessageBox.Show(result.BarcodeFormat.ToString());
                 //      MessageBox.Show(result.Text);
                 results = result.Text;
-                if (FinalVideo!=null)
+                if (FinalVideo != null)
                 {
                     FinalVideo.SignalToStop();
                 }
-                
+
                 this.BeginInvoke((MethodInvoker)delegate { this.Close(); });
-            }    
-            
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -95,25 +97,26 @@ namespace VirtualLibrarian
             {
                 if (FinalVideo != null)
                 {
-                    if (FinalVideo.IsRunning == true) { FinalVideo.Stop(); FinalVideo = null;}
+                    if (FinalVideo.IsRunning == true) { FinalVideo.Stop(); FinalVideo = null; }
                 }
                 else
                 {
                     FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[comboBox1.SelectedIndex].MonikerString);
                     FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
                     FinalVideo.Start();
-                    
+
                 }
             }
         }
-        private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs) {
+        private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
             Bitmap video = (Bitmap)eventArgs.Frame.Clone();
             Bitmap video2 = new Bitmap(video);
             pictureBox1.Image = video;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-             readISBN(video2);
+            readISBN(video2);
 
- 
+
         }
     }
 }

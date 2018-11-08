@@ -14,20 +14,23 @@ namespace VirtualLibrarian
 {
     public partial class FormLibrary : Form
     {
-        public FormLibrary()
+        //for passing User class object between forms
+        User user;
+        public FormLibrary(User _user)
         {
             InitializeComponent();
+            //dependency injection?
+            user = _user;
         }
 
-        //for passing User class object parameters between forms
-        internal User user { get; set; }
+        I_InLibrary Lib = new Library();
+
+        //define delegate for Lib.load... and create an instance
+        public delegate void load();
+        load loadL;
 
         private void FormLibrary_Load(object sender, EventArgs e)
         {
-            //FillList class extended method to fill bookList with all books from file
-            Library.loadLibraryBooks();
-            Library.loadReaders();
-
             //determine, if the user is reader or employee
             if (user.type.ToString() == "employee")
             {
@@ -50,13 +53,17 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
+            // define delegate loadL and call the method using the delegate object
+            loadL = Lib.loadLibraryBooks;
+            loadL();
+
             //checks all the books in the bookList (filled on form load)
             foreach (Book tempBook in Book.bookList)
             {
                 //checks tempBook - if it fits, returns tempBook info to display            
-                if (Library.searchAuthororTitle(textBox1.Text, tempBook) != "no match")
+                if (Lib.searchAuthororTitle(textBox1.Text, tempBook) != "no match")
                 {
-                    listBoxMain.Items.Add(Library.searchAuthororTitle(textBox1.Text, tempBook));
+                    listBoxMain.Items.Add(Lib.searchAuthororTitle(textBox1.Text, tempBook));
 
                     //all search results to list for potential sorting
                     Book.sortList.Add(tempBook);
@@ -73,8 +80,12 @@ namespace VirtualLibrarian
             listBoxMain.Items.Clear();
             textBox1.Clear();
 
+            // define delegate loadL and call the method using the delegate object
+            loadL = Lib.loadLibraryBooks;
+            loadL();
+
             //get which genres chosen
-            List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
+            List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
             if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return; }
 
             //checks all books in bookList
@@ -107,9 +118,8 @@ namespace VirtualLibrarian
 
         private void buttonAccSettings_Click(object sender, EventArgs e)
         {
-            FormAccountInfo accInfo = new FormAccountInfo();
             //pass defined user object to the new form
-            accInfo.user = user;
+            FormAccountInfo accInfo = new FormAccountInfo(user);
             accInfo.Show();
         }
 
@@ -128,8 +138,7 @@ namespace VirtualLibrarian
         //Go to employee only form
         private void buttonManageLibrary_Click(object sender, EventArgs e)
         {
-            FormLibSys sys = new FormLibSys();
-            sys.user = user;
+            FormLibSys sys = new FormLibSys(user);
             sys.Show();
             this.Close();
         }
@@ -154,20 +163,17 @@ namespace VirtualLibrarian
             quo = quo - 1;
 
             //ALL GOOD -> WRITE INFO. INTO FILES: username.txt, taken.txt, books.txt
-            Library.takeORGiveBook(splitInfo, user.username, quo);
+            Lib.takeORGiveBook(splitInfo, user.username, quo);
 
             MessageBox.Show("Book \n" + splitInfo[1] + " \nadded");
 
             listBoxMain.Items.Clear();
-            //if changes ever made to file --- reload the list!
-            Library.loadLibraryBooks();
         }
 
         //show new form with taken books
         private void buttonTakenBooks_Click_1(object sender, EventArgs e)
         {
-            FormReaderBooks rb = new FormReaderBooks("show");
-            rb.username = user.username;
+            FormReaderBooks rb = new FormReaderBooks("no_select", user.username);
             rb.ShowDialog();
         }
 
@@ -210,7 +216,7 @@ namespace VirtualLibrarian
             listBoxMain.Items.Clear();
 
             //get genres of books this reader has taken
-            List<string> genres = Library.reccomendations(user.username);
+            List<string> genres = Lib.reccomendations(user.username);
 
             if (genres.Count == 0)
             {
@@ -219,10 +225,8 @@ namespace VirtualLibrarian
             }
             string test = null;
             foreach (string item in genres)
-            {
-                test += " " + item;
-            }
-            MessageBox.Show("Favourite genres: " + test);
+            { test += " " + item; }
+            MessageBox.Show("Favourite genres: " + test + " " );
 
             foreach (Book tempBook in Book.bookList)
             {
@@ -235,7 +239,6 @@ namespace VirtualLibrarian
                         {
                             //returns object parameter string
                             listBoxMain.Items.Add(tempBook.ObToString(tempBook));
-
                         }
                         break;
                     }

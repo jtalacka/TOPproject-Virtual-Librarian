@@ -14,21 +14,25 @@ namespace VirtualLibrarian
 {
     public partial class FormAccountInfo : Form
     {
-        public FormAccountInfo()
+        //for passing User class object parameters between forms
+        User user;
+        public FormAccountInfo(User _user)
         {
             InitializeComponent();
+            user = _user;
         }
-
+        
         //what functions to display?
         private string displayAll = "none";
-        public FormAccountInfo(string buttonShow)
+        public FormAccountInfo(string buttonShow, User _user)
         {
-            this.displayAll = buttonShow;
             InitializeComponent();
+            this.displayAll = buttonShow; 
+            user = _user;
         }
 
-        //for passing User class object parameters between forms
-        internal User user { get; set; }
+        I_NewLogin L_or_S = new Login_or_Signup();
+        I_InLibrary Lib = new Library();
 
         private void FormAccountInfo_Load(object sender, EventArgs e)
         {
@@ -36,20 +40,12 @@ namespace VirtualLibrarian
             if (displayAll == "all")
             {
                 //display all functions
-                textBoxUsername.ReadOnly = false;
                 textBoxPass.PasswordChar = '*';
-                textBoxPass.ReadOnly = false;
                 textBoxName.ReadOnly = false;
                 textBoxSurname.ReadOnly = false;
                 textBoxEmail.ReadOnly = false;
                 textBoxBirth.ReadOnly = false;
                 buttonDel.Visible = true;
-            }
-            else
-            {
-                //display only 2 first
-                textBoxUsername.ReadOnly = false;
-                textBoxPass.ReadOnly = false;
             }
 
             //on form load - display user info
@@ -65,28 +61,28 @@ namespace VirtualLibrarian
         private void buttonSave_Click(object sender, EventArgs e)
         {
             //check if valid email w regex
-            if (Login_or_Signup.inputCheck(textBoxEmail.Text, 1) == 0)
+            if (L_or_S.inputCheck(textBoxEmail.Text, 1) == 0)
             {
                 MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
                 textBoxEmail.Focus();
                 return;
             }
             //check if date the right format
-            if (Login_or_Signup.inputCheck(textBoxBirth.Text, 2) == 0)
+            if (L_or_S.inputCheck(textBoxBirth.Text, 2) == 0)
             {
                 MessageBox.Show("Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)");
                 textBoxBirth.Focus();
                 return;
             }
 
-            string sql = 
+            string sql =
                 "Update Users set " +
-                "Username='" + textBoxUsername.Text + "', " + "Password='" + textBoxPass.Text + "', " + 
-                "Name='" + textBoxName.Text + "', " + "Surname='" + textBoxSurname.Text + "', " + 
-                "Email='" + textBoxEmail.Text + "', " + "Birth='" + textBoxBirth.Text + "'" + 
+                "Username='" + textBoxUsername.Text + "', " + "Password='" + textBoxPass.Text + "', " +
+                "Name='" + textBoxName.Text + "', " + "Surname='" + textBoxSurname.Text + "', " +
+                "Email='" + textBoxEmail.Text + "', " + "Birth='" + textBoxBirth.Text + "'" +
                 "Where Username='" + user.username + "'";
             //update table Users
-            Library.updateReaderInfo(sql);
+            Lib.updateReaderInfo(sql);
 
             //change current user object
             user.username = textBoxUsername.Text;
@@ -96,7 +92,6 @@ namespace VirtualLibrarian
             user.email = textBoxEmail.Text;
             user.birth = textBoxBirth.Text;
 
-            Library.loadReaders();
             MessageBox.Show("Changes saved");
             this.Close();
         }
@@ -111,8 +106,8 @@ namespace VirtualLibrarian
             {
                 string sql =
                 "Delete from Users where " +
-                "Username='"+user.username+"' and Name='"+user.name+"' and Surname='"+user.surname+"'";
-                Library.updateReaderInfo(sql);
+                "Username='" + user.username + "' and Name='" + user.name + "' and Surname='" + user.surname + "'";
+                Lib.updateReaderInfo(sql);
 
                 MessageBox.Show("User " + user.username + " deleted");
             }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace VirtualLibrarian
 {
-    class Login_or_Signup
+    public class Login_or_Signup : I_NewLogin
     {
         // 
         // FUNCTIONALITY from Form1 AND FormSignup:
@@ -30,9 +30,8 @@ namespace VirtualLibrarian
         //query
         public static SqlCommand command;
 
-
         //On buttonLogIn_Click
-        public static string login(string username, string pass)
+        public string login(string username, string pass)
         {
             //if username exist in db, is password correct, etc.
             bool correct = false;
@@ -87,7 +86,7 @@ namespace VirtualLibrarian
         }
 
         //On buttonSignup_Click
-        public static string signup(string name, string surname,
+        public string signup(string name, string surname,
                                     string username, string pass, string birth, string email)
         {
             //define user class object
@@ -99,8 +98,8 @@ namespace VirtualLibrarian
             conn.Open();
             string sql = "Insert into Users " +
                 "(Username, Password, Name, Surname, Email, Birth, UserType) " +
-                "values('"+username+"', '"+pass+"', '"+name+"', " +
-                       "'"+surname+"', '"+email+"', '"+birth+"', '"+User.userType.reader+"')";
+                "values('" + username + "', '" + pass + "', '" + name + "', " +
+                       "'" + surname + "', '" + email + "', '" + birth + "', '" + User.userType.reader + "')";
             using (conn)
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -114,7 +113,7 @@ namespace VirtualLibrarian
 
 
         //input validation - email, date of birth, ISBN
-        public static int inputCheck(string whatToCheck, int c)
+        public int inputCheck(string whatToCheck, int c)
         {
             Regex emailRegex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");
             var dateFormats = new[] { "yyyy.MM.dd", "yyyy-MM-dd" };
@@ -153,7 +152,7 @@ namespace VirtualLibrarian
 
 
         //check if username exists in db
-        public static bool checkIfExistsInDBUsers(string whatToLookFor)
+        public bool checkIfExistsInDBUsers(string whatToLookFor)
         {
             bool ExistsResult = false;
 

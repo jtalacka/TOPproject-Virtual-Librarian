@@ -15,9 +15,19 @@ namespace VirtualLibrarian
 {
     public partial class FormSignup : Form
     {
-        public FormSignup()
+        I_NewLogin L_or_S;
+        public FormSignup(I_NewLogin newLog)
         {
             InitializeComponent();
+            //dependency injection from Form1
+            L_or_S = newLog;
+        }
+
+        //define generic delegate with placeholder for L_or_S.signup
+        public delegate T add<T>(T n, T s, T u, T p, T b, T e);
+        static string runAdelegate(add<string> d, string n, string s, string u, string p, string b, string e)
+        {
+            return d(n, s, u, p, b, e);
         }
 
         //Signup button
@@ -25,17 +35,17 @@ namespace VirtualLibrarian
         {
             //check if any textbox's empty
             if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
-            { MessageBox.Show("Please enter login info."); return; }
+                { MessageBox.Show("Please enter login info."); return; }
 
             //check if valid email w regex
-            if (Login_or_Signup.inputCheck(textBoxEmail.Text, 1) == 0)
+            if (L_or_S.inputCheck(textBoxEmail.Text, 1) == 0)
             {
                 MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
                 textBoxEmail.Focus();
                 return;
             }
             //check if date the right format
-            if (Login_or_Signup.inputCheck(textBoxBirth.Text, 2) == 0)
+            if (L_or_S.inputCheck(textBoxBirth.Text, 2) == 0)
             {
                 MessageBox.Show("Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)");
                 textBoxBirth.Focus();
@@ -43,27 +53,30 @@ namespace VirtualLibrarian
             }
 
             //check if username already exists in db table Users
-            bool exists = Login_or_Signup.checkIfExistsInDBUsers(textBoxUsername.Text);
+            bool exists = L_or_S.checkIfExistsInDBUsers(textBoxUsername.Text);
 
             //if username unique - add user info. to db
             if (exists == false)
             {
-                string result =
-                Login_or_Signup.signup(textBoxName.Text, textBoxSurname.Text, textBoxUsername.Text,
-                textBoxPassword.Text, textBoxBirth.Text, textBoxEmail.Text);
+                //point delegate to a method
+                //add = L_or_S.signup;
+                 add<string> add = L_or_S.signup;
+                //call the method using the delegate object
+                string result = runAdelegate(add, 
+                                textBoxName.Text, textBoxSurname.Text, textBoxUsername.Text,
+                                textBoxPassword.Text, textBoxBirth.Text, textBoxEmail.Text);
 
                 if (result == "new reader added")
                 {
                     this.Close();
-                    FormLibrary library = new FormLibrary();
                     //pass defined user object to the new form
-                    library.user = Login_or_Signup.user;
+                    FormLibrary library = new FormLibrary(Login_or_Signup.user);              
                     library.Show();
                 }
             }
             else
             {
-                MessageBox.Show("Username already exists");
+                MessageBox.Show("Username already exists. Please choose a different one");
                 textBoxUsername.Focus();
                 return;
             }
@@ -76,5 +89,6 @@ namespace VirtualLibrarian
             Form1 form = new Form1();
             form.Show();
         }
+
     }
 }

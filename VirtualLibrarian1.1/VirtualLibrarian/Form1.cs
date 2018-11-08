@@ -19,6 +19,17 @@ namespace VirtualLibrarian
             InitializeComponent();
         }
 
+        //interface object, through which we will be accessing the controller class methods
+        I_NewLogin L_or_S = new Login_or_Signup();
+
+        //define delegate that will point to L_or_S.login
+        public delegate string del(string N, string P);
+        del check;
+        static string runAdelegate(del d, string n, string p)
+        {
+            return d(n, p);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             //on form load, focus on username textbox
@@ -30,26 +41,29 @@ namespace VirtualLibrarian
         {
             //check if any textBox empty (LINQ method)
             if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
-            { MessageBox.Show("Please enter login info."); return; }
+                { MessageBox.Show("Please enter login info."); return; }
+          
+            //point defined delegate to method
+            check = L_or_S.login;
+            //call the method using the delegate object
+            string result = runAdelegate(check, textBoxName.Text, textBoxPassword.Text);
 
             //check if login info. correct
-            string checkRes = Login_or_Signup.login(textBoxName.Text, textBoxPassword.Text);
-            if (checkRes == "correct" && Login_or_Signup.user != null)
+            if (result == "correct" && Login_or_Signup.user != null)
             {
                 //if all input ok, goto new form
                 this.Hide();
-                FormLibrary library = new FormLibrary();
                 //pass defined user object to the new form
-                library.user = Login_or_Signup.user;
+                FormLibrary library = new FormLibrary(Login_or_Signup.user);               
                 library.Show();
             }
-            else if (checkRes == "Incorrect password")
+            else if (result == "Incorrect password")
             {
                 MessageBox.Show("Incorrect password");
                 textBoxPassword.Focus();
                 return;
             }
-            else if (checkRes == "User with this username doesn't exist")
+            else if (result == "User with this username doesn't exist")
             {
                 MessageBox.Show("User with this username doesn't exist");
                 textBoxName.Focus();
@@ -65,7 +79,7 @@ namespace VirtualLibrarian
         //Button Sign up
         private void buttonSignUp_Click(object sender, EventArgs e)
         {
-            FormSignup signup = new FormSignup();
+            FormSignup signup = new FormSignup(L_or_S);
             signup.Show();
             this.Hide();
         }

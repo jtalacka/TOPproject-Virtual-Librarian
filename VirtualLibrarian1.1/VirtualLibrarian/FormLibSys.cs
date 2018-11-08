@@ -13,11 +13,20 @@ namespace VirtualLibrarian
 {
     public partial class FormLibSys : Form
     {
-        public FormLibSys()
+        User user;
+        public FormLibSys(User _user)
         {
             InitializeComponent();
+            //dependency injection?
+            user = _user;
         }
-        internal User user;
+
+        I_InLibrary Lib = new Library();
+        I_InLibSystem LibSys = new Library_System();
+
+        //an event in separate class
+         OnDB_Update updateE = new OnDB_Update();
+
 
         //search for a book
         private void buttonSearchBook_Click(object sender, EventArgs e)
@@ -37,16 +46,16 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
-            //reload books in case changes were made in file
-            Library.loadLibraryBooks();
+            //reload list
+            updateE.UpadateEvent();
 
             //checks all the books in the list bookList
             foreach (Book tempBook in Book.bookList)
             {
                 //checks tempBook - if it fits, returns tempBook info to display            
-                if (Library.searchAuthororTitle(textBoxBook.Text, tempBook) != "no match")
+                if (Lib.searchAuthororTitle(textBoxBook.Text, tempBook) != "no match")
                 {
-                    listBoxMain.Items.Add(Library.searchAuthororTitle(textBoxBook.Text, tempBook));
+                    listBoxMain.Items.Add(Lib.searchAuthororTitle(textBoxBook.Text, tempBook));
                 }
             }
         }
@@ -59,6 +68,7 @@ namespace VirtualLibrarian
 
             //clear main window
             listBoxMain.Items.Clear();
+            updateE.UpadateEvent();
         }
 
         //edit a book
@@ -67,7 +77,7 @@ namespace VirtualLibrarian
             //gets selected info about the book
             string info = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (info == "")
-            { MessageBox.Show("Please select a book to edit"); return; }
+                { MessageBox.Show("Please select a book to edit"); return; }
 
             info = info.Replace(" --- ", ";");
             string[] lineSplit = info.Split(';');
@@ -76,13 +86,13 @@ namespace VirtualLibrarian
             Book book = new Book(lineSplit[0], lineSplit[1], lineSplit[2],
                 lineSplit[3].Split(' ').ToList(), Int32.Parse(lineSplit[4]));
 
-            FormEditBook eb = new FormEditBook();
             //pass defined book
-            eb.book = book;
+            FormEditBook eb = new FormEditBook(book);            
             eb.ShowDialog();
 
             //clear main window
             listBoxMain.Items.Clear();
+            updateE.UpadateEvent();
         }
 
         //delete book
@@ -91,10 +101,8 @@ namespace VirtualLibrarian
             //gets selected info about the book
             string info = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (info == "")
-            {
-                MessageBox.Show("Please select a book to delete");
-                return;
-            }
+            { MessageBox.Show("Please select a book to delete"); return;}
+
             info = info.Replace(" --- ", ";");
             string[] lineSplit = info.Split(';');
 
@@ -108,20 +116,20 @@ namespace VirtualLibrarian
             {
                 string sql =
                 "Delete from Books Where ISBN='" + code + "' and Title='" + t + "'";
-                Library.updateReaderInfo(sql);
+                Lib.updateReaderInfo(sql);
 
                 MessageBox.Show("Book " + t + " deleted");
                 //clear main window
                 listBoxMain.Items.Clear();
+                updateE.UpadateEvent();
             }
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();
-            FormLibrary lib = new FormLibrary();
             //didn't use user object, but have to pass it back
-            lib.user = user;
+            FormLibrary lib = new FormLibrary(user);
             lib.Show();
         }
 
@@ -130,7 +138,7 @@ namespace VirtualLibrarian
         {
             //clear main window
             listBoxMain.Items.Clear();
-            //Hide buttons realted to library and user management
+            //Hide buttons that
             buttonAdd.Visible = false;
             buttonEdit.Visible = false;
             buttonDel.Visible = false;
@@ -143,13 +151,12 @@ namespace VirtualLibrarian
             textBoxReader.Clear();
             label4.Visible = false;
 
-
-            List<string> ALLtaken = Library_System.allTakenBooks();
+            //load all taken books and display
+            List<string> ALLtaken = LibSys.allTakenBooks();
             foreach (var item in ALLtaken)
             {
                 listBoxMain.Items.Add(item);
             }
-
         }
 
 
@@ -175,13 +182,16 @@ namespace VirtualLibrarian
             //clear main window
             listBoxMain.Items.Clear();
 
+            //reload list
+            updateE.UpadateEvent();
+
             //checks all list
             foreach (User reader in User.readerList)
             {
                 //checks reader - if it fits, returns reader info to display            
-                if (Library_System.searchR(textBoxReader.Text, reader) != "no match")
+                if (LibSys.searchR(textBoxReader.Text, reader) != "no match")
                 {
-                    listBoxMain.Items.Add(Library_System.searchR(textBoxReader.Text, reader));
+                    listBoxMain.Items.Add(LibSys.searchR(textBoxReader.Text, reader));
                 }
             }
         }
@@ -192,7 +202,7 @@ namespace VirtualLibrarian
             //get info about selected reader
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
-            { MessageBox.Show("Please select a reader account"); return; }
+                { MessageBox.Show("Please select a reader account"); return; }
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
@@ -212,17 +222,17 @@ namespace VirtualLibrarian
                 //is quantity != 0?
                 int quo = Int32.Parse(splitInfo[4]);
                 if (quo == 0)
-                { MessageBox.Show("All copies of this book are taken"); return; }
+                    { MessageBox.Show("All copies of this book are taken"); return; }
                 quo = quo - 1;
 
                 //ALL GOOD -> WRITE NEEDED INFO. INTO TABLES: Taken, Books
-                Library.takeORGiveBook(splitInfo, readerInfoSplit[0], quo);
+                Lib.takeORGiveBook(splitInfo, readerInfoSplit[0], quo);
 
                 MessageBox.Show("Book \n" + splitInfo[1] + " \nadded to " + readerInfoSplit[0] + " file");
 
-                //if changes ever made to file --- reload the list!
-                Library.loadLibraryBooks();
             }
+            //reload list
+            updateE.UpadateEvent();
         }
 
         //delete book from reader file
@@ -231,14 +241,13 @@ namespace VirtualLibrarian
             //get info about selected reader
             string readerInfo = listBoxMain.GetItemText(listBoxMain.SelectedItem);
             if (readerInfo == "")
-            { MessageBox.Show("Please select a reader account"); return; }
+                { MessageBox.Show("Please select a reader account"); return; }
 
             readerInfo = readerInfo.Replace(" --- ", ";");
             string[] readerInfoSplit = readerInfo.Split(';');
 
             //new form
-            FormReaderBooks rb = new FormReaderBooks();
-            rb.username = readerInfoSplit[0];
+            FormReaderBooks rb = new FormReaderBooks(readerInfoSplit[0]);
             rb.ShowDialog();
 
             //info about book being returned => returnedBookInfo
@@ -260,14 +269,13 @@ namespace VirtualLibrarian
                 //delete in Taken and add quantity in Books
                 string sql =
                 "Delete from Taken where " +
-                "ISBN='"+splitInfo[0]+"' and Username='"+readerInfoSplit[0]+"'";
-                Library_System.deleteBookFromReader(sql, splitInfo);
+                "ISBN='" + splitInfo[0] + "' and Username='" + readerInfoSplit[0] + "'";
+                LibSys.deleteBookFromReader(sql, splitInfo);
 
                 MessageBox.Show("Book\n" + splitInfo[1] + "\ndeleted from reader account");
 
-                //if changes ever made to file --- reload the list!
-                Library.loadLibraryBooks();
             }
+            updateE.UpadateEvent();
         }
 
 
@@ -292,14 +300,13 @@ namespace VirtualLibrarian
                 }
             }
 
-            FormAccountInfo accInfo = new FormAccountInfo("all");
+            FormAccountInfo accInfo = new FormAccountInfo("all", user);
             //pass defined user object to the new form
-            accInfo.user = passUser;
             accInfo.ShowDialog();
 
             //clear main window
             listBoxMain.Items.Clear();
-            Library.loadReaders();
+            updateE.UpadateEvent();
         }
 
 

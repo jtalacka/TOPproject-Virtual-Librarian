@@ -13,12 +13,17 @@ namespace VirtualLibrarian
 {
     public partial class FormEditBook : Form
     {
-        public FormEditBook()
+        //for passing Book class object parameters between forms
+        private Book book;
+        public FormEditBook(Book B)
         {
             InitializeComponent();
+            book = B;
         }
-        //for passing Book class object parameters between forms
-        internal Book book { get; set; }
+        
+        I_NewLogin L_or_S = new Login_or_Signup();
+        I_InLibrary Lib = new Library();
+        I_InLibSystem LibSys = new Library_System();
 
         bool genresChanged = false;
         string checkedG;
@@ -39,7 +44,7 @@ namespace VirtualLibrarian
             genresChanged = true;
 
             //get which genres chosen and put into List
-            List<string> checkedGenres = Library.genresSelected(checkedListBoxGenre.CheckedItems);
+            List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
             //List into string
             checkedG = string.Join(" ", checkedGenres.ToArray());
         }
@@ -48,7 +53,7 @@ namespace VirtualLibrarian
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             //check if valid ISBN w regex
-            if (Login_or_Signup.inputCheck(textBoxISBN.Text, 3) == 0)
+            if (L_or_S.inputCheck(textBoxISBN.Text, 3) == 0)
             {
                 MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
                 textBoxISBN.Focus();
@@ -72,7 +77,7 @@ namespace VirtualLibrarian
                 "ISBN='" + textBoxISBN.Text + "', " + "Title='" + textBoxTitle.Text + "', " +
                 "Author='" + textBoxAuthor.Text + "', " + "Genres='" + checkedG + "', " +
                 "Quantity='" + textBoxQ.Text + "' Where ISBN='" + book.ISBN + "'";
-            Library_System.editBook(sql);
+            LibSys.editBook(sql);
 
             MessageBox.Show("Changes saved");
             this.Close();
