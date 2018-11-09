@@ -22,12 +22,17 @@ namespace VirtualLibrarian
         I_InLibrary Lib = new Library();
         I_InLibSystem LibSys = new Library_System();
 
+        //for saving pictures to db
+        String strFilePath = "";
+        Byte[] ImageByteArray = new byte[] { };
+        bool picChosen = false;
+
         //add book to file
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             //check if any textbox's empty
-            if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
-            { MessageBox.Show("Please enter login info."); return; }
+            //if (this.Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
+            //{ MessageBox.Show("Please enter all info."); return; }
 
             //check if valid ISBN w regex
             string ISBN = textBoxISBN.Text;
@@ -58,21 +63,47 @@ namespace VirtualLibrarian
             List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
             if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return; }
 
+            //new picture chosen?
+            if (picChosen == true)
+            {
+                Image temp = new Bitmap(strFilePath);
+                MemoryStream strm = new MemoryStream();
+                temp.Save(strm, System.Drawing.Imaging.ImageFormat.Jpeg);
+                ImageByteArray = strm.ToArray();
+            }
+
             //define Book
-            Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres, qua);
+            Book book = new Book(ISBN, textBoxTitle.Text, textBoxAuthor.Text, checkedGenres, qua, textBoxText.Text, ImageByteArray);
 
             //if ISBN unique - add book to table Books
-            LibSys.addBook(book, checkedGenres);
+            LibSys.addBook(book, checkedGenres, ImageByteArray);
 
             MessageBox.Show("Book '" + book.title + "' added");
             textBoxISBN.Clear();
             textBoxTitle.Clear();
             textBoxAuthor.Clear();
             textBoxQ.Clear();
+            textBoxText.Clear();
+            textBox2.Clear();
             foreach (int i in checkedListBoxGenre.CheckedIndices)
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
             }
+        }
+
+        //choose a picture
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {       
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                picChosen = true;
+                strFilePath = ofd.FileName;
+                textBox2.Text = System.IO.Path.GetFileName(strFilePath);
+            }
+            else
+                picChosen = false;
         }
     }
 }

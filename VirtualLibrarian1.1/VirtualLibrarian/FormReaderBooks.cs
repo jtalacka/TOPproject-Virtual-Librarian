@@ -13,25 +13,26 @@ namespace VirtualLibrarian
 {
     public partial class FormReaderBooks : Form
     {
-
         public FormReaderBooks(string user)
         {
             InitializeComponent();
-            username = user;
-        }
-
-        //what username passed
-        string username;
-        string showSelect = "show";
-        public FormReaderBooks(string buttonShow, string user)
-        {
-            InitializeComponent();
-            showSelect = buttonShow;
+            returnedBookInfo = "none";
             username = user;
         }
 
         //what to retun
-        public static string returnedBookInfo;        
+        public static string returnedBookInfo;
+        //what username passed
+        string username;
+        string showSelect = "show";
+
+        public FormReaderBooks(string buttonShow, string user)
+        {
+            InitializeComponent();
+            returnedBookInfo = "none";
+            showSelect = buttonShow;
+            username = user;
+        }
 
         private void FormReaderBooks_Load(object sender, EventArgs e)
         {
@@ -54,7 +55,7 @@ namespace VirtualLibrarian
         {
             //get selected book info
             returnedBookInfo = listBox1.GetItemText(listBox1.SelectedItem);
-
+            MessageBox.Show(returnedBookInfo);
             if (returnedBookInfo == "none")
             {
                 MessageBox.Show("Select a book");

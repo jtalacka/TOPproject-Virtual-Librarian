@@ -13,7 +13,7 @@ namespace VirtualLibrarian
         //FUNCTIONALITY from FormLibSys/NewBook/EditBook/...:
         //      checkIfExistsInDBBooks
         //      addBook,
-        //      editBook,
+        //      
         //
         //      allTakenBooks
         //      searchR,
@@ -53,38 +53,43 @@ namespace VirtualLibrarian
             }
         }
 
-        public void addBook(Book book, List<string> checkedGenres)
+        public void addBook(Book book, List<string> checkedGenres, Byte[] ImageByteArray)
         {
-            conn.ConnectionString = conectionS;
-            conn.Open();
-            string sql = "Insert into Books " +
-                "(ISBN, Title, Author, Genres, Quantity) " +
-                "values('" + book.ISBN + "', '" + book.title + "', '" + book.author + "', " +
-                       "'" + string.Join(" ", checkedGenres) + "', '" + book.quantity.ToString() + "')";
-            using (conn)
+            using (SqlConnection conn = new SqlConnection(conectionS))
             {
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                using (SqlCommand command = conn.CreateCommand())
                 {
-                    cmd.ExecuteNonQuery();
+                    command.CommandText = "Insert into Books " +
+                        "(ISBN, Title, Author, Genres, Quantity, Description, Picture)" +
+                        "Values (@code, @title, @auth, @g, @q, @des, @pic) ";
+                    command.Parameters.AddWithValue("@code", book.ISBN);
+                    command.Parameters.AddWithValue("@title", book.title);
+                    command.Parameters.AddWithValue("@auth", book.author);
+                    command.Parameters.AddWithValue("@g", string.Join(" ", checkedGenres));
+                    command.Parameters.AddWithValue("@q", book.quantity.ToString());
+                    command.Parameters.AddWithValue("@des", book.description);
+                    command.Parameters.AddWithValue("@pic", ImageByteArray);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    conn.Close();
                 }
             }
-            conn.Close();
         }
 
         //edit/delete Book info. in table
-        public void editBook(string COMMAND)
-        {
-            conn.ConnectionString = conectionS;
-            conn.Open();
-            using (conn)
-            {
-                using (command = new SqlCommand(COMMAND, conn))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
-            conn.Close();
-        }
+        //public void editBook(SqlCommand command)
+        //{
+        //    conn.ConnectionString = conectionS;
+        //    conn.Open();
+        //    using (conn)
+        //    {
+        //        using (command)
+        //        {
+        //            command.ExecuteNonQuery();
+        //        }
+        //    }
+        //    conn.Close();
+        //}
 
 
         //gets all taken books into list

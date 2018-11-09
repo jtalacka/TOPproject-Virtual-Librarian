@@ -28,15 +28,25 @@ namespace VirtualLibrarian
                 {
                     gs = reader.GetString(reader.GetOrdinal("Genres"));
                     genres = gs.Split(' ').ToList();
+                    string descr = "Not added";
 
                     try
                     {
+                        if (reader.IsDBNull(reader.GetOrdinal("Description")))
+                            descr = "Not added";
+                        else if (reader.GetString(reader.GetOrdinal("Description")) == "")
+                            descr = "Not added";
+                        else
+                            descr = reader.GetString(reader.GetOrdinal("Description"));
+
                         Book.bookList.Add(new Book(
                             reader.GetString(reader.GetOrdinal("ISBN")),
                             reader.GetString(reader.GetOrdinal("Title")),
                             reader.GetString(reader.GetOrdinal("Author")),
                             genres,
-                            reader.GetInt32(reader.GetOrdinal("Quantity"))));
+                            reader.GetInt32(reader.GetOrdinal("Quantity")),
+                            descr,
+                            reader["Picture"] as byte[] ?? null));
                     }
                     catch(System.Data.SqlClient.SqlException)
                     {

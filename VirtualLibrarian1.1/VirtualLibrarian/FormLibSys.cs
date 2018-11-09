@@ -83,11 +83,18 @@ namespace VirtualLibrarian
             string[] lineSplit = info.Split(';');
 
             //define book to edit
-            Book book = new Book(lineSplit[0], lineSplit[1], lineSplit[2],
-                lineSplit[3].Split(' ').ToList(), Int32.Parse(lineSplit[4]));
+            Book bookToPass = new Book();
+
+            foreach (var book in Book.bookList)
+            {
+               if (book.ISBN == lineSplit[0] && book.title == lineSplit[1])
+                {
+                    bookToPass = book;
+                }
+            }
 
             //pass defined book
-            FormEditBook eb = new FormEditBook(book);            
+            FormEditBook eb = new FormEditBook(bookToPass);
             eb.ShowDialog();
 
             //clear main window
@@ -300,7 +307,7 @@ namespace VirtualLibrarian
                 }
             }
 
-            FormAccountInfo accInfo = new FormAccountInfo("all", user);
+            FormAccountInfo accInfo = new FormAccountInfo("all", passUser);
             //pass defined user object to the new form
             accInfo.ShowDialog();
 
