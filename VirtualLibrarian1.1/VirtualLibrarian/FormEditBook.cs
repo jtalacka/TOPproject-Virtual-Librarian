@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,14 +14,28 @@ namespace VirtualLibrarian
 {
     public partial class FormEditBook : Form
     {
-        public FormEditBook()
+        //for passing Book class object parameters between forms
+        private Book book;
+        public FormEditBook(Book B)
         {
             InitializeComponent();
+            book = B;
         }
-        //for passing Book class object parameters between forms
-        internal Book book { get; set; }
+
+        I_NewLogin L_or_S = new Login_or_Signup();
+        I_InLibrary Lib = new Library();
+        I_InLibSystem LibSys = new Library_System();
 
         bool genresChanged = false;
+        string checkedG;
+
+        //for connecting to the db
+        static string conectionS = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+
+        //for saving pictures to db
+        String strFilePath = "";
+        Byte[] ImageByteArray = new byte[] { };
+        bool picChosen = false;
 
         //on load display information
         private void FormEditBook_Load(object sender, EventArgs e)
@@ -30,25 +45,35 @@ namespace VirtualLibrarian
             textBoxAuthor.Text = book.author;
             textBoxQ.Text = book.quantity.ToString();
             textBoxGenres.Text = String.Join(" ", book.genres);
+            textBoxText.Text = book.description;
+            if (book.picture != null)
+                textBox2.Text = "some picture is saved for this book";
+            else
+                 textBox2.Text = "no picture saved for this book";
         }
 
         //if genres clicked
         private void checkedListBoxGenre_Click(object sender, EventArgs e)
         {
             genresChanged = true;
+
+            //get which genres chosen and put into List
+            List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
+            //List into string
+            checkedG = string.Join(" ", checkedGenres.ToArray());
         }
 
         //save changes
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             //check if valid ISBN w regex
-            if (Functions.inputCheck(textBoxISBN.Text, 3) == 0)
+            if (L_or_S.inputCheck(textBoxISBN.Text, 3) == 0)
             {
                 MessageBox.Show("Please enter a valid ISBN (ex. of ISBN-13 code: 978-0486474915");
                 textBoxISBN.Focus();
                 return;
             }
-            //check quantity
+            //check if valid quantity
             int qua;
             if (!Int32.TryParse(textBoxQ.Text, out qua))
             {
@@ -57,58 +82,63 @@ namespace VirtualLibrarian
                 return;
             }
 
-            string line;
-            StreamReader file = new StreamReader("books.txt");
-            //read line by line and look for ISBN
-            while ((line = file.ReadLine()) != null)
+            //depending if new genres were selected, we pass diferent checkedG value
+            if (genresChanged == false)
+                checkedG = textBoxGenres.Text;
+
+            //new picture chosen?
+            if (picChosen == true && strFilePath != "")
             {
-                string[] lineSplit = line.Split(';');
+                Image temp = new Bitmap(strFilePath);
+                MemoryStream strm = new MemoryStream();
+                temp.Save(strm, System.Drawing.Imaging.ImageFormat.Jpeg);
+                ImageByteArray = strm.ToArray();
+            }
+            else if (picChosen == false && book.picture != null)
+                ImageByteArray = book.picture;
+            else
+                ImageByteArray = null;
 
-                //if found our line (unique ISBN)
-                if (lineSplit[0] == book.ISBN)
+            //update info.
+            using (SqlConnection conn = new SqlConnection(conectionS))
+            {
+                using (SqlCommand command = conn.CreateCommand())
                 {
-                    //save old info
-                    string[] oInfo = { book.ISBN, book.title,
-                                        book.author, textBoxGenres.Text, book.quantity.ToString() };
-                    //all old info in one string
-                    string oLine = string.Join(";", oInfo);
-                    //new info
-                    string nLine;
-
-                    //if new genres selected 
-                    if (genresChanged == true)
-                    {
-                        //get which genres chosen and put into List
-                        List<string> checkedGenres = Functions.genresSelected(checkedListBoxGenre.CheckedItems);
-                        //List into string
-                        string checkedG = string.Join(" ", checkedGenres.ToArray());
-
-                        //form new info string
-                        nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
-                                                textBoxAuthor.Text, checkedG, textBoxQ.Text);
-                    }
-                    else
-                    {
-                        //form new info string
-                        nLine = string.Join(";", textBoxISBN.Text, textBoxTitle.Text,
-                                                textBoxAuthor.Text, textBoxGenres.Text, textBoxQ.Text); ;
-                    }
-                    file.Close();
-
-                    //read all text
-                    string text = File.ReadAllText("books.txt");
-                    //modifiy old text
-                    text = text.Replace(oLine, nLine);
-                    //write it back
-                    File.WriteAllText("books.txt", text);
-
-                    //end the madness
-                    break;
+                    command.CommandText = "UPDATE Books SET " +
+                        "ISBN = @code, Title = @title, Author= @auth, Genres= @g, Quantity= @q, Description= @des, Picture= @im " +
+                        "Where ISBN = @old";
+                    command.Parameters.AddWithValue("@code", textBoxISBN.Text);
+                    command.Parameters.AddWithValue("@title", textBoxTitle.Text);
+                    command.Parameters.AddWithValue("@auth", textBoxAuthor.Text);
+                    command.Parameters.AddWithValue("@g", checkedG);
+                    command.Parameters.AddWithValue("@q", textBoxQ.Text);
+                    command.Parameters.AddWithValue("@des", textBoxText.Text);
+                    command.Parameters.AddWithValue("@im", ImageByteArray);
+                    command.Parameters.AddWithValue("@old", book.ISBN);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    conn.Close();
                 }
             }
+            
 
             MessageBox.Show("Changes saved");
             this.Close();
+        }
+
+        //choose a picture
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                picChosen = true;
+                strFilePath = ofd.FileName;
+                textBox2.Text = System.IO.Path.GetFileName(strFilePath);
+            }
+            else
+                picChosen = false;
         }
     }
 }

@@ -10,6 +10,18 @@ namespace VirtualLibrarian
     public class Book : IComparable, IFormattable
     {
         //constructors
+        public Book(string isbn, string t, string a, List<string> g, int q, string des, byte[] image)
+        {
+            this.ISBN = isbn;
+            this.title = t;
+            this.author = a;
+            this.genres = g;
+            this.quantity = q;
+            this.description = des;
+            this.picture = image;
+
+            this.image = "picture set";
+        }
         public Book(string isbn, string t, string a, List<string> g, int q)
         {
             this.ISBN = isbn;
@@ -18,41 +30,21 @@ namespace VirtualLibrarian
             this.genres = g;
             this.quantity = q;
 
-            this.image = "";
-        }
-        public Book(string isbn, string t, string a, List<string> g)
-        {
-            this.ISBN = isbn;
-            this.title = t;
-            this.author = a;
-            this.genres = g;
-
-            this.image = "";
-        }
-        public Book(string isbn, string t, string a, List<string> g, string lineRead)
-        {
-            this.ISBN = isbn;
-            this.title = t;
-            this.author = a;
-            this.genres = g;
-            this.bookLineRead = lineRead;
-
-            this.image = "";
+            this.image = "show default";
         }
 
-        public Book(string line) { }
         public Book() { }
 
-        //properties (in same order as written in in the file)
+        //properties
         public string ISBN;
         public string title;
         public string author;
         public List<string> genres;
         public int quantity;
-
+        public string description;
         public string image;
-        //public string description;    
-        public string bookLineRead;//the line read from file       
+        public byte[] picture;
+                 
 
         //List for all books AND books to sort
         public static List<Book> bookList = new List<Book>();

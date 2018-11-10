@@ -3,4 +3,4 @@
 978-0385074070;The Complete Stories and Poems;Edgar Allan Poe;Horror Poetry;2018.10.29;2018.11.29;move4582
 978-1786298997;A Brush with Chaos;Ken Melber;Children's;2018.10.29;2018.11.29;move4582
 978-1451673319;Fahrenheit 451;Ray Bradbury;Science-fiction;2018.10.29;2018.11.29;abc
-978-10555289-50;TEST;na;Adventure Mystery;2018.10.29;2018.11.29;move4582
+Fahrenheit 451;Ray Bradbury;Science-fiction;449;2018.11.03;2018.12.03;move4582

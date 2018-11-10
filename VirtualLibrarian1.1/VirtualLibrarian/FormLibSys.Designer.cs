@@ -252,6 +252,7 @@
             this.Controls.Add(this.listBoxMain);
             this.Name = "FormLibSys";
             this.Text = "Library system";
+//            this.Load += new System.EventHandler(this.FormLibSys_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
