@@ -119,7 +119,7 @@
             this.buttonGenre.TabIndex = 8;
             this.buttonGenre.Text = "Search genre";
             this.buttonGenre.UseVisualStyleBackColor = true;
-            this.buttonGenre.Click += new System.EventHandler(this.buttonGenre_Click);
+            this.buttonGenre.Click += new System.EventHandler(this.ButtonGenre_Click);
             // 
             // buttonManageLibrary
             // 

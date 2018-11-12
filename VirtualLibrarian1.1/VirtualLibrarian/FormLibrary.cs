@@ -46,8 +46,18 @@ namespace VirtualLibrarian
         }
 
         //Search by author or book title
-        private void buttonSearch_Click(object sender, EventArgs e)
+        private async void buttonSearch_Click(object sender, EventArgs e)
         {
+
+            buttonSearch.Enabled = false;
+            buttonSort.Enabled = false;
+            buttonGenre.Enabled = false;
+            buttonMore.Enabled = false;
+            buttonTakenBooks.Enabled = false;
+            buttonReccomend.Enabled = false;
+            takebook.Enabled = false;
+
+            
             Book.sortList.Clear();
             buttonSort.Visible = true;
             //clear main window
@@ -69,11 +79,29 @@ namespace VirtualLibrarian
                     Book.sortList.Add(tempBook);
                 }
             }
+
+
+            buttonSearch.Enabled = true;
+            buttonSort.Enabled = true;
+            buttonGenre.Enabled = true;
+            buttonMore.Enabled = true;
+            buttonTakenBooks.Enabled = true;
+            buttonReccomend.Enabled = true;
+            takebook.Enabled = true;
         }
 
         //search by genre
-        private void buttonGenre_Click(object sender, EventArgs e)
+        private async void ButtonGenre_Click(object sender, EventArgs e)
         {
+
+            buttonSearch.Enabled = false;
+            buttonSort.Enabled = false;
+            buttonGenre.Enabled = false;
+            buttonMore.Enabled = false;
+            buttonTakenBooks.Enabled = false;
+            buttonReccomend.Enabled = false;
+            takebook.Enabled = false;
+
             Book.sortList.Clear();
             buttonSort.Visible = true;
             //clear main window
@@ -107,6 +135,14 @@ namespace VirtualLibrarian
                         }
                     }
                 }
+
+                buttonSearch.Enabled = true;
+                buttonSort.Enabled = true;
+                buttonGenre.Enabled = true;
+                buttonMore.Enabled = true;
+                buttonTakenBooks.Enabled = true;
+                buttonReccomend.Enabled = true;
+                takebook.Enabled = true;
             }
 
             //clear checked items
@@ -114,6 +150,9 @@ namespace VirtualLibrarian
             {
                 checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
             }
+
+
+
         }
 
         private void buttonAccSettings_Click(object sender, EventArgs e)
