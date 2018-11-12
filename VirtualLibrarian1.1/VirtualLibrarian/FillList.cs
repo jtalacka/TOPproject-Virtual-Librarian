@@ -4,46 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace VirtualLibrarian
 {
     static class FillList
     {
         static public void fillBookList(this List<Book> bookList)
-
         {
             //clear book list
             Book.bookList.Clear();
-            string line;
-            string templine;
-            StreamReader file = new StreamReader("books.txt");
-            while ((line = file.ReadLine()) != null)
+            string gs;
+            List<string> genres;
+
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            conn.Open();
+            SqlCommand command = new SqlCommand("Select * from Books", conn);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                templine = line;
-                //split line into strings
-                string[] lineSplit = line.Split(';');
-                //lineSplit[3] contains the genres separated with spaces
-                string[] genreSplit = lineSplit[3].Split(' ');
+                while (reader.Read())
+                {
+                    gs = reader.GetString(reader.GetOrdinal("Genres"));
+                    genres = gs.Split(' ').ToList();
+                    string descr = "Not added";
 
-                List<string> genres = new List<string>();
-                for (int i = 0; i < genreSplit.Length; i++)
-                {
-                    genres.Add(genreSplit[i]);
-                }
+                    try
+                    {
+                        if (reader.IsDBNull(reader.GetOrdinal("Description")))
+                            descr = "Not added";
+                        else if (reader.GetString(reader.GetOrdinal("Description")) == "")
+                            descr = "Not added";
+                        else
+                            descr = reader.GetString(reader.GetOrdinal("Description"));
 
-                try
-                {
-                    Book.bookList.Add(new Book(lineSplit[0], lineSplit[1], lineSplit[2], genres, Int32.Parse(lineSplit[4])));
-                }
-                catch (System.IndexOutOfRangeException e)
-                {
-                    System.Windows.Forms.MessageBox.Show("Error: array index out of bounds. " +
-                        "\nSomething wrong in file data layout.", "Error message", 
+                        Book.bookList.Add(new Book(
+                            reader.GetString(reader.GetOrdinal("ISBN")),
+                            reader.GetString(reader.GetOrdinal("Title")),
+                            reader.GetString(reader.GetOrdinal("Author")),
+                            genres,
+                            reader.GetInt32(reader.GetOrdinal("Quantity")),
+                            descr,
+                            reader["Picture"] as byte[] ?? null));
+                    }
+                    catch(System.Data.SqlClient.SqlException)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Error: Sql Exception. " +
+                        "\nSomething went wrong when connecting to the database.", "Error message",
                         System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                    System.Windows.Forms.Application.Exit();
+                        return;
+                    }
                 }
             }
-            file.Close();
+            conn.Close();
         }
     }
 }

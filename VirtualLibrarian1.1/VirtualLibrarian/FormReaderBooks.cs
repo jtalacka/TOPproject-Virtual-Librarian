@@ -13,44 +13,49 @@ namespace VirtualLibrarian
 {
     public partial class FormReaderBooks : Form
     {
-
-        public FormReaderBooks()
+        public FormReaderBooks(string user)
         {
             InitializeComponent();
+            returnedBookInfo = "none";
+            username = user;
         }
 
-        private string s;
-        public FormReaderBooks(string buttonShow)
-        {
-            this.s = buttonShow;
-             InitializeComponent();
-        }
-
+        //what to retun
         public static string returnedBookInfo;
-        public string username;
+        //what username passed
+        string username;
+        string showSelect = "show";
+
+        public FormReaderBooks(string buttonShow, string user)
+        {
+            InitializeComponent();
+            returnedBookInfo = "none";
+            showSelect = buttonShow;
+            username = user;
+        }
 
         private void FormReaderBooks_Load(object sender, EventArgs e)
         {
-            if(s != "show")
+            //determine if show button 'Select'
+            if (showSelect == "show")
             { buttonSelect.Visible = true; }
 
             returnedBookInfo = "none";
 
-            string line;        
-            StreamReader file = new StreamReader(@"D:\" + username + ".txt");
-            while ((line = file.ReadLine()) != null)
+            //get taken books from table Taken into list
+            I_InLibrary Lib = new Library();
+            List<string> taken = Lib.selectTakenBooks(username);
+            foreach (string item in taken)
             {
-                line = line.Replace(";", " --- ");
-                listBox1.Items.Add(line);
+                listBox1.Items.Add(item);
             }
-            file.Close();
         }
 
         private void buttonSelect_Click(object sender, EventArgs e)
         {
             //get selected book info
             returnedBookInfo = listBox1.GetItemText(listBox1.SelectedItem);
-
+            MessageBox.Show(returnedBookInfo);
             if (returnedBookInfo == "none")
             {
                 MessageBox.Show("Select a book");

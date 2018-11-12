@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,21 +14,25 @@ namespace VirtualLibrarian
 {
     public partial class FormAccountInfo : Form
     {
-        public FormAccountInfo()
+        //for passing User class object parameters between forms
+        User user;
+        public FormAccountInfo(User _user)
         {
             InitializeComponent();
+            user = _user;
         }
-
+        
         //what functions to display?
         private string displayAll = "none";
-        public FormAccountInfo(string buttonShow)
+        public FormAccountInfo(string buttonShow, User _user)
         {
-            this.displayAll = buttonShow;
             InitializeComponent();
+            this.displayAll = buttonShow; 
+            user = _user;
         }
 
-        //for passing User class object parameters between forms
-        internal User user { get; set; }
+        I_NewLogin L_or_S = new Login_or_Signup();
+        I_InLibrary Lib = new Library();
 
         private void FormAccountInfo_Load(object sender, EventArgs e)
         {
@@ -35,20 +40,12 @@ namespace VirtualLibrarian
             if (displayAll == "all")
             {
                 //display all functions
-                textBoxUsername.ReadOnly = false;
                 textBoxPass.PasswordChar = '*';
-                textBoxPass.ReadOnly = false;
                 textBoxName.ReadOnly = false;
                 textBoxSurname.ReadOnly = false;
                 textBoxEmail.ReadOnly = false;
                 textBoxBirth.ReadOnly = false;
                 buttonDel.Visible = true;
-            }
-            else
-            {
-                //display only 2 first
-                textBoxUsername.ReadOnly = false;
-                textBoxPass.ReadOnly = false;
             }
 
             //on form load - display user info
@@ -64,83 +61,53 @@ namespace VirtualLibrarian
         private void buttonSave_Click(object sender, EventArgs e)
         {
             //check if valid email w regex
-            if (Functions.inputCheck(textBoxEmail.Text, 1) == 0)
+            if (L_or_S.inputCheck(textBoxEmail.Text, 1) == 0)
             {
                 MessageBox.Show("Please enter a valid email (ex.:email@gmail.com)");
                 textBoxEmail.Focus();
                 return;
             }
             //check if date the right format
-            if (Functions.inputCheck(textBoxBirth.Text, 2) == 0)
+            if (L_or_S.inputCheck(textBoxBirth.Text, 2) == 0)
             {
                 MessageBox.Show("Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)");
                 textBoxBirth.Focus();
                 return;
             }
 
+            string sql =
+                "Update Users set " +
+                "Username='" + textBoxUsername.Text + "', " + "Password='" + textBoxPass.Text + "', " +
+                "Name='" + textBoxName.Text + "', " + "Surname='" + textBoxSurname.Text + "', " +
+                "Email='" + textBoxEmail.Text + "', " + "Birth='" + textBoxBirth.Text + "'" +
+                "Where Username='" + user.username + "'";
+            //update table Users
+            Lib.updateReaderInfo(sql);
 
-            string line;
-            StreamReader file = new StreamReader("login.txt");
-            //read line by line and look for Username
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] lineSplit = line.Split(';');
+            //change current user object
+            user.username = textBoxUsername.Text;
+            user.password = textBoxPass.Text;
+            user.name = textBoxName.Text;
+            user.surname = textBoxSurname.Text;
+            user.email = textBoxEmail.Text;
+            user.birth = textBoxBirth.Text;
 
-                //if found our line (unique Username)
-                if (lineSplit[0] == user.username)
-                {
-                    //save old info
-                    string[] oInfo = { user.username, user.password,
-                                        user.name, user.surname,
-                                        user.email, user.birth };
-                    //all old info in one string
-                    string oLine = string.Join(";", oInfo);
-
-                    //new info
-                    string nLine;
-                    //form new info string
-                    nLine = string.Join(";", textBoxUsername.Text, textBoxPass.Text,
-                                            textBoxName.Text, textBoxSurname.Text, 
-                                            textBoxEmail.Text, textBoxBirth.Text);
-                    //change current user
-                    user.username = textBoxUsername.Text;
-                    user.password = textBoxPass.Text;
-                    user.name = textBoxName.Text;
-                    user.surname = textBoxSurname.Text;
-                    user.email = textBoxEmail.Text;
-                    user.birth = textBoxBirth.Text;
-
-                    file.Close();
-
-                    //read all text
-                    string text = File.ReadAllText("login.txt");
-                    //modifiy old text
-                    text = text.Replace(oLine, nLine);
-                    //write it back
-                    File.WriteAllText("login.txt", text);
-
-                    //end the madness
-                    break;
-                }
-            }
-
-            Functions.loadReaders();
             MessageBox.Show("Changes saved");
             this.Close();
         }
 
+
         private void buttonDel_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            result = MessageBox.Show("Are you sure you want to delete " + user.username + " account?", 
+            result = MessageBox.Show("Are you sure you want to delete " + user.username + " account?",
                 "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                //read all
-                var Lines = File.ReadAllLines("login.txt");
-                //Username must be unique, so look for it in the line
-                var newLines = Lines.Where(line => !line.Contains(user.username + ";" + user.password));
-                File.WriteAllLines("login.txt", newLines);
+                string sql =
+                "Delete from Users where " +
+                "Username='" + user.username + "' and Name='" + user.name + "' and Surname='" + user.surname + "'";
+                Lib.updateReaderInfo(sql);
 
                 MessageBox.Show("User " + user.username + " deleted");
             }
