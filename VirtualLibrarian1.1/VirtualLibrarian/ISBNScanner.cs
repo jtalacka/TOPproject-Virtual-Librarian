@@ -109,7 +109,7 @@ namespace VirtualLibrarian
             }
         }
         private void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs) {
-            string res;
+            string res="";
             Bitmap video = (Bitmap)eventArgs.Frame.Clone();
             Bitmap video2 = new Bitmap(video);
             pictureBox1.Image = video;

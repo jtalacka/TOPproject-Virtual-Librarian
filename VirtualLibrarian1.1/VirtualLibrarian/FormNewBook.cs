@@ -75,14 +75,14 @@ namespace VirtualLibrarian
             }
         }
 
-        private void isbn_Click(object sender, EventArgs e)
+        private async void isbn_Click(object sender, EventArgs e)
         {
             ISBNScanner isbn = new ISBNScanner();
             if (isbn.ShowDialog() != DialogResult.OK)
             {
                 if (ISBNScanner.results != "")
                 {
-                    Book tempBook = GoogleBooks.Search(ISBNScanner.results).Result;
+                    Book tempBook = await GoogleBooks.Search(ISBNScanner.results);
                     if (tempBook != null) {
                         textBoxISBN.Text=tempBook.ISBN;
                         textBoxTitle.Text=tempBook.title;

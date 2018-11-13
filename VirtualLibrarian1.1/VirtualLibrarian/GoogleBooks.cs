@@ -26,7 +26,6 @@ namespace VirtualLibrarian
             {
                 foreach (var item in volumes.Items)
                 {
-                    MessageBox.Show(item.VolumeInfo.Title);
                     foreach (var author in item.VolumeInfo.Authors)
                     {
                         return new Book(isbn, item.VolumeInfo.Title,author,null);
