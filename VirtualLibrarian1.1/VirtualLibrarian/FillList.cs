@@ -19,7 +19,7 @@ namespace VirtualLibrarian
 
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
             conn.Open();
             SqlCommand command = new SqlCommand("Select * from Books", conn);
             using (SqlDataReader reader = command.ExecuteReader())

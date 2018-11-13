@@ -26,7 +26,7 @@ namespace VirtualLibrarian
 
         //for connecting to the db
         public static SqlConnection conn = new SqlConnection();
-        static string conectionS = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
+        static string conectionS = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\DatabaseVL.mdf;Integrated Security=True";
         //query
         public static SqlCommand command;
 

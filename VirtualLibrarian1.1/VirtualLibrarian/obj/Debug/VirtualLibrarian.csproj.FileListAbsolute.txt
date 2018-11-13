@@ -263,3 +263,5 @@ C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL.
 C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL_log.ldf
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL.mdf
 C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL_log.ldf
+C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL.mdf
+C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL_log.ldf

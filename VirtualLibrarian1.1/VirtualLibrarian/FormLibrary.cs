@@ -57,20 +57,23 @@ namespace VirtualLibrarian
             buttonReccomend.Enabled = false;
             takebook.Enabled = false;
 
+            buttonSort.Visible = true;
+            listBoxMain.Items.Clear();
             Task tas = new Task(() =>
             {
 
                 Book.sortList.Clear();
-                buttonSort.Visible = true;
                 //clear main window
-                listBoxMain.Items.Clear();
 
                 // define delegate loadL and call the method using the delegate object
                 loadL = Lib.loadLibraryBooks;
                 loadL();
+            });
+            tas.Start();
+            await tas;
 
-                //checks all the books in the bookList (filled on form load)
-                foreach (Book tempBook in Book.bookList)
+            //checks all the books in the bookList (filled on form load)
+            foreach (Book tempBook in Book.bookList)
                 {
                     //checks tempBook - if it fits, returns tempBook info to display            
                     if (Lib.searchAuthororTitle(textBox1.Text, tempBook) != "no match")
@@ -82,9 +85,6 @@ namespace VirtualLibrarian
                     }
                 }
 
-            });
-           tas.Start();
-            await tas;
 
 
             buttonSearch.Enabled = true;
@@ -107,23 +107,24 @@ namespace VirtualLibrarian
             buttonTakenBooks.Enabled = false;
             buttonReccomend.Enabled = false;
             takebook.Enabled = false;
-
-
+            buttonSort.Visible = true;
+            listBoxMain.Items.Clear();
+            textBox1.Clear();
             Task tas = new Task(() =>
             {
 
                 Book.sortList.Clear();
-                buttonSort.Visible = true;
                 //clear main window
-                listBoxMain.Items.Clear();
-                textBox1.Clear();
 
                 // define delegate loadL and call the method using the delegate object
                 loadL = Lib.loadLibraryBooks;
                 loadL();
+            });
+            tas.Start();
+            await tas;
 
-                //get which genres chosen
-                List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
+            //get which genres chosen
+            List<string> checkedGenres = Lib.genresSelected(checkedListBoxGenre.CheckedItems);
                 if (checkedGenres.Count == 0) { MessageBox.Show("Please select a genre"); return; }
 
                 //checks all books in bookList
@@ -161,9 +162,6 @@ namespace VirtualLibrarian
                     checkedListBoxGenre.SetItemCheckState(i, CheckState.Unchecked);
                 }
 
-            });
-            tas.Start();
-            await tas;
 
 
 
