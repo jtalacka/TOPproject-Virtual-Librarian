@@ -155,5 +155,38 @@ namespace VirtualLibrarian
             return ExistsResult;
         }
 
+        //When a book is being taken/given - 
+        //WRITE NEW INFO. INTO FILES: username.txt, taken.txt, books.txt
+        public static void takeORGiveBook (string[] splitInfo, string text, string userBooks, string user, int quo)
+        {
+            //form date when taken
+            string dateTaken = DateTime.Now.ToShortDateString();
+            //form return date
+            var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
+            //form information to write
+            string infoAboutBook = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
+                                   splitInfo[3] + ";" + dateTaken + ";" + dateReturn;
+
+            using (StreamWriter sw = File.AppendText(userBooks))
+            { sw.WriteLine(infoAboutBook); }
+
+            //track all taken books
+            using (StreamWriter sw = File.AppendText("taken.txt"))
+            { sw.WriteLine(infoAboutBook + ";" + user); }
+
+            //change quantity in file
+            //read all text
+            string Ftext = File.ReadAllText("books.txt");
+            //old line (in format isbn;title;author;genres;old_quantity)
+            string oLine = text;
+            //new line
+            string nLine = splitInfo[0] + ";" + splitInfo[1] + ";" + splitInfo[2] + ";" +
+                           splitInfo[3] + ";" + quo.ToString();
+            //modifiy old text
+            Ftext = Ftext.Replace(oLine, nLine);
+            //write it back
+            File.WriteAllText("books.txt", Ftext);
+        }
+
     }
 }

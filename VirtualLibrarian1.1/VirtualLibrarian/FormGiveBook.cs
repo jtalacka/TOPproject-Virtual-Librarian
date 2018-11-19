@@ -20,19 +20,23 @@ namespace VirtualLibrarian
 
         public static string givenBookInfo;
 
+        I_InLibrary Lib = new Library();
+
         private void FormGiveBook_Load(object sender, EventArgs e)
         {
+            //relaod list
+            Lib.loadReaders();
             //display books, that are available => quantity > 0
             foreach (Book tempBook in Book.bookList)
-            {   
-                if(tempBook.quantity > 0)
+            {
+                if (tempBook.quantity > 0)
                     listBox1.Items.Add(tempBook.ObToString(tempBook));
             }
             givenBookInfo = "none";
         }
 
         private void buttonSelect_Click(object sender, EventArgs e)
-        {    
+        {
             //get selected book info
             givenBookInfo = listBox1.GetItemText(listBox1.SelectedItem);
 
@@ -57,9 +61,9 @@ namespace VirtualLibrarian
             foreach (Book tempBook in Book.bookList)
             {
                 //checks tempBook - if it fits, returns tempBook info to display            
-                if (Functions.search(textBox1.Text, tempBook) != "no match")
+                if (Lib.searchAuthororTitle(textBox1.Text, tempBook) != "no match")
                 {
-                    listBox1.Items.Add(Functions.search(textBox1.Text, tempBook));
+                    listBox1.Items.Add(Lib.searchAuthororTitle(textBox1.Text, tempBook));
                 }
             }
         }

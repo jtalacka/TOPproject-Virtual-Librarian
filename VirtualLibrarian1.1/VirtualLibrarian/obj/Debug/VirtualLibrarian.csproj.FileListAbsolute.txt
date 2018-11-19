@@ -291,3 +291,5 @@ C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\V
 C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\Google.Apis.Core.pdb
 C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\Google.Apis.Core.xml
 C:\Users\juliu\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\Newtonsoft.Json.xml
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL.mdf
+C:\Users\user\Desktop\VirtualLibrarian1.1\VirtualLibrarian\bin\Debug\DatabaseVL_log.ldf

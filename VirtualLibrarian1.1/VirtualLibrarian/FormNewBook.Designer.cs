@@ -40,13 +40,19 @@
             this.textBoxQ = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.isbn = new System.Windows.Forms.Button();
+            this.buttonBrowse = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxText = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label1.Location = new System.Drawing.Point(9, 36);
+            this.label1.Location = new System.Drawing.Point(9, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 18);
             this.label1.TabIndex = 18;
@@ -56,7 +62,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(9, 63);
+            this.label2.Location = new System.Drawing.Point(9, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 18);
             this.label2.TabIndex = 19;
@@ -66,7 +72,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label3.Location = new System.Drawing.Point(14, 141);
+            this.label3.Location = new System.Drawing.Point(14, 144);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 18);
             this.label3.TabIndex = 20;
@@ -74,23 +80,23 @@
             // 
             // textBoxTitle
             // 
-            this.textBoxTitle.Location = new System.Drawing.Point(92, 34);
+            this.textBoxTitle.Location = new System.Drawing.Point(92, 37);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(213, 20);
             this.textBoxTitle.TabIndex = 2;
             // 
             // textBoxAuthor
             // 
-            this.textBoxAuthor.Location = new System.Drawing.Point(92, 61);
+            this.textBoxAuthor.Location = new System.Drawing.Point(92, 64);
             this.textBoxAuthor.Name = "textBoxAuthor";
             this.textBoxAuthor.Size = new System.Drawing.Size(213, 20);
             this.textBoxAuthor.TabIndex = 3;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(265, 209);
+            this.buttonAdd.Location = new System.Drawing.Point(492, 170);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(40, 27);
+            this.buttonAdd.Size = new System.Drawing.Size(118, 34);
             this.buttonAdd.TabIndex = 6;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -115,7 +121,7 @@
             "Romance",
             "Science-fiction",
             "Travel"});
-            this.checkedListBoxGenre.Location = new System.Drawing.Point(94, 122);
+            this.checkedListBoxGenre.Location = new System.Drawing.Point(94, 125);
             this.checkedListBoxGenre.Name = "checkedListBoxGenre";
             this.checkedListBoxGenre.Size = new System.Drawing.Size(211, 79);
             this.checkedListBoxGenre.Sorted = true;
@@ -125,7 +131,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label4.Location = new System.Drawing.Point(9, 9);
+            this.label4.Location = new System.Drawing.Point(9, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 18);
             this.label4.TabIndex = 17;
@@ -133,14 +139,14 @@
             // 
             // textBoxISBN
             // 
-            this.textBoxISBN.Location = new System.Drawing.Point(92, 7);
+            this.textBoxISBN.Location = new System.Drawing.Point(92, 10);
             this.textBoxISBN.Name = "textBoxISBN";
             this.textBoxISBN.Size = new System.Drawing.Size(213, 20);
             this.textBoxISBN.TabIndex = 1;
             // 
             // textBoxQ
             // 
-            this.textBoxQ.Location = new System.Drawing.Point(92, 90);
+            this.textBoxQ.Location = new System.Drawing.Point(92, 93);
             this.textBoxQ.Name = "textBoxQ";
             this.textBoxQ.Size = new System.Drawing.Size(49, 20);
             this.textBoxQ.TabIndex = 4;
@@ -149,7 +155,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label5.Location = new System.Drawing.Point(9, 92);
+            this.label5.Location = new System.Drawing.Point(9, 95);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 18);
             this.label5.TabIndex = 24;
@@ -164,6 +170,60 @@
             this.isbn.Text = "search by isbn";
             this.isbn.UseVisualStyleBackColor = true;
             this.isbn.Click += new System.EventHandler(this.isbn_Click);
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Location = new System.Drawing.Point(634, 131);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(76, 20);
+            this.buttonBrowse.TabIndex = 65;
+            this.buttonBrowse.Text = "Browse";
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(434, 132);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(194, 20);
+            this.textBox2.TabIndex = 64;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label8.Location = new System.Drawing.Point(344, 135);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 18);
+            this.label8.TabIndex = 67;
+            this.label8.Text = "Picture:";
+            // 
+            // textBoxText
+            // 
+            this.textBoxText.Location = new System.Drawing.Point(434, 47);
+            this.textBoxText.Multiline = true;
+            this.textBoxText.Name = "textBoxText";
+            this.textBoxText.Size = new System.Drawing.Size(276, 69);
+            this.textBoxText.TabIndex = 63;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label7.Location = new System.Drawing.Point(341, 74);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 18);
+            this.label7.TabIndex = 66;
+            this.label7.Text = "Description:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label9.Location = new System.Drawing.Point(431, 13);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(168, 18);
+            this.label9.TabIndex = 68;
+            this.label9.Text = "Optional fields to add";
             // 
             // FormNewBook
             // 
@@ -171,6 +231,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 247);
             this.Controls.Add(this.isbn);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.buttonBrowse);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxText);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxQ);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxISBN);
@@ -203,5 +269,11 @@
         private System.Windows.Forms.TextBox textBoxQ;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button isbn;
+        private System.Windows.Forms.Button buttonBrowse;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxText;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
     }
 }

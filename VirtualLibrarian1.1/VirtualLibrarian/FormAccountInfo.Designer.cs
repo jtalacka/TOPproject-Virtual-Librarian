@@ -67,7 +67,6 @@
             // 
             this.textBoxPass.Location = new System.Drawing.Point(128, 41);
             this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.ReadOnly = true;
             this.textBoxPass.Size = new System.Drawing.Size(203, 20);
             this.textBoxPass.TabIndex = 41;
             // 
@@ -75,7 +74,6 @@
             // 
             this.textBoxUsername.Location = new System.Drawing.Point(128, 11);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.ReadOnly = true;
             this.textBoxUsername.Size = new System.Drawing.Size(203, 20);
             this.textBoxUsername.TabIndex = 40;
             // 
