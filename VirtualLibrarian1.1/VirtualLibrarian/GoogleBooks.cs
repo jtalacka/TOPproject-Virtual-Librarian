@@ -28,13 +28,13 @@ namespace VirtualLibrarian
                 {
                     foreach (var author in item.VolumeInfo.Authors)
                     {
-                        return new Book(isbn, item.VolumeInfo.Title,author,null);
+                        return new Book(isbn, item.VolumeInfo.Title, author, null,0);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("No books was found with this isbn");
+                MessageBox.Show("No books were found with this isbn");
             }
             return null;
         }

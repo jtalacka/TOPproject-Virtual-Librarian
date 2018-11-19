@@ -83,7 +83,7 @@ namespace VirtualLibrarian
             string[] lineSplit = info.Split(';');
 
             //define book to edit
-            Book bookToPass = new Book();
+            Book bookToPass = null;
 
             foreach (var book in Book.bookList)
             {

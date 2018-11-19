@@ -33,7 +33,7 @@ namespace VirtualLibrarian
             this.image = "show default";
         }
 
-        public Book() { }
+        public Book(string isbn) { }
 
         //properties
         public string ISBN;
