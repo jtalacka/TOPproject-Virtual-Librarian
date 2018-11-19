@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="BookTests.cs" />
     <Compile Include="FunctionsTests.cs" />
+    <Compile Include="GoogleBooksTests.cs" />
     <Compile Include="ISBNScannerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VirtualLibrarian\VirtualLibrarian.csproj">
-      <Project>{52F883EA-9BA6-4CE4-ADD1-03E32638962D}</Project>
+      <Project>{52f883ea-9ba6-4ce4-add1-03e32638962d}</Project>
       <Name>VirtualLibrarian</Name>
     </ProjectReference>
   </ItemGroup>
