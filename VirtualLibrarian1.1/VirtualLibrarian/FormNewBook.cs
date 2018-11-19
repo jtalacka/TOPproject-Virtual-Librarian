@@ -91,19 +91,25 @@ namespace VirtualLibrarian
             }
         }
 
-        //choose a picture
-        private void buttonBrowse_Click(object sender, EventArgs e)
-        {       
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Images(.jpg,.png)|*.png;*.jpg";
-            if (ofd.ShowDialog() == DialogResult.OK)
+        private async void isbn_Click(object sender, EventArgs e)
+        {
+            ISBNScanner isbn = new ISBNScanner();
+            if (isbn.ShowDialog() != DialogResult.OK)
             {
-                picChosen = true;
-                strFilePath = ofd.FileName;
-                textBox2.Text = System.IO.Path.GetFileName(strFilePath);
+                if (ISBNScanner.results != "")
+                {
+                    Book tempBook = await GoogleBooks.Search(ISBNScanner.results);
+                    if (tempBook != null)
+                    {
+                        textBoxISBN.Text = tempBook.ISBN;
+                        textBoxTitle.Text = tempBook.title;
+                        textBoxAuthor.Text = tempBook.author;
+                    }
+
+                    ISBNScanner.results = "";
+                }
             }
-            else
-                picChosen = false;
+
         }
     }
 }
