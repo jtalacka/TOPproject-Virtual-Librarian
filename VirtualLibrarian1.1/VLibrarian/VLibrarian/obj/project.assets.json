@@ -698,11 +698,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\juliu\\OneDrive\\Stalinis kompiuteris\\VLibrarian\\VLibrarian\\VLibrarian\\VLibrarian.csproj",
+      "projectUniqueName": "C:\\Users\\juliu\\OneDrive\\Documents\\GitHub\\TOPprojectVirtualLibrarian\\VirtualLibrarian1.1\\VLibrarian\\VLibrarian\\VLibrarian.csproj",
       "projectName": "VLibrarian",
-      "projectPath": "C:\\Users\\juliu\\OneDrive\\Stalinis kompiuteris\\VLibrarian\\VLibrarian\\VLibrarian\\VLibrarian.csproj",
+      "projectPath": "C:\\Users\\juliu\\OneDrive\\Documents\\GitHub\\TOPprojectVirtualLibrarian\\VirtualLibrarian1.1\\VLibrarian\\VLibrarian\\VLibrarian.csproj",
       "packagesPath": "C:\\Users\\juliu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\juliu\\OneDrive\\Stalinis kompiuteris\\VLibrarian\\VLibrarian\\VLibrarian\\obj\\",
+      "outputPath": "C:\\Users\\juliu\\OneDrive\\Documents\\GitHub\\TOPprojectVirtualLibrarian\\VirtualLibrarian1.1\\VLibrarian\\VLibrarian\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

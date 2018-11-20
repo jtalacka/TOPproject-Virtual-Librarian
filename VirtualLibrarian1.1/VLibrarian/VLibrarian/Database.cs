@@ -35,12 +35,15 @@ namespace VLibrarian
                 writeStream.Close();
 
             }*/
-            using (var assets = asset.Open(databaseName))
-            using (var dest = File.Create(dbFile))
-                assets.CopyTo(dest);
-
+            if (!File.Exists(dbFile))
+            {
+                using (var assets = asset.Open(databaseName))
+                using (var dest = File.Create(dbFile))
+                    assets.CopyTo(dest);
+            }
             var path = dbFile;
             conn = new SQLiteConnection(path);
+
         }
     }
 }

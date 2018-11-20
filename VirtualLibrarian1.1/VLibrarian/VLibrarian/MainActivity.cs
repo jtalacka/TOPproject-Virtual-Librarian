@@ -7,26 +7,22 @@ using Android.Support.V7.App;
 using Android.Widget;
 using SQLite;
 using System.IO;
-using VLibrarian.Resources.Data;
-using VLibrarian.Resources.layout;
+
 
 namespace VLibrarian
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+
     public class MainActivity : AppCompatActivity
     {
-       public static SQLiteConnection conn;
+        public static SQLiteConnection conn;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
-
-
             base.OnCreate(savedInstanceState);
+
             AssetManager asset = this.Assets;
-           Database db = new Database(asset);
-
-
-
-
+            Database db = new Database(asset);
 
 
             // Set our view from the "main" layout resource
@@ -38,6 +34,7 @@ namespace VLibrarian
             EditText UsernameText = FindViewById<EditText>(Resource.Id.EditText1);
             EditText PasswordText = FindViewById<EditText>(Resource.Id.EditText2);
             Button LoginButton = FindViewById<Button>(Resource.Id.button);
+            Button SignupButton = FindViewById<Button>(Resource.Id.button2);
 
 
             //1. code after pressing LOGIN
@@ -48,13 +45,16 @@ namespace VLibrarian
                 { return; }
 
                 //do the function
-                string result = Login_or_Signup.login(UsernameText.Text, PasswordText.Text);
+                string result = Core.Login_or_Signup.login(UsernameText.Text, PasswordText.Text);
+
                 Toast.MakeText(ApplicationContext, result, ToastLength.Long).Show();
+
                 //check if login info. correct
-                if (result == "correct" && Login_or_Signup.user != null)
+                if (result == "correct" && Core.Login_or_Signup.user != null)
                 {
                     //if all input ok, goto new window
-                    StartActivity(typeof(Library));
+                    Intent Lib = new Intent(this, typeof(W_Library));
+                    this.StartActivity(Lib);
 
                 }
                 else if (result == "Incorrect password")
@@ -69,11 +69,21 @@ namespace VLibrarian
                 }
                 else
                 {
-                   Toast.MakeText(ApplicationContext, "Something's wrong in the database", ToastLength.Long).Show();
-                    return;                   
+                    Toast.MakeText(ApplicationContext, "Something's wrong in the database", ToastLength.Long).Show();
+                    return;
                 }
             };
-        }
 
+
+            //2. code after pressing SIGNUP
+            SignupButton.Click += (sender, e) =>
+            {
+                //to new form
+                Intent Sign = new Intent(this, typeof(Signup));
+                this.StartActivity(Sign);
+            };
+
+
+        }
     }
 }

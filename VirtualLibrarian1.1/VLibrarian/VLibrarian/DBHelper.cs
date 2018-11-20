@@ -24,8 +24,8 @@ namespace VLibrarian
         async Task<SQLiteConnection> GetConnection()
         {
 
-            var conn= new SQLiteConnection("");
+            var conn = new SQLiteConnection("");
             return conn;
         }
     }
-  }
+}
