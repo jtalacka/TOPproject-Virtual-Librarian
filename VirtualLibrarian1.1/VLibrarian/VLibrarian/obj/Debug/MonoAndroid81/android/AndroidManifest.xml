@@ -10,6 +10,7 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:label="W_LibSys" android:name="md5604604508e293d03514c21581bdcb2a0.W_LibSys" />
     <activity android:label="W_Account" android:name="md5604604508e293d03514c21581bdcb2a0.W_Account" />
     <activity android:label="W_Library" android:name="md5604604508e293d03514c21581bdcb2a0.W_Library" />
     <activity android:label="W_Signup" android:name="md5604604508e293d03514c21581bdcb2a0.Signup" />

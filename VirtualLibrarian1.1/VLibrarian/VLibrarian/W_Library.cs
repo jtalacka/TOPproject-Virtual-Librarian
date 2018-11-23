@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using static Android.Net.Sip.SipAudioCall;
 
 namespace VLibrarian
 {
@@ -93,8 +94,10 @@ namespace VLibrarian
             };
 
             //on selecting a book
-           
-
+            ListViewMain.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
+            {
+                //var clickedItem = e.Position;
+            };
 
             //account
             AccButton.Click += (sender, e) =>

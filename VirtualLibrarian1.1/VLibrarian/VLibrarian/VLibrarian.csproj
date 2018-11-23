@@ -64,6 +64,7 @@
     <Compile Include="DBHelper.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="W_LibSys.cs" />
     <Compile Include="Taken.cs" />
     <Compile Include="W_Account.cs" />
     <Compile Include="W_Library.cs" />
@@ -131,6 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\L_AccountSet.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\L_LibSystem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

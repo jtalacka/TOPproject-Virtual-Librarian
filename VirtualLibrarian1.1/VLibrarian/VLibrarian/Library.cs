@@ -15,22 +15,25 @@ namespace VLibrarian
 {
     //
     // loadLibraryBooks
+    // loadReaders
+
     // searchAuthororTitle
+
+    // takeORGiveBook
+
     // updateReaderInfo
     // deleteReaderInfo
+
     // selectTakenBooks
     //
 
     class Library
     {
-
         //load books
         public static void loadLibraryBooks()
         {
             //clear book list
             Book.bookList.Clear();
-            //string gs;
-            //List<string> genres;
             string descr = "Not added";
 
             var table = Database.conn.Table<Book>();
@@ -43,6 +46,18 @@ namespace VLibrarian
                     descr = "Not added";
 
                 Book.bookList.Add(line);
+            }
+        }
+
+        //load readers
+        public static void loadReaders()
+        {
+            User.readerList.Clear();
+
+            var table = Database.conn.Table<User>();
+            foreach (var line in table)
+            {
+                User.readerList.Add(line);
             }
         }
 
@@ -60,6 +75,32 @@ namespace VLibrarian
         }
 
 
+        //When a book is being taken/given - 
+        //WRITE NEW INFO. INTO TABLES: Taken, Books
+        public void takeORGiveBook(Taken takenBook, Book book)
+        {
+            //form date when taken
+            string dateTaken = DateTime.Now.ToShortDateString();
+            //form return date
+            var dateReturn = DateTime.Now.AddMonths(1).ToShortDateString();
+
+            //track all taken books in table Taken
+            //string sql = "Insert into Taken " +
+            //             "(ISBN, Username, DateTaken, DateReturn) " +
+            //             "values('" + code + "', '" + user + "', '" + dateTaken + "', '" + dateReturn + "')";
+            
+            var sqlite_InsertCmd = new SQLiteCommand(Database.conn);
+            Database.conn.Insert(takenBook);
+
+            //change quantity in table Books
+            //sql = "Update Books set Quantity='" + quo + "' where ISBN='" + splitInfo[0] + "'";
+
+            SQLiteCommand command = new SQLiteCommand(Database.conn);
+            Database.conn.Update(book);
+
+        }
+
+        //account update
         public static void updateReaderInfo(User user)
         {
             SQLiteCommand command = new SQLiteCommand(Database.conn);
@@ -92,5 +133,7 @@ namespace VLibrarian
 
             return result;
         }
+
+
     }
 }
