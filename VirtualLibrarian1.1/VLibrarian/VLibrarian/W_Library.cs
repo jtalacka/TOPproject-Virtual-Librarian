@@ -23,10 +23,9 @@ namespace VLibrarian
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.L_Library);
 
             //determine, if the user is reader or employee
-            if (Core.Login_or_Signup.user.type.ToString() == "employee")
+            if (Login_or_Signup.user.type.ToString() == "employee")
             {
                 //extra employee functions
                 SetContentView(Resource.Layout.L_LibraryPlus);
@@ -40,8 +39,9 @@ namespace VLibrarian
 
             EditText Search = FindViewById<EditText>(Resource.Id.inputText);
             Button SearchButton = FindViewById<Button>(Resource.Id.buttonSearch);
-            Button AccButton = FindViewById<Button>(Resource.Id.buttonAcc);
             ListView ListViewMain = FindViewById<ListView>(Resource.Id.listView);
+            Button AccButton = FindViewById<Button>(Resource.Id.buttonAcc);
+            Button Sort = FindViewById<Button>(Resource.Id.buttonSort);
 
             //search
             SearchButton.Click += (sender, e) =>
@@ -72,6 +72,30 @@ namespace VLibrarian
                 ListViewMain.Adapter = adapter;
             };
 
+            //sort
+            Sort.Click += (sender, e) =>
+            {
+                //sort it by title
+                Book.sortList.Sort();
+
+                //display
+                List<string> toDisplay = new List<string>();
+                foreach (Book currentBook in Book.sortList)
+                {
+                    string genres = string.Join(" ", currentBook.genres);
+                    string infoToDisplay = currentBook.title + " --- "
+                                         + currentBook.author + " --- " + genres + " --- "
+                                         + currentBook.quantity;
+                    toDisplay.Add(infoToDisplay);
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                ListViewMain.Adapter = adapter;
+            };
+
+            //on selecting a book
+           
+
+
             //account
             AccButton.Click += (sender, e) =>
             {
@@ -79,6 +103,8 @@ namespace VLibrarian
                 Intent Acc = new Intent(this, typeof(W_Account));
                 this.StartActivity(Acc);
             };
+
+
         }
     }
 }

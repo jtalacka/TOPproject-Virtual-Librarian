@@ -43,7 +43,6 @@ namespace VLibrarian
             }
             var path = dbFile;
             conn = new SQLiteConnection(path);
-
         }
     }
 }

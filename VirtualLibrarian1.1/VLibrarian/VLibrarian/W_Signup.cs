@@ -10,11 +10,10 @@ using Android.Runtime;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
-using Core;
 
 namespace VLibrarian
 {
-    [Activity(Label = "Signup")]
+    [Activity(Label = "W_Signup")]
     public class Signup : Activity
     {
 
@@ -86,7 +85,7 @@ namespace VLibrarian
                         if (result == "new reader added")
                         {
                             //to new form
-                            Intent Sign = new Intent(this, typeof(MainActivity));
+                            Intent Sign = new Intent(this, typeof(Signup));
                             this.StartActivity(Sign);
                         }
                     }

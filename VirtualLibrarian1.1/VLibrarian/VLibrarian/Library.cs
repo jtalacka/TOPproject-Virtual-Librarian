@@ -9,9 +9,18 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using SQLite;
 
 namespace VLibrarian
 {
+    //
+    // loadLibraryBooks
+    // searchAuthororTitle
+    // updateReaderInfo
+    // deleteReaderInfo
+    // selectTakenBooks
+    //
+
     class Library
     {
 
@@ -29,7 +38,7 @@ namespace VLibrarian
             {
                 line.genres = line.Genres.Split(' ').ToList();
                 if (line.description != "")
-                    descr = line.description;  
+                    descr = line.description;
                 else
                     descr = "Not added";
 
@@ -51,6 +60,37 @@ namespace VLibrarian
         }
 
 
+        public static void updateReaderInfo(User user)
+        {
+            SQLiteCommand command = new SQLiteCommand(Database.conn);
+            Database.conn.Update(user);
+        }
 
+        public static void deleteReaderInfo(User user)
+        {
+            SQLiteCommand command = new SQLiteCommand(Database.conn);
+            Database.conn.Delete(user);
+        }
+
+
+        //gets all taken reader books into list
+        public static List<String> selectTakenBooks(string user)
+        {
+            List<String> result = null;
+
+            var taken = Database.conn.Table<Taken>();
+            var books = Database.conn.Table<Book>();
+            foreach (var line in taken)
+            {
+                foreach (var line2 in books)
+                {
+                    if (line.Username == user)
+                        result.Add(line2.title + " --- " + line2.author + " ---" +
+                                   line.DateTaken + " --- " + line.DateReturn);
+                }
+            }
+
+            return result;
+        }
     }
 }

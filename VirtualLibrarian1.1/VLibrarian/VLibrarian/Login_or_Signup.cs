@@ -13,7 +13,7 @@ using Android.Content.Res;
 using VLibrarian;
 using System.Text.RegularExpressions;
 
-namespace Core
+namespace VLibrarian
 {
     //
     //       login,
@@ -39,7 +39,6 @@ namespace Core
 
             foreach (var line in table)
             {
-
                 //Console.WriteLine(t.username);
 
                 if (line.username == username)
@@ -76,27 +75,8 @@ namespace Core
             //by default any new user is a reader
             user.type = User.userType.reader;
 
-
             var sqlite_InsertCmd = new SQLiteCommand(Database.conn);
-            /*     sqlite_InsertCmd.CommandText = "INSERT INTO dbo.Users (Username, Password, Name, Surname, Email, Birth, UserType) " +
-                    "VALUES ('" + username + "', '" + pass + "', '" + name + "', " +
-                            "'" + surname + "', '" + email + "', '" + birth + "', '" + User.userType.reader + "');";
-                 sqlite_InsertCmd.ExecuteNonQuery();*/
             Database.conn.Insert(user);
-            //Database.conn.Close();
-
-            //string sql = "Insert into Users " +
-            //    "(Username, Password, Name, Surname, Email, Birth, UserType) " +
-            //    "values('" + username + "', '" + pass + "', '" + name + "', " +
-            //           "'" + surname + "', '" + email + "', '" + birth + "', '" + User.userType.reader + "')";
-            //using (conn)
-            //{
-            //    using (MySqlCommand cmd = new MySqlCommand(sql, conn))
-            //    {
-            //        cmd.ExecuteNonQuery();
-            //    }
-            //}
-            //conn.Close();
 
             return "new reader added";
         }

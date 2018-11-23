@@ -8,7 +8,6 @@ using Android.Widget;
 using SQLite;
 using System.IO;
 
-
 namespace VLibrarian
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
@@ -45,15 +44,15 @@ namespace VLibrarian
                 { return; }
 
                 //do the function
-                string result = Core.Login_or_Signup.login(UsernameText.Text, PasswordText.Text);
+                string result = Login_or_Signup.login(UsernameText.Text, PasswordText.Text);
 
                 Toast.MakeText(ApplicationContext, result, ToastLength.Long).Show();
 
                 //check if login info. correct
-                if (result == "correct" && Core.Login_or_Signup.user != null)
+                if (result == "correct" && Login_or_Signup.user != null)
                 {
                     //if all input ok, goto new window
-                    Intent Lib = new Intent(this, typeof(W_Library));
+                    Intent Lib = new Intent(this, typeof(Library));
                     this.StartActivity(Lib);
 
                 }

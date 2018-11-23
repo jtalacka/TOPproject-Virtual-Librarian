@@ -31,13 +31,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>Full</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <MandroidI18n>West</MandroidI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -53,45 +52,32 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Data.Tds" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database.cs" />
+    <Compile Include="Book.cs" />
     <Compile Include="DBHelper.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Resources\Data\VLDatabase.cs" />
-    <Compile Include="Resources\layout\Library.cs" />
-    <Compile Include="Resources\layout\Login_or_Signup.cs" />
-    <Compile Include="Resources\layout\User.cs" />
-    <Compile Include="Resources\LoadDatabase.cs" />
+    <Compile Include="Taken.cs" />
+    <Compile Include="W_Account.cs" />
+    <Compile Include="W_Library.cs" />
+    <Compile Include="Login_or_Signup.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="W_Signup.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Resources\Data\data.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidAsset>
-    <EmbeddedResource Include="data.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <AndroidAsset Include="Assets\test2.db" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidAsset Include="Assets\data.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidAsset>
-    <EmbeddedResource Include="Resources\data.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <None Include="Resources\Raw\db.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
@@ -120,18 +106,34 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MySql.Data">
+      <Version>8.0.13</Version>
+    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.5.231</Version>
     </PackageReference>
-    <PackageReference Include="SQLite.Net.Async-PCL">
-      <Version>3.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
-    <PackageReference Include="Xamarin.MySql.Data">
-      <Version>1.0.1</Version>
-    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\L_Signup.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\L_Library.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\L_LibraryPlus.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\L_AccountSet.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.
