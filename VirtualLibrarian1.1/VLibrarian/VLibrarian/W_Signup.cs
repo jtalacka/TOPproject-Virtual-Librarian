@@ -14,7 +14,7 @@ using Android.Widget;
 namespace VLibrarian
 {
     [Activity(Label = "W_Signup")]
-    public class Signup : Activity
+    public class W_Signup : Activity
     {
 
         //define generic delegate with placeholder for L_or_S.signup
@@ -85,8 +85,8 @@ namespace VLibrarian
                         if (result == "new reader added")
                         {
                             //to new form
-                            Intent Sign = new Intent(this, typeof(Signup));
-                            this.StartActivity(Sign);
+                            Intent Library = new Intent(this, typeof(W_Library));
+                            this.StartActivity(Library);
                         }
                     }
                     else

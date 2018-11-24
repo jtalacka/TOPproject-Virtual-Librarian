@@ -30,8 +30,6 @@ namespace VLibrarian
             {
                 //extra employee functions
                 SetContentView(Resource.Layout.L_LibraryPlus);
-                //buttonManageLibrary.Visible = true;
-                //takebook.Visible = true;
             }
             else
             {
@@ -39,10 +37,11 @@ namespace VLibrarian
             }
 
             EditText Search = FindViewById<EditText>(Resource.Id.inputText);
+            Button Sort = FindViewById<Button>(Resource.Id.buttonSort);
             Button SearchButton = FindViewById<Button>(Resource.Id.buttonSearch);
             ListView ListViewMain = FindViewById<ListView>(Resource.Id.listView);
             Button AccButton = FindViewById<Button>(Resource.Id.buttonAcc);
-            Button Sort = FindViewById<Button>(Resource.Id.buttonSort);
+            Button ToSystem = FindViewById<Button>(Resource.Id.buttonSys);
 
             //search
             SearchButton.Click += (sender, e) =>
@@ -105,6 +104,14 @@ namespace VLibrarian
                 //to new form
                 Intent Acc = new Intent(this, typeof(W_Account));
                 this.StartActivity(Acc);
+            };
+
+            
+            ToSystem.Click += (sender, e) =>
+            {
+                //to new form
+                Intent System = new Intent(this, typeof(W_LibSys));
+                this.StartActivity(System);
             };
 
 

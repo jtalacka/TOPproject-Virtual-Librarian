@@ -78,7 +78,7 @@ namespace VLibrarian
             SignupButton.Click += (sender, e) =>
             {
                 //to new form
-                Intent Sign = new Intent(this, typeof(Signup));
+                Intent Sign = new Intent(this, typeof(W_Signup));
                 this.StartActivity(Sign);
             };
 
