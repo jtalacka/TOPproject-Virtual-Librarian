@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using System;
+using System.Collections.Generic;
 
 namespace VLibrarian
 {
     [Activity(Label = "W_Account")]
     public class W_Account : Activity
     {
+
+        //==== define this before going to this window ===============
+        public static User passedUser;
+        //============================================================
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,26 +27,28 @@ namespace VLibrarian
             TextView Surname = FindViewById<TextView>(Resource.Id.textViewSurname);
             TextView Email = FindViewById<TextView>(Resource.Id.textViewEmail);
             TextView Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
-            Username.Text = Login_or_Signup.user.username;
-            Password.Text = Login_or_Signup.user.password;
-            Name.Text = Login_or_Signup.user.name;
-            Surname.Text = Login_or_Signup.user.surname;
-            Email.Text = Login_or_Signup.user.email;
-            Birth.Text = Login_or_Signup.user.birth;
+
+            //text to display comes from defined user object
+            Username.Text = passedUser.username;
+            Password.Text = passedUser.password;
+            Name.Text = passedUser.name;
+            Surname.Text = passedUser.surname;
+            Email.Text = passedUser.email;
+            Birth.Text = passedUser.birth;
 
             Button Save = FindViewById<Button>(Resource.Id.buttonSave);
             Button Delete = FindViewById<Button>(Resource.Id.buttonDelAcc);
             ListView ListViewTaken = FindViewById<ListView>(Resource.Id.listViewTakenBooks);
 
             //display taken books
-            List<String> toDisplay = Library.selectTakenBooks(Login_or_Signup.user.username);
+            List<String> toDisplay = Library.selectTakenBooks(passedUser.username);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>
                     (this, Android.Resource.Layout.SimpleListItem1, toDisplay);
             ListViewTaken.Adapter = adapter;
 
 
 
-            //1. Save
+            //1. Save changes
             Save.Click += (sender, e) =>
             {
                 //check if valid email w regex
@@ -70,16 +72,16 @@ namespace VLibrarian
                 Email = FindViewById<TextView>(Resource.Id.textViewEmail);
                 Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
 
-                //change current user object
-                Login_or_Signup.user.username = Username.Text;
-                Login_or_Signup.user.password = Password.Text;
-                Login_or_Signup.user.name = Name.Text;
-                Login_or_Signup.user.surname = Surname.Text;
-                Login_or_Signup.user.email = Email.Text;
-                Login_or_Signup.user.birth = Birth.Text;
+                //change user object
+                passedUser.username = Username.Text;
+                passedUser.password = Password.Text;
+                passedUser.name = Name.Text;
+                passedUser.surname = Surname.Text;
+                passedUser.email = Email.Text;
+                passedUser.birth = Birth.Text;
 
                 //update database
-                Library.updateReaderInfo(Login_or_Signup.user);
+                Library.updateReaderInfo(passedUser);
 
                 Toast.MakeText(ApplicationContext, "Changes saved", ToastLength.Long).Show();
 
@@ -88,7 +90,7 @@ namespace VLibrarian
             //2. Delete
             Save.Click += (sender, e) =>
             {
-                Library.deleteReaderInfo(Login_or_Signup.user);
+                Library.deleteReaderInfo(passedUser);
             };
 
 

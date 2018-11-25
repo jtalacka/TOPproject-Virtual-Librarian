@@ -1,16 +1,6 @@
-﻿using System.Text;
-using System;
-using System.Data.SqlClient;
+﻿using System;
 using System.Globalization;
 using SQLite;
-using System.Data;
-using MySql.Data.MySqlClient;
-using System.IO;
-using Android.Widget;
-using System.Threading.Tasks;
-using Android.App;
-using Android.Content.Res;
-using VLibrarian;
 using System.Text.RegularExpressions;
 
 namespace VLibrarian
@@ -22,16 +12,41 @@ namespace VLibrarian
     //       checkIfExistsInDBUsers
     //
 
-    public static class Login_or_Signup
+    public class Login_or_Signup : I_Helper
     {
+
+        //interface object, through which we will be accessing the controller class methods
+        static I_Helper L_or_S = new Login_or_Signup();
+
+        //define delegate that will point to L_or_S.login
+        public delegate string del(string N, string P);
+        public static del check = L_or_S.login;
+        public static string runAdelegate(del d, string n, string p)
+        {
+            return d(n, p);
+        }
+
+        public delegate bool del2(string w);
+        public static del2 check2 = L_or_S.checkIfExistsInDBUsers;
+        public static bool runAdelegate(del2 d, string w)
+        {
+            return d(w);
+        }
+
+        public delegate T del3<T>(T u, T p, T n, T s, T b, T e);
+        public static del3<string> check3 = L_or_S.signup;
+        public static string runAdelegate3(del3<string> d, string u, string p, string n, string s, string b, string e)
+        {
+            return d(u, p, n, s, b, e);
+        }
+
 
         //this needs to be defined in one of the functions below
         //to be passed to the next window -> Library
         public static User user = null;
 
-
         //On buttonLogIn_Click
-        public static string login(string username, string pass)
+        public string login(string username, string pass)
         {
             var table = Database.conn.Table<User>();
             //tikrinti ar input correct
@@ -67,13 +82,13 @@ namespace VLibrarian
 
 
         //On buttonSignup_Click
-        public static string signup(string username, string pass,
+        public string signup(string username, string pass,
                                     string name, string surname, string birth, string email)
         {
             //define user class object
             user = new User(username, pass, name, surname, email, birth);
             //by default any new user is a reader
-            user.type = User.userType.reader;
+            user.UserType = User.userType.reader;
 
             var sqlite_InsertCmd = new SQLiteCommand(Database.conn);
             Database.conn.Insert(user);
@@ -122,8 +137,8 @@ namespace VLibrarian
 
 
         //check if username exists in db
-        public static bool checkIfExistsInDBUsers(string whatToLookFor)
-        { 
+        public bool checkIfExistsInDBUsers(string whatToLookFor)
+        {
             //check if exists
             bool existsResult = false;
             var table = Database.conn.Table<User>();
@@ -141,8 +156,5 @@ namespace VLibrarian
             }
             return existsResult;
         }
-
-
-
     }
 }

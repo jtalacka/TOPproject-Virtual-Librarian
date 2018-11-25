@@ -38,7 +38,7 @@ namespace VLibrarian
         public string birth { get; set; }
 
         //needed for determining if extra functions need to be shown
-        public userType type;
+        public userType UserType { get; set; }
         public enum userType
         {
             reader, employee
@@ -46,5 +46,13 @@ namespace VLibrarian
 
         //List for all readers
         public static List<User> readerList = new List<User>();
+
+        public string ObToString(User currUser)
+        {
+            string infoToDisplay = currUser.username + " --- " + currUser.password + " --- "
+                                 + currUser.name + " --- " + currUser.surname + " --- "
+                                 + currUser.email + " --- " + currUser.birth;
+            return infoToDisplay;
+        }
     }
 }

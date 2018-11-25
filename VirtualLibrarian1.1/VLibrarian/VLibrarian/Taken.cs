@@ -10,12 +10,16 @@ namespace VLibrarian
     {
         public Taken() { }
 
+        public Taken(string code, string user, string dateT, string dateR)
+        {
+            this.ISBN = code;
+            this.Username = user;
+            this.DateTaken = dateT;
+            this.DateReturn = dateR;
+        }
+
         //properties
-
-        [ForeignKey("Book")]
         public string ISBN { get; set; }
-
-        [ForeignKey("(User")]
         public string Username { get; set; }
         public string DateTaken { get; set; }
         public string DateReturn { get; set; }

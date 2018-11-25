@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using SQLite;
 
 namespace VLibrarian
@@ -29,6 +21,10 @@ namespace VLibrarian
 
     class Library
     {
+        //define delegate for Lib.load... and create an instance
+        public delegate void load();
+        public static load loadL = loadLibraryBooks;
+
         //load books
         public static void loadLibraryBooks()
         {
@@ -117,7 +113,7 @@ namespace VLibrarian
         //gets all taken reader books into list
         public static List<String> selectTakenBooks(string user)
         {
-            List<String> result = null;
+            List<String> result = new List<string>();
 
             var taken = Database.conn.Table<Taken>();
             var books = Database.conn.Table<Book>();
@@ -125,7 +121,7 @@ namespace VLibrarian
             {
                 foreach (var line2 in books)
                 {
-                    if (line.Username == user)
+                    if (line.Username == user && line2.ISBN == line.ISBN)
                         result.Add(line2.title + " --- " + line2.author + " ---" +
                                    line.DateTaken + " --- " + line.DateReturn);
                 }

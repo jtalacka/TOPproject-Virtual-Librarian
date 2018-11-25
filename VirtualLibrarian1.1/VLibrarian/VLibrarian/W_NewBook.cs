@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using System;
 
 namespace VLibrarian
 {
@@ -19,7 +12,6 @@ namespace VLibrarian
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.L_NewBook);
-            // Create your application here
 
             EditText ISBN = FindViewById<EditText>(Resource.Id.textInputISBN);
             EditText Title = FindViewById<EditText>(Resource.Id.textInputTitle);
@@ -37,7 +29,6 @@ namespace VLibrarian
             //List<string> toDisplay = gs.ToList();
             //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
            
-
 
             AddNewBook.Click += (sender, e) =>
             {

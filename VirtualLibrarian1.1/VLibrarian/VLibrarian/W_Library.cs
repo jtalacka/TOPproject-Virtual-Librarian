@@ -1,35 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using static Android.Net.Sip.SipAudioCall;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using static Android.Widget.AdapterView;
 
 namespace VLibrarian
 {
     [Activity(Label = "W_Library")]
     public class W_Library : Activity
     {
-
-        //define delegate for Lib.load... and create an instance
-        public delegate void load();
-        load loadL;
+        public static Book bookToPass = null;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            Button ToSystem = null;
             //determine, if the user is reader or employee
-            if (Login_or_Signup.user.type.ToString() == "employee")
+            if (Login_or_Signup.user.UserType == User.userType.employee)
             {
                 //extra employee functions
                 SetContentView(Resource.Layout.L_LibraryPlus);
+                ToSystem = FindViewById<Button>(Resource.Id.buttonSys);
             }
             else
             {
@@ -41,16 +35,14 @@ namespace VLibrarian
             Button SearchButton = FindViewById<Button>(Resource.Id.buttonSearch);
             ListView ListViewMain = FindViewById<ListView>(Resource.Id.listView);
             Button AccButton = FindViewById<Button>(Resource.Id.buttonAcc);
-            Button ToSystem = FindViewById<Button>(Resource.Id.buttonSys);
 
             //search
             SearchButton.Click += (sender, e) =>
             {
                 Book.sortList.Clear();
 
-                // define delegate loadL and call the method using the delegate object
-                loadL = Library.loadLibraryBooks;
-                loadL();
+                //load books into list
+                Library.loadL();
 
                 List<string> toDisplay = new List<string>();
                 //checks all the books in the bookList (filled on form load)
@@ -92,28 +84,55 @@ namespace VLibrarian
                 ListViewMain.Adapter = adapter;
             };
 
-            //on selecting a book
-            ListViewMain.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
-            {
-                //var clickedItem = e.Position;
-            };
-
-            //account
+            //account settings
             AccButton.Click += (sender, e) =>
             {
+                //define user to pass
+                W_Account.passedUser = Login_or_Signup.user;
                 //to new form
                 Intent Acc = new Intent(this, typeof(W_Account));
                 this.StartActivity(Acc);
             };
 
-            
-            ToSystem.Click += (sender, e) =>
+
+            //Library System
+            if (ToSystem != null)
             {
+                ToSystem.Click += (sender, e) =>
+                {
+                    //to new form
+                    Intent System = new Intent(this, typeof(W_LibSys));
+                    this.StartActivity(System);
+                };
+            }
+
+
+            //on selecting a book
+            ListViewMain.ItemClick += (object sender, ItemClickEventArgs e) =>
+            {
+                //get selected? does it actually??
+                string selectedT = Convert.ToString(ListViewMain.GetItemAtPosition(e.Position));
+
+                if (selectedT == null)
+                {
+                    Toast.MakeText(ApplicationContext, "Please select a book to view", ToastLength.Long).Show();
+                    return;
+                }
+
+                //LINQ gets all info about selected book
+                var aboutBook = from book in Book.bookList
+                                where selectedT.Contains(book.ISBN + " --- " + book.title) ||
+                                      selectedT.Contains(book.title + " --- " + book.author)
+                                select book;
+                foreach (var book in aboutBook)
+                {
+                    bookToPass = book;
+                }
+
                 //to new form
                 Intent System = new Intent(this, typeof(W_LibSys));
                 this.StartActivity(System);
             };
-
 
         }
     }

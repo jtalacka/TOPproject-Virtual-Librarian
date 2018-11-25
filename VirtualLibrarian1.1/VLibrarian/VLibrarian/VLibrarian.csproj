@@ -62,9 +62,11 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="DBHelper.cs" />
+    <Compile Include="I_Helper.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="LibrarySystem.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="W_AboutBook.cs" />
     <Compile Include="W_EditBook.cs" />
     <Compile Include="W_NewBook.cs" />
     <Compile Include="W_LibSys.cs" />
@@ -145,6 +147,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\L_NewBook.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\L_AboutBook.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

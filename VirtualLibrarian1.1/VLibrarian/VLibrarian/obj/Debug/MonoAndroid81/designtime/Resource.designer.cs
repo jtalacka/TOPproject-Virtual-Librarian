@@ -2390,53 +2390,59 @@ namespace VLibrarian
 			// aapt resource value: 0x7F010006
 			public const int button2 = 2130771974;
 			
-			// aapt resource value: 0x7F010021
-			public const int buttonAcc = 2130772001;
+			// aapt resource value: 0x7F010026
+			public const int buttonAcc = 2130772006;
 			
-			// aapt resource value: 0x7F010023
-			public const int buttonAdd = 2130772003;
-			
-			// aapt resource value: 0x7F010036
-			public const int buttonAddNewBook = 2130772022;
+			// aapt resource value: 0x7F010033
+			public const int buttonAccounts = 2130772019;
 			
 			// aapt resource value: 0x7F010029
-			public const int buttonChangeAcc = 2130772009;
+			public const int buttonAdd = 2130772009;
 			
-			// aapt resource value: 0x7F010025
-			public const int buttonDel = 2130772005;
+			// aapt resource value: 0x7F010043
+			public const int buttonAddNewBook = 2130772035;
 			
-			// aapt resource value: 0x7F010014
-			public const int buttonDelAcc = 2130771988;
+			// aapt resource value: 0x7F010036
+			public const int buttonChangeAcc = 2130772022;
 			
-			// aapt resource value: 0x7F010024
-			public const int buttonEdit = 2130772004;
+			// aapt resource value: 0x7F010031
+			public const int buttonDel = 2130772017;
 			
-			// aapt resource value: 0x7F010044
-			public const int buttonEx = 2130772036;
+			// aapt resource value: 0x7F010019
+			public const int buttonDelAcc = 2130771993;
 			
-			// aapt resource value: 0x7F010027
-			public const int buttonGive = 2130772007;
+			// aapt resource value: 0x7F010030
+			public const int buttonEdit = 2130772016;
+			
+			// aapt resource value: 0x7F010051
+			public const int buttonEx = 2130772049;
+			
+			// aapt resource value: 0x7F010034
+			public const int buttonGive = 2130772020;
+			
+			// aapt resource value: 0x7F010028
+			public const int buttonLibBooks = 2130772008;
 			
 			// aapt resource value: 0x7F0C001B
 			public const int buttonPanel = 2131492891;
 			
-			// aapt resource value: 0x7F010028
-			public const int buttonReturn = 2130772008;
-			
-			// aapt resource value: 0x7F010013
-			public const int buttonSave = 2130771987;
+			// aapt resource value: 0x7F010035
+			public const int buttonReturn = 2130772021;
 			
 			// aapt resource value: 0x7F010018
-			public const int buttonSearch = 2130771992;
+			public const int buttonSave = 2130771992;
 			
-			// aapt resource value: 0x7F010043
-			public const int buttonSign = 2130772035;
+			// aapt resource value: 0x7F010023
+			public const int buttonSearch = 2130772003;
 			
-			// aapt resource value: 0x7F010019
-			public const int buttonSort = 2130771993;
+			// aapt resource value: 0x7F010050
+			public const int buttonSign = 2130772048;
 			
-			// aapt resource value: 0x7F010022
-			public const int buttonSys = 2130772002;
+			// aapt resource value: 0x7F010024
+			public const int buttonSort = 2130772004;
+			
+			// aapt resource value: 0x7F010027
+			public const int buttonSys = 2130772007;
 			
 			// aapt resource value: 0x7F0C001C
 			public const int cancel_action = 2131492892;
@@ -2447,8 +2453,8 @@ namespace VLibrarian
 			// aapt resource value: 0x7F0C001E
 			public const int checkbox = 2131492894;
 			
-			// aapt resource value: 0x7F010034
-			public const int checkBoxGenres = 2130772020;
+			// aapt resource value: 0x7F010041
+			public const int checkBoxGenres = 2130772033;
 			
 			// aapt resource value: 0x7F0C0008
 			public const int chronometer = 2131492872;
@@ -2495,23 +2501,23 @@ namespace VLibrarian
 			// aapt resource value: 0x7F010003
 			public const int EditText2 = 2130771971;
 			
-			// aapt resource value: 0x7F010042
-			public const int EditTextBirth = 2130772034;
+			// aapt resource value: 0x7F010049
+			public const int EditTextBirth = 2130772041;
 			
-			// aapt resource value: 0x7F010041
-			public const int EditTextEmail = 2130772033;
+			// aapt resource value: 0x7F010048
+			public const int EditTextEmail = 2130772040;
 			
-			// aapt resource value: 0x7F010039
-			public const int EditTextName = 2130772025;
+			// aapt resource value: 0x7F010046
+			public const int EditTextName = 2130772038;
 			
-			// aapt resource value: 0x7F010038
-			public const int EditTextPass = 2130772024;
+			// aapt resource value: 0x7F010045
+			public const int EditTextPass = 2130772037;
 			
-			// aapt resource value: 0x7F010040
-			public const int EditTextSurname = 2130772032;
+			// aapt resource value: 0x7F010047
+			public const int EditTextSurname = 2130772039;
 			
-			// aapt resource value: 0x7F010037
-			public const int EditTextUser = 2130772023;
+			// aapt resource value: 0x7F010044
+			public const int EditTextUser = 2130772036;
 			
 			// aapt resource value: 0x7F0C002C
 			public const int edit_query = 2131492908;
@@ -2552,11 +2558,14 @@ namespace VLibrarian
 			// aapt resource value: 0x7F0C0038
 			public const int image = 2131492920;
 			
+			// aapt resource value: 0x7F010007
+			public const int imageView1 = 2130771975;
+			
 			// aapt resource value: 0x7F0C000C
 			public const int info = 2131492876;
 			
-			// aapt resource value: 0x7F010017
-			public const int inputText = 2130771991;
+			// aapt resource value: 0x7F010022
+			public const int inputText = 2130772002;
 			
 			// aapt resource value: 0x7F0C000D
 			public const int italic = 2131492877;
@@ -2579,14 +2588,14 @@ namespace VLibrarian
 			// aapt resource value: 0x7F0C0040
 			public const int listMode = 2131492928;
 			
-			// aapt resource value: 0x7F010020
-			public const int listView = 2130772000;
+			// aapt resource value: 0x7F010025
+			public const int listView = 2130772005;
 			
-			// aapt resource value: 0x7F010026
-			public const int listViewBooks = 2130772006;
+			// aapt resource value: 0x7F010032
+			public const int listViewBooks = 2130772018;
 			
-			// aapt resource value: 0x7F010016
-			public const int listViewTakenBooks = 2130771990;
+			// aapt resource value: 0x7F010021
+			public const int listViewTakenBooks = 2130772001;
 			
 			// aapt resource value: 0x7F0C0041
 			public const int list_item = 2131492929;
@@ -2762,20 +2771,20 @@ namespace VLibrarian
 			// aapt resource value: 0x7F0C0018
 			public const int text2 = 2131492888;
 			
-			// aapt resource value: 0x7F010032
-			public const int textInputAuthor = 2130772018;
+			// aapt resource value: 0x7F010039
+			public const int textInputAuthor = 2130772025;
 			
-			// aapt resource value: 0x7F010035
-			public const int textInputDescription = 2130772021;
+			// aapt resource value: 0x7F010042
+			public const int textInputDescription = 2130772034;
 			
-			// aapt resource value: 0x7F010030
-			public const int textInputISBN = 2130772016;
+			// aapt resource value: 0x7F010037
+			public const int textInputISBN = 2130772023;
 			
-			// aapt resource value: 0x7F010033
-			public const int textInputQuantity = 2130772019;
+			// aapt resource value: 0x7F010040
+			public const int textInputQuantity = 2130772032;
 			
-			// aapt resource value: 0x7F010031
-			public const int textInputTitle = 2130772017;
+			// aapt resource value: 0x7F010038
+			public const int textInputTitle = 2130772024;
 			
 			// aapt resource value: 0x7F0C007E
 			public const int textinput_counter = 2131492990;
@@ -2792,26 +2801,38 @@ namespace VLibrarian
 			// aapt resource value: 0x7F010005
 			public const int textView3 = 2130771973;
 			
-			// aapt resource value: 0x7F010012
-			public const int textViewBirth = 2130771986;
+			// aapt resource value: 0x7F010009
+			public const int textViewBAuthor = 2130771977;
 			
 			// aapt resource value: 0x7F010011
-			public const int textViewEmail = 2130771985;
-			
-			// aapt resource value: 0x7F010009
-			public const int textViewName = 2130771977;
-			
-			// aapt resource value: 0x7F010008
-			public const int textViewPass = 2130771976;
+			public const int textViewBDescription = 2130771985;
 			
 			// aapt resource value: 0x7F010010
-			public const int textViewSurname = 2130771984;
+			public const int textViewBGenres = 2130771984;
+			
+			// aapt resource value: 0x7F010017
+			public const int textViewBirth = 2130771991;
+			
+			// aapt resource value: 0x7F010008
+			public const int textViewBTitle = 2130771976;
+			
+			// aapt resource value: 0x7F010016
+			public const int textViewEmail = 2130771990;
+			
+			// aapt resource value: 0x7F010014
+			public const int textViewName = 2130771988;
+			
+			// aapt resource value: 0x7F010013
+			public const int textViewPass = 2130771987;
 			
 			// aapt resource value: 0x7F010015
-			public const int textViewTaken = 2130771989;
+			public const int textViewSurname = 2130771989;
 			
-			// aapt resource value: 0x7F010007
-			public const int textViewUsername = 2130771975;
+			// aapt resource value: 0x7F010020
+			public const int textViewTaken = 2130772000;
+			
+			// aapt resource value: 0x7F010012
+			public const int textViewUsername = 2130771986;
 			
 			// aapt resource value: 0x7F0C007D
 			public const int text_input_password_toggle = 2131492989;
@@ -3047,22 +3068,25 @@ namespace VLibrarian
 			public const int design_text_input_password_icon = 2131689512;
 			
 			// aapt resource value: 0x7F020003
-			public const int L_AccountSet = 2130837507;
+			public const int L_AboutBook = 2130837507;
 			
 			// aapt resource value: 0x7F020004
-			public const int L_Library = 2130837508;
+			public const int L_AccountSet = 2130837508;
 			
 			// aapt resource value: 0x7F020005
-			public const int L_LibraryPlus = 2130837509;
+			public const int L_Library = 2130837509;
 			
 			// aapt resource value: 0x7F020006
-			public const int L_LibSystem = 2130837510;
+			public const int L_LibraryPlus = 2130837510;
 			
 			// aapt resource value: 0x7F020007
-			public const int L_NewBook = 2130837511;
+			public const int L_LibSystem = 2130837511;
 			
 			// aapt resource value: 0x7F020008
-			public const int L_Signup = 2130837512;
+			public const int L_NewBook = 2130837512;
+			
+			// aapt resource value: 0x7F020009
+			public const int L_Signup = 2130837513;
 			
 			// aapt resource value: 0x7F0F0001
 			public const int notification_action = 2131689473;
