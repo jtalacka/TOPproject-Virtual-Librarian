@@ -4074,11 +4074,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VLibrarianMANO\\VLibrarian\\VLibrarian.csproj",
+      "projectUniqueName": "D:\\1. VLibrarian\\VLibrarian\\VLibrarian.csproj",
       "projectName": "VLibrarian",
-      "projectPath": "D:\\VLibrarianMANO\\VLibrarian\\VLibrarian.csproj",
+      "projectPath": "D:\\1. VLibrarian\\VLibrarian\\VLibrarian.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\VLibrarianMANO\\VLibrarian\\obj\\",
+      "outputPath": "D:\\1. VLibrarian\\VLibrarian\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

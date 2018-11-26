@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="DBHelper.cs" />
-    <Compile Include="I_Helper.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="LibrarySystem.cs" />
     <Compile Include="MainActivity.cs" />
@@ -118,7 +117,9 @@
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.5.231</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.Design">
+      <Version>27.0.2.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\L_Signup.axml">

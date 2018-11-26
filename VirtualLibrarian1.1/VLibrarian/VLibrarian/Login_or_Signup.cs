@@ -12,11 +12,11 @@ namespace VLibrarian
     //       checkIfExistsInDBUsers
     //
 
-    public class Login_or_Signup : I_Helper
+    public class Login_or_Signup
     {
 
         //interface object, through which we will be accessing the controller class methods
-        static I_Helper L_or_S = new Login_or_Signup();
+        static Login_or_Signup L_or_S = new Login_or_Signup();
 
         //define delegate that will point to L_or_S.login
         public delegate string del(string N, string P);
@@ -26,6 +26,7 @@ namespace VLibrarian
             return d(n, p);
         }
 
+        //define a delegate
         public delegate bool del2(string w);
         public static del2 check2 = L_or_S.checkIfExistsInDBUsers;
         public static bool runAdelegate(del2 d, string w)
@@ -33,6 +34,7 @@ namespace VLibrarian
             return d(w);
         }
 
+        //define a placeholder delegate
         public delegate T del3<T>(T u, T p, T n, T s, T b, T e);
         public static del3<string> check3 = L_or_S.signup;
         public static string runAdelegate3(del3<string> d, string u, string p, string n, string s, string b, string e)
