@@ -15,6 +15,10 @@ namespace VLibrarian
     [Activity(Label = "W_Account")]
     public class W_Account : Activity
     {
+        //==== define this before going to this window ===============
+        public static User passedUser;
+        //============================================================
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,6 +31,8 @@ namespace VLibrarian
             TextView Surname = FindViewById<TextView>(Resource.Id.textViewSurname);
             TextView Email = FindViewById<TextView>(Resource.Id.textViewEmail);
             TextView Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
+
+
             Username.Text = Login_or_Signup.user.username;
             Password.Text = Login_or_Signup.user.password;
             Name.Text = Login_or_Signup.user.name;

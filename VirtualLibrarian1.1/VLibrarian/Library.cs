@@ -29,6 +29,9 @@ namespace VLibrarian
 
     class Library
     {
+        public delegate void load();
+        public static load loadL = loadLibraryBooks;
+
         //load books
         public static void loadLibraryBooks()
         {
@@ -103,13 +106,11 @@ namespace VLibrarian
         //account update
         public static void updateReaderInfo(User user)
         {
-            SQLiteCommand command = new SQLiteCommand(Database.conn);
             Database.conn.Update(user);
         }
 
         public static void deleteReaderInfo(User user)
         {
-            SQLiteCommand command = new SQLiteCommand(Database.conn);
             Database.conn.Delete(user);
         }
 

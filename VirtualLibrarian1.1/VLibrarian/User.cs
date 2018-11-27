@@ -47,5 +47,13 @@ namespace VLibrarian
 
         //List for all readers
         public static List<User> readerList = new List<User>();
+
+        public string ObToString(User currUser)
+        {
+            string infoToDisplay = currUser.username + " --- " + currUser.password + " --- "
+                                 + currUser.name + " --- " + currUser.surname + " --- "
+                                 + currUser.email + " --- " + currUser.birth;
+            return infoToDisplay;
+        }
     }
 }

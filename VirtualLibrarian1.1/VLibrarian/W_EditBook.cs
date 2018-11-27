@@ -17,9 +17,19 @@ namespace VLibrarian
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            SetContentView(Resource.Layout.L_EditBook);
+
+            EditText ISBN = FindViewById<EditText>(Resource.Id.textInputISBN);
+            EditText Title = FindViewById<EditText>(Resource.Id.textInputTitle);
+            EditText Author = FindViewById<EditText>(Resource.Id.textInputAuthor);
+            EditText Quantity = FindViewById<EditText>(Resource.Id.textInputQuantity);
+            CheckBox Genres = FindViewById<CheckBox>(Resource.Id.checkBoxGenres);
+            EditText Description = FindViewById<EditText>(Resource.Id.textInputDescription);
+            Button EditBook = FindViewById<Button>(Resource.Id.buttonEdit);
+
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
+
 
         }
     }

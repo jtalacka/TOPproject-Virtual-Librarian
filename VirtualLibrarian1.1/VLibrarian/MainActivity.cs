@@ -42,9 +42,9 @@ namespace VLibrarian
                 //check if empty
                 if (string.IsNullOrWhiteSpace(UsernameText.Text) || string.IsNullOrWhiteSpace(PasswordText.Text))
                 { return; }
-
+                Login_or_Signup los = new Login_or_Signup();
                 //do the function
-                string result = Login_or_Signup.login(UsernameText.Text, PasswordText.Text);
+                string result = los.login(UsernameText.Text, PasswordText.Text);
 
                 Toast.MakeText(ApplicationContext, result, ToastLength.Long).Show();
 

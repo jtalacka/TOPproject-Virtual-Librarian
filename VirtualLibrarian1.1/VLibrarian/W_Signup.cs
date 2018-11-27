@@ -67,16 +67,16 @@ namespace VLibrarian
                         Toast.MakeText(ApplicationContext, "Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)", ToastLength.Long).Show();
                         return;
                     }
-
+                    Login_or_Signup los = new Login_or_Signup();
                     //check if username already exists in db table Users
-                    bool exists = Login_or_Signup.checkIfExistsInDBUsers(Username.Text);
+                    bool exists = los.checkIfExistsInDBUsers(Username.Text);
 
                     //if username unique - add user info. to db
                     if (exists == false)
                     {
                         //point delegate to a method
                         //add = L_or_S.signup;
-                        add<string> add = Login_or_Signup.signup;
+                        add<string> add = los.signup;
                         //call the method using the delegate object
                         string result = runAdelegate(add,
                                         Username.Text, Pass.Text, Name.Text,
