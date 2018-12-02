@@ -17,11 +17,19 @@ namespace VLibrarian
 {
     class Database
     {
+        //from config file "appsettings.json"
+        //public string databaseName { get; }
+        //public Database(string dbName)
+        //{
+        //    databaseName = dbName;
+        //}
+        //= = = = = = = = = = = = = = = = = = = = 
+
         public static SQLiteConnection conn;
         public Database(AssetManager asset)
         {
-
             string databaseName = "data.sqlite";
+
             var docFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var dbFile = Path.Combine(docFolder, databaseName);
 
@@ -43,6 +51,10 @@ namespace VLibrarian
         //    }
             var path = dbFile;
             conn = new SQLiteConnection(path);
+        }
+
+        public Database()
+        {
         }
     }
 }

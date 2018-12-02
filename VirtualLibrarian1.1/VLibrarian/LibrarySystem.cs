@@ -8,15 +8,26 @@ namespace VLibrarian
     // editBook
     // deleteBook
 
-    // takeORGiveBook
+    // giveBook
     // returnBook
     //
 
-
-    public class LibrarySystem
+    public class LibrarySystem : I_InLibSystem
     {
+        //interface object
+        static I_InLibSystem LibSys = new LibrarySystem();
+
+        public static Controller_linker.ch checkIfExists = LibSys.checkIfExistsInDBBooks;
+        public static Controller_linker.bookChange newBook = LibSys.addBook;
+        public static Controller_linker.bookChange edBook = LibSys.editBook;
+        public static Controller_linker.bookChange delBook = LibSys.deleteBook;
+        public static Controller_linker.givB giving = LibSys.giveBook;
+        public static Controller_linker.retB returning = LibSys.returnBook;
+
+
+
         //check if ISBN exists in db Books, before adding a new one
-        public static bool checkIfExistsInDBBooks(string whatToLookFor)
+        public bool checkIfExistsInDBBooks(string whatToLookFor)
         {
             bool ExistsResult = false;
 
@@ -33,19 +44,19 @@ namespace VLibrarian
         }
 
         //add new book
-        public static void AddBook(Book book)
+        public void addBook(Book book)
         {
             Database.conn.Insert(book);
         }
 
         //edit book
-        public static void editBook(Book book)
+        public void editBook(Book book)
         {
             Database.conn.Update(book);
         }
 
         //delete book
-        public static void deleteBookInfo(Book book)
+        public void deleteBook(Book book)
         {
             Database.conn.Delete(book);
         }
@@ -54,7 +65,7 @@ namespace VLibrarian
 
         //When a book is being taken/given - 
         //WRITE NEW INFO. INTO TABLES: Taken, Books
-        public static void takeORGiveBook(User user, Book book)
+        public void giveBook(User user, Book book)
         {
             //form date when taken
             string dateTaken = DateTime.Now.ToShortDateString();
@@ -73,7 +84,7 @@ namespace VLibrarian
 
         //When a book is being returned - 
         //WRITE NEW INFO. INTO TABLES: Taken, Books
-        public static void returnBook(Book book, Taken taken)
+        public void returnBook(Book book, Taken taken)
         {
             //delete in Taken
             Database.conn.Delete(taken);

@@ -42,32 +42,40 @@ namespace VLibrarian
             ListView ListViewMain = FindViewById<ListView>(Resource.Id.listView);
             Button AccButton = FindViewById<Button>(Resource.Id.buttonAcc);
             Button readISBN = FindViewById<Button>(Resource.Id.buttonISBN);
+
+
             //search
-            SearchButton.Click +=  (sender, e) =>
-            {
-                Book.sortList.Clear();
+            SearchButton.Click += (sender, e) =>
+           {
+               Book.sortList.Clear();
 
-                // define delegate loadL and call the method using the delegate object
-                Library.loadL();
-                List<string> toDisplay = new List<string>();
-                //checks all the books in the bookList (filled on form load)
+               // run delegate method
+               Controller_linker.runLoad(Library.loadL);
+
+
+               List<string> toDisplay = new List<string>();
+                //checks all the books in the bookList
                 foreach (Book tempBook in Book.bookList)
-                    {
-                        string match = Library.searchAuthororTitle(Search.Text, tempBook);
-                        //checks tempBook - if it fits, returns tempBook info to display            
-                        if (match != "no match")
-                        {
-                            //ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this, Android.Resource.Layout.L_Library, Book.bookList);
+               {
+                    //run delegate method
+                    string match = Controller_linker.runSearch(Library.searchB, Search.Text, tempBook);
 
-                            //all search results to list for potential sorting
-                            Book.sortList.Add(tempBook);
-                            toDisplay.Add(match);
-                        }
-                    } 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
-                ListViewMain.Adapter = adapter;
-            };
+                    //checks tempBook - if it fits, returns tempBook info to display            
+                    if (match != "no match")
+                   {
+                        //ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this, Android.Resource.Layout.L_Library, Book.bookList);
 
+                        //all search results to list for potential sorting
+                        Book.sortList.Add(tempBook);
+                       toDisplay.Add(match);
+                   }
+               }
+               ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+               ListViewMain.Adapter = adapter;
+           };
+
+
+            //ISBN scan
             readISBN.Click += async (sender, e) =>
             {
 
@@ -89,30 +97,31 @@ namespace VLibrarian
                 }
             };
 
-             //sort
-             Sort.Click += (sender, e) =>
-            {
+
+            //sort
+            Sort.Click += (sender, e) =>
+           {
                 //sort it by title
                 Book.sortList.Sort();
 
                 //display
                 List<string> toDisplay = new List<string>();
-                foreach (Book currentBook in Book.sortList)
-                {
-                    string genres = string.Join(" ", currentBook.genres);
-                    string infoToDisplay = currentBook.title + " --- "
-                                         + currentBook.author + " --- " + genres + " --- "
-                                         + currentBook.quantity;
-                    toDisplay.Add(infoToDisplay);
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
-                ListViewMain.Adapter = adapter;
-            };
+               foreach (Book currentBook in Book.sortList)
+               {
+                   string genres = string.Join(" ", currentBook.genres);
+                   string infoToDisplay = currentBook.title + " --- "
+                                        + currentBook.author + " --- " + genres + " --- "
+                                        + currentBook.quantity;
+                   toDisplay.Add(infoToDisplay);
+               }
+               ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+               ListViewMain.Adapter = adapter;
+           };
 
             //on selecting a book
             ListViewMain.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
             {
-                //get selected? does it actually??
+                //get selected
                 string selectedT = Convert.ToString(ListViewMain.GetItemAtPosition(e.Position));
 
                 if (selectedT == null)
@@ -126,7 +135,7 @@ namespace VLibrarian
                                 where selectedT.Contains(book.ISBN + " --- " + book.title) ||
                                       selectedT.Contains(book.title + " --- " + book.author)
                                 select book;
-                
+
                 foreach (var book in aboutBook)
                 {
                     bookToPass = book;
@@ -150,8 +159,8 @@ namespace VLibrarian
             {
                 ToSystem.Click += (sender, e) =>
                 {
-                //to new form
-                Intent System = new Intent(this, typeof(W_LibSys));
+                    //to new form
+                    Intent System = new Intent(this, typeof(W_LibSys));
                     this.StartActivity(System);
                 };
             }

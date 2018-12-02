@@ -41,14 +41,14 @@ namespace VLibrarian
             AddNewBook.Click += (sender, e) =>
             {
                 //check if valid ISBN
-                if (Login_or_Signup.inputCheck(ISBN.Text, 3) == 0)
+                if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, ISBN.Text, 3) == 0)
                 {
                     Toast.MakeText(ApplicationContext, "Please enter a valid email (ex.:email@gmail.com)", ToastLength.Long).Show();
                     return;
                 }
 
                 //check if ISBN already exists in table
-                if (LibrarySystem.checkIfExistsInDBBooks(ISBN.Text) == true)
+                if (Controller_linker.runABookcheck(LibrarySystem.checkIfExists, ISBN.Text) == true)
                 {
                     Toast.MakeText(ApplicationContext, "Book with this ISBN code already exists", ToastLength.Long).Show();
                     return;
@@ -79,7 +79,7 @@ namespace VLibrarian
                 //define new book
                 Book bp = new Book(ISBN.Text, Title.Text, Author.Text, L, qua);
                 //add a book to table
-                LibrarySystem.AddBook(bp);
+                Controller_linker.runBookUpdate(LibrarySystem.newBook, bp);
 
 
                 Toast.MakeText(ApplicationContext, "Book " + bp.title + " added.", ToastLength.Long).Show();

@@ -68,11 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Controller_linker.cs" />
     <Compile Include="GoogleBooks.cs" />
-    <Compile Include="I_Helper.cs" />
+    <Compile Include="I_InLibrary.cs" />
+    <Compile Include="I_InLibSystem.cs" />
+    <Compile Include="I_NewLogin.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="LibrarySystem.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="W_AboutBook.cs" />
     <Compile Include="W_EditBook.cs" />
     <Compile Include="W_NewBook.cs" />
@@ -91,6 +95,7 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\data.sqlite" />
     <ProguardConfiguration Include="proguard.cfg" />
+    <None Include="appsettings.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -122,8 +127,14 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentAssertions">
+      <Version>5.5.3</Version>
+    </PackageReference>
     <PackageReference Include="Ideine.ZXing.Net.Mobile">
       <Version>2.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <Version>2.1.1</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
       <Version>8.0.13</Version>

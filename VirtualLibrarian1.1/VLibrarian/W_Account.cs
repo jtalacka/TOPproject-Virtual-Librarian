@@ -20,6 +20,7 @@ namespace VLibrarian
         public static bool employee = false;
         //============================================================
 
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -45,7 +46,8 @@ namespace VLibrarian
             ListView ListViewTaken = FindViewById<ListView>(Resource.Id.listViewTakenBooks);
 
             //display taken books
-            List<String> toDisplay = Library.selectTakenBooks(passedUser.username);
+            List<String> toDisplay = Controller_linker.runSelectTaken(Library.getTaken, passedUser.username);
+
             ArrayAdapter<String> adapter = new ArrayAdapter<String>
                     (this, Android.Resource.Layout.SimpleListItem1, toDisplay);
             ListViewTaken.Adapter = adapter;
@@ -63,13 +65,13 @@ namespace VLibrarian
                 Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
 
                 //check if valid email
-                if (Login_or_Signup.inputCheck(Email.Text, 1) == 0)
+                if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, Email.Text, 1) == 0)
                 {
                     Toast.MakeText(ApplicationContext, "Please enter a valid email (ex.:email@gmail.com)", ToastLength.Long).Show();
                     return;
                 }
                 //check if date the right format
-                if (Login_or_Signup.inputCheck(Birth.Text, 2) == 0)
+                if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, Birth.Text, 2) == 0)
                 {
                     Toast.MakeText(ApplicationContext, "Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)", ToastLength.Long).Show();
                     return;
@@ -93,7 +95,7 @@ namespace VLibrarian
 
 
                 //update database
-                Library.updateReaderInfo(passedUser);
+                Controller_linker.runUpdate(Library.update, passedUser);
                 Toast.MakeText(ApplicationContext, "Changes saved", ToastLength.Long).Show();
 
             };
@@ -101,7 +103,7 @@ namespace VLibrarian
             //2. Delete
             Save.Click += (sender, e) =>
             {
-                Library.deleteReaderInfo(passedUser);
+                Controller_linker.runUpdate(Library.delete, passedUser);
             };
 
 

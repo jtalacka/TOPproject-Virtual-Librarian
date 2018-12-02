@@ -16,7 +16,7 @@ namespace VLibrarian
         ArrayAdapter<String> adapter;
 
         //for selecting book/account/takenBook
-        string whatToSelect = "";        //book/user/takenB
+        string whatToSelect = "";        //book/user
         public static Book bookToPass = null;
         public static User userToPass = null;
         public static Taken takenBtoPass = null;
@@ -153,7 +153,7 @@ namespace VLibrarian
                 builder.SetPositiveButton("Yes", (send, args) =>
                 {
                     //delete on confirmation
-                    LibrarySystem.deleteBookInfo(bookToPass);
+                    Controller_linker.runBookUpdate(LibrarySystem.delBook, bookToPass);
                 });
                 builder.SetNegativeButton("No", (send, args) => { return; });
                 builder.SetCancelable(false);
@@ -211,7 +211,7 @@ namespace VLibrarian
                 bookToPass.quantity = bookToPass.quantity - 1;
 
                 //ALL GOOD -> WRITE NEEDED INFO. INTO TABLES: Taken, Books
-                LibrarySystem.takeORGiveBook(userToPass, bookToPass);
+                Controller_linker.runGiveBook(LibrarySystem.giving, userToPass, bookToPass);
 
             };
 
@@ -228,14 +228,17 @@ namespace VLibrarian
 
                 //display user's taken books and get what book is being returned
                 whatToSelect = "book";
-                toDisplay = Library.selectTakenBooks(userToPass.username);
+
+                //run a delegate method
+                toDisplay = Controller_linker.runSelectTaken(Library.getTaken, userToPass.username);
+
                 adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
                 ListViewBooks.Adapter = adapter;
 
                 Taken taken = new Taken(bookToPass.ISBN, userToPass.username);
 
                 //delete in Taken and add quantity in Books
-                LibrarySystem.returnBook(bookToPass, taken);
+                Controller_linker.runReturnBook(LibrarySystem.returning, bookToPass, taken);
             };
 
 

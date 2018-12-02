@@ -60,7 +60,7 @@ namespace VLibrarian
 
 
                 //edit
-                LibrarySystem.editBook(passedBook);
+                Controller_linker.runBookUpdate(LibrarySystem.edBook, passedBook);
                 Toast.MakeText(ApplicationContext, "Changes saved", ToastLength.Long).Show();
 
                 //exit
