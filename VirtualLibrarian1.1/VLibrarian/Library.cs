@@ -32,6 +32,7 @@ namespace VLibrarian
         public static I_InLibrary Lib = new Library();
 
         public static Controller_linker.load loadL = Lib.loadLibraryBooks;
+        public static Controller_linker.load loadU = Lib.loadReaders;
         public static Controller_linker.s searchB = Lib.searchAuthororTitle;
         public static Controller_linker.readerUpdate update = Lib.updateReaderInfo;
         public static Controller_linker.readerUpdate delete = Lib.deleteReaderInfo;

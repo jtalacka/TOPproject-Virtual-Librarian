@@ -37,6 +37,7 @@ namespace VLibrarian
             Button ChangeAccInfo = FindViewById<Button>(Resource.Id.buttonChangeAcc);
 
             Button GiveBook = FindViewById<Button>(Resource.Id.buttonGive);
+            Button TakenBooks = FindViewById<Button>(Resource.Id.buttonlTaken);
             Button ReturnBook = FindViewById<Button>(Resource.Id.buttonReturn);
 
             ListView ListViewBooks = FindViewById<ListView>(Resource.Id.listViewBooks);
@@ -47,7 +48,7 @@ namespace VLibrarian
             {
                 whatToSelect = "book";
                 bookToPass = null;
-                userToPass = null;
+               // userToPass = null;
 
                 toDisplay = new List<string>();
                 foreach (Book tempBook in Book.bookList)
@@ -78,39 +79,48 @@ namespace VLibrarian
 
             //ON SELECTING something - save it
             //if selecting a BOOK
-            if (whatToSelect == "book")
-            {
                 ListViewBooks.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
                 {
-                    //get selected
-                    string selectedTitle = Book.bookList[e.Position].title;
-                    //CHECK
-                    Toast.MakeText(ApplicationContext, "You selected: " + selectedTitle, ToastLength.Long).Show();
+                    if (whatToSelect == "book" || whatToSelect == "booksTaken")
+                    {
+                        if (whatToSelect == "booksTaken")
+                        {
+                            whatToSelect = "user";
+                        }
+                        //get selected
+                        string selectedTitle = Book.bookList[e.Position].title;
+                        //CHECK
+                        Toast.MakeText(ApplicationContext, "You selected: " + selectedTitle, ToastLength.Long).Show();
 
-                    //LINQ gets all info about selected book
-                    var aboutBook = from book in Book.bookList
-                                    where selectedTitle == book.title
-                                    select book;
-                    foreach (var book in aboutBook)
-                    { bookToPass = book; }
+                        //LINQ gets all info about selected book
+                        var aboutBook = from book in Book.bookList
+                                        where selectedTitle == book.title
+                                        select book;
+                        foreach (var book in aboutBook)
+                        { bookToPass = book; }
+
+                    }
                 };
-            }
+            
             //if selecting account
-            else if (whatToSelect == "user")
-            {
                 ListViewBooks.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
                 {
-                    //get selected
-                    string selectedUsername = User.readerList[e.Position].username;
+                    if (whatToSelect == "user")
+                    {
 
-                    //LINQ gets all info about selected user
-                    var aboutUser = from user in User.readerList
-                                    where selectedUsername == user.username
-                                    select user;
-                    foreach (var user in aboutUser)
-                    { userToPass = user; }
+
+                        //get selected
+                        string selectedUsername = User.readerList[e.Position].username;
+
+                        //LINQ gets all info about selected user
+                        var aboutUser = from user in User.readerList
+                                        where selectedUsername == user.username
+                                        select user;
+                        foreach (var user in aboutUser)
+                        { userToPass = user; }
+
+                    }
                 };
-            }
 
 
             //2. Add Book
@@ -214,13 +224,28 @@ namespace VLibrarian
                 Controller_linker.runGiveBook(LibrarySystem.giving, userToPass, bookToPass);
 
             };
+            TakenBooks.Click += (sender, e) =>
+              {
+                  List<String> toDisplay = Controller_linker.runSelectTaken(Library.getTaken, userToPass.username);
+
+                  ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                          (this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                  ListViewBooks.Adapter = adapter;
+                  toDisplay = Controller_linker.runSelectTaken(Library.getTaken, userToPass.username);
+
+                  adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                  ListViewBooks.Adapter = adapter;
+                  whatToSelect = "booksTaken";
+
+
+              };
 
 
             //7. return book
             ReturnBook.Click += (sender, e) =>
             {
                 //select an account
-                if (userToPass == null && whatToSelect != "user")
+                if (userToPass == null || whatToSelect != "user")
                 {
                     Toast.MakeText(ApplicationContext, "Please select an account", ToastLength.Long).Show();
                     return;
@@ -230,10 +255,7 @@ namespace VLibrarian
                 whatToSelect = "book";
 
                 //run a delegate method
-                toDisplay = Controller_linker.runSelectTaken(Library.getTaken, userToPass.username);
-
-                adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
-                ListViewBooks.Adapter = adapter;
+                Console.WriteLine("------------" + bookToPass.ISBN);
 
                 Taken taken = new Taken(bookToPass.ISBN, userToPass.username);
 

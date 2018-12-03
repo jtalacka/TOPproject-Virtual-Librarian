@@ -34,19 +34,19 @@ namespace VLibrarian
             TextView Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
 
             //display info of the passed user
-            Username.Text = passedUser.username;
-            Password.Text = passedUser.password;
-            Name.Text = passedUser.name;
-            Surname.Text = passedUser.surname;
-            Email.Text = passedUser.email;
-            Birth.Text = passedUser.birth;
+            Username.Text = Login_or_Signup.user.username;
+            Password.Text = Login_or_Signup.user.password;
+            Name.Text = Login_or_Signup.user.name;
+            Surname.Text = Login_or_Signup.user.surname;
+            Email.Text = Login_or_Signup.user.email;
+            Birth.Text = Login_or_Signup.user.birth;
 
             Button Save = FindViewById<Button>(Resource.Id.buttonSave);
             Button Delete = FindViewById<Button>(Resource.Id.buttonDelAcc);
             ListView ListViewTaken = FindViewById<ListView>(Resource.Id.listViewTakenBooks);
 
             //display taken books
-            List<String> toDisplay = Controller_linker.runSelectTaken(Library.getTaken, passedUser.username);
+            List<String> toDisplay = Controller_linker.runSelectTaken(Library.getTaken, Login_or_Signup.user.username);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>
                     (this, Android.Resource.Layout.SimpleListItem1, toDisplay);
