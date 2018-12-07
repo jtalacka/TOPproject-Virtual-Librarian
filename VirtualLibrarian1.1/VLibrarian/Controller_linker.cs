@@ -12,8 +12,13 @@ using Android.Widget;
 
 namespace VLibrarian
 {
+    //Controller_linker.instance.runAdelegate();
+    //MAKE THIS A SINGLETON CLASS
     public class Controller_linker
     {
+        public static Controller_linker instance;
+
+
 
         //1. Delegates for Login_or_Signup
 

@@ -13,8 +13,22 @@ namespace VLibrarian
 
     public class Login_or_Signup : I_NewLogin
     {
-        //interface object, through which we will be accessing the controller class methods
-        static I_NewLogin L_or_S = new Login_or_Signup();
+        public static I_NewLogin L_or_S = new Login_or_Signup();
+        //Login_or_Signup di;
+
+        //implement property from interface
+        //public I_NewLogin L_or_S
+        //{
+        //    get { return interfaceObj; }
+        //    set { interfaceObj = di; }
+        //}
+
+        //constructor
+        //public Login_or_Signup()//Login_or_Signup di)
+        //{
+        //    //L_or_S = di;
+        //}
+
 
         //DEFINE DELEGATES
         public static Controller_linker.del check = L_or_S.login;

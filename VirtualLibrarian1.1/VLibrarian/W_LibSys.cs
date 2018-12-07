@@ -12,8 +12,8 @@ namespace VLibrarian
     public class W_LibSys : Activity
     {
         //for displaying info
-        List<string> toDisplay;
-        ArrayAdapter<String> adapter;
+        // List<string> toDisplay;
+        //ArrayAdapter<String> adapter;
 
         //for selecting book/account/takenBook
         string whatToSelect = "";        //book/user
@@ -37,6 +37,7 @@ namespace VLibrarian
             Button ChangeAccInfo = FindViewById<Button>(Resource.Id.buttonChangeAcc);
 
             Button GiveBook = FindViewById<Button>(Resource.Id.buttonGive);
+            Button TakenBooks = FindViewById<Button>(Resource.Id.buttonlTaken);
             Button ReturnBook = FindViewById<Button>(Resource.Id.buttonReturn);
 
             ListView ListViewBooks = FindViewById<ListView>(Resource.Id.listViewBooks);
@@ -47,15 +48,26 @@ namespace VLibrarian
             {
                 whatToSelect = "book";
                 bookToPass = null;
-                userToPass = null;
+                // userToPass = null;
 
-                toDisplay = new List<string>();
+                //List<string>  toDisplay = new List<string>();
+                //foreach (Book tempBook in Book.bookList)
+                //{
+                //    string match = tempBook.ObToString(tempBook);
+                //    toDisplay.Add(match);
+                //}
+                //ArrayAdapter<String>  adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                //ListViewBooks.Adapter = adapter;
+
+                List<string> toDisplay = new List<string>();
+                //checks all the books in the bookList
                 foreach (Book tempBook in Book.bookList)
                 {
-                    string match = tempBook.ObToString(tempBook);
+                    //run delegate method
+                    string match = Controller_linker.runSearch(Library.searchB, "", tempBook);
                     toDisplay.Add(match);
                 }
-                adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
                 ListViewBooks.Adapter = adapter;
             };
 
@@ -66,22 +78,26 @@ namespace VLibrarian
                 bookToPass = null;
                 userToPass = null;
 
-                toDisplay = new List<string>();
+                List<string> toDisplay = new List<string>();
                 foreach (User user in User.readerList)
                 {
                     string match = user.ObToString(user);
                     toDisplay.Add(match);
                 }
-                adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
                 ListViewBooks.Adapter = adapter;
             };
 
             //ON SELECTING something - save it
             //if selecting a BOOK
-            if (whatToSelect == "book")
+            ListViewBooks.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
             {
-                ListViewBooks.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
+                if (whatToSelect == "book" || whatToSelect == "booksTaken")
                 {
+                    if (whatToSelect == "booksTaken")
+                    {
+                        whatToSelect = "user";
+                    }
                     //get selected
                     string selectedTitle = Book.bookList[e.Position].title;
                     //CHECK
@@ -93,15 +109,20 @@ namespace VLibrarian
                                     select book;
                     foreach (var book in aboutBook)
                     { bookToPass = book; }
-                };
-            }
+
+                }
+            };
+
             //if selecting account
-            else if (whatToSelect == "user")
+            ListViewBooks.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
             {
-                ListViewBooks.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
+                if (whatToSelect == "user")
                 {
+
                     //get selected
                     string selectedUsername = User.readerList[e.Position].username;
+                    Toast.MakeText(ApplicationContext, "You selected: " + selectedUsername, ToastLength.Long).Show();
+
 
                     //LINQ gets all info about selected user
                     var aboutUser = from user in User.readerList
@@ -109,8 +130,9 @@ namespace VLibrarian
                                     select user;
                     foreach (var user in aboutUser)
                     { userToPass = user; }
-                };
-            }
+
+                }
+            };
 
 
             //2. Add Book
@@ -213,32 +235,61 @@ namespace VLibrarian
                 //ALL GOOD -> WRITE NEEDED INFO. INTO TABLES: Taken, Books
                 Controller_linker.runGiveBook(LibrarySystem.giving, userToPass, bookToPass);
 
+
+                Toast.MakeText(ApplicationContext, "Book " + bookToPass.title + " given to " + userToPass.username, ToastLength.Long).Show();
+                bookToPass = null;
+                userToPass = null;
             };
+
+            //all taken books
+            TakenBooks.Click += (sender, e) =>
+              {
+                  //get all taken books
+                  List<String> toDisplay = Library.selectAllTakenBooks();
+
+                  //display
+                  ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                          (this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                  ListViewBooks.Adapter = adapter;
+                  //adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                  //ListViewBooks.Adapter = adapter;
+              };
 
 
             //7. return book
             ReturnBook.Click += (sender, e) =>
             {
+                User tempSave = userToPass;
+
                 //select an account
-                if (userToPass == null && whatToSelect != "user")
+                if (userToPass == null || tempSave == null)
                 {
                     Toast.MakeText(ApplicationContext, "Please select an account", ToastLength.Long).Show();
                     return;
                 }
 
-                //display user's taken books and get what book is being returned
-                whatToSelect = "book";
+                if (bookToPass == null)
+                {
+                    //display user's taken books and get what book is being returned
+                    List<String> toDisplay = Controller_linker.runSelectTaken(Library.getTaken, userToPass.username);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                            (this, Android.Resource.Layout.SimpleListItem1, toDisplay);
+                    ListViewBooks.Adapter = adapter;
 
-                //run a delegate method
-                toDisplay = Controller_linker.runSelectTaken(Library.getTaken, userToPass.username);
+                    whatToSelect = "book";
 
-                adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
-                ListViewBooks.Adapter = adapter;
+                    Toast.MakeText(ApplicationContext, "Please select a book to return", ToastLength.Long).Show();
+                    return;
+                }
 
-                Taken taken = new Taken(bookToPass.ISBN, userToPass.username);
+                Taken taken = new Taken(bookToPass.ISBN, tempSave.username);
 
                 //delete in Taken and add quantity in Books
                 Controller_linker.runReturnBook(LibrarySystem.returning, bookToPass, taken);
+
+                Toast.MakeText(ApplicationContext, "Book " + bookToPass.title + " returned by " + userToPass.username, ToastLength.Long).Show();
+                bookToPass = null;
+                userToPass = null;
             };
 
 

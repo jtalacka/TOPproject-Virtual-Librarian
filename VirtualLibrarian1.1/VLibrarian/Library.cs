@@ -32,6 +32,7 @@ namespace VLibrarian
         public static I_InLibrary Lib = new Library();
 
         public static Controller_linker.load loadL = Lib.loadLibraryBooks;
+        public static Controller_linker.load loadU = Lib.loadReaders;
         public static Controller_linker.s searchB = Lib.searchAuthororTitle;
         public static Controller_linker.readerUpdate update = Lib.updateReaderInfo;
         public static Controller_linker.readerUpdate delete = Lib.deleteReaderInfo;
@@ -94,7 +95,7 @@ namespace VLibrarian
         }
 
 
-        //gets all taken reader books into list
+        //gets all taken READER books into list
         public List<String> selectTakenBooks(string user)
         {
             List<String> result = new List<string>();
@@ -102,24 +103,46 @@ namespace VLibrarian
             var taken = Database.conn.Table<Taken>();
             var books = Database.conn.Table<Book>();
 
-
-                foreach (var line in taken)
-                {
+            //if getting specified user taken books
+            foreach (var line in taken)
+            {
                 foreach (var line2 in books)
                 {
-                    if (line.Username == user && line2.ISBN==line.ISBN)
+                    if (line.Username == user && line2.ISBN == line.ISBN)
                     {
                         result.Add(line2.title + " --- " + line2.author + " ---" +
                                    line.DateTaken + " --- " + line.DateReturn);
                     }
                 }
-                }
-
-                return result;
-
             }
+            return result;
+        }
 
 
-        
+        //gets ALL taken books into list
+        public static List<String> selectAllTakenBooks()
+        {
+            List<String> result = new List<string>();
+
+            var taken = Database.conn.Table<Taken>();
+            var books = Database.conn.Table<Book>();
+
+            foreach (var line in taken)
+            {
+                foreach (var line2 in books)
+                {
+                    if (line.ISBN == line2.ISBN)
+                    {
+                        result.Add(line2.title + " --- " + line2.author + " ---" +
+                                   line.DateTaken + " --- " + line.DateReturn);
+                    }
+                }
+            }
+            return result;
+        }
+
+
+
+
     }
 }

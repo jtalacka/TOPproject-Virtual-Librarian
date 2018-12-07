@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 	<EditText
-		android:text="Username"
+		android:text="move4582"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -13,7 +13,7 @@
 		android:minHeight="25px"
 		android:id="@+id/EditText1" />
 	<EditText
-		android:text="Password"
+		android:text="pass"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

@@ -43,7 +43,7 @@ namespace VLibrarian
                 //check if valid ISBN
                 if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, ISBN.Text, 3) == 0)
                 {
-                    Toast.MakeText(ApplicationContext, "Please enter a valid email (ex.:email@gmail.com)", ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext, "Please enter a valid ISBN", ToastLength.Long).Show();
                     return;
                 }
 

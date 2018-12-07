@@ -9,44 +9,67 @@
 		android:layout_width="match_parent"
 		android:layout_height="40dp"
 		android:id="@+id/buttonLibBooks" />
-	<Button
-		android:text="Add"
-		android:layout_width="match_parent"
-		android:layout_height="40dp"
-		android:id="@+id/buttonAdd" />
-	<Button
-		android:text="Edit"
-		android:layout_width="match_parent"
-		android:layout_height="40dp"
-		android:id="@+id/buttonEdit" />
-	<Button
-		android:text="Delete"
-		android:layout_width="match_parent"
-		android:layout_height="40dp"
-		android:id="@+id/buttonDel" />
+					<LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+				<Button
+			android:text="Add"
+			android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+			android:id="@+id/buttonAdd" />
+			<Button
+			android:text="Edit"
+			android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+			android:id="@+id/buttonEdit" />
+			<Button
+			android:text="Delete"
+			android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+			android:id="@+id/buttonDel" />
+		 </LinearLayout>
 	<ListView
 		android:minWidth="25px"
 		android:minHeight="25px"
 		android:layout_width="match_parent"
-		android:layout_height="229.5dp"
+		android:layout_height="281.3dp"
 		android:id="@+id/listViewBooks"
 		android:layout_marginBottom="0.0dp"
 		android:clickable="true" />
+
+
 	<Button
 		android:text="Library Accounts"
 		android:layout_width="match_parent"
-		android:layout_height="40dp"
-		android:id="@+id/buttonAccounts" />
+		android:layout_height="45dp"
+		android:id="@+id/buttonAccounts"/>
+
+					<LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 	<Button
-		android:text="Give book"
+		android:text="Give"
 		android:layout_width="match_parent"
-		android:layout_height="40dp"
+		android:layout_height="wrap_content"
 		android:id="@+id/buttonGive" />
 	<Button
-		android:text="Return book"
-		android:layout_width="match_parent"
-		android:layout_height="40dp"
+		android:text="All taken books"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/buttonlTaken" />
+
+	<Button
+		android:text="Return"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:id="@+id/buttonReturn" />
+                </LinearLayout>
+
 	<Button
 		android:text="Change account information"
 		android:layout_width="match_parent"

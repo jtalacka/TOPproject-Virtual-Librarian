@@ -24,17 +24,20 @@ namespace VLibrarian
         {
             base.OnCreate(savedInstanceState);
             Button ToSystem = null;
-            //determine, if the user is reader or employee
-            if (Login_or_Signup.user.UserType == User.userType.employee)
-            {
-                //extra employee functions
-                SetContentView(Resource.Layout.L_LibraryPlus);
-                ToSystem = FindViewById<Button>(Resource.Id.buttonSys);
-            }
-            else
-            {
-                SetContentView(Resource.Layout.L_Library);
-            }
+            ////determine, if the user is reader or employee
+            //if (Login_or_Signup.user.UserType == User.userType.employee)
+            //{
+            //    //extra employee functions
+            //    SetContentView(Resource.Layout.L_LibraryPlus);
+            //    ToSystem = FindViewById<Button>(Resource.Id.buttonSys);
+            //}
+            //else
+            //{
+            //    SetContentView(Resource.Layout.L_Library);
+            //}
+
+            SetContentView(Resource.Layout.L_LibraryPlus);
+            ToSystem = FindViewById<Button>(Resource.Id.buttonSys);
 
             EditText Search = FindViewById<EditText>(Resource.Id.inputText);
             Button Sort = FindViewById<Button>(Resource.Id.buttonSort);
@@ -51,6 +54,7 @@ namespace VLibrarian
 
                // run delegate method
                Controller_linker.runLoad(Library.loadL);
+               Controller_linker.runLoad(Library.loadU);
 
 
                List<string> toDisplay = new List<string>();
@@ -149,6 +153,7 @@ namespace VLibrarian
             //account
             AccButton.Click += (sender, e) =>
             {
+                W_Account.passedUser = Login_or_Signup.user;
                 //to new form
                 Intent Acc = new Intent(this, typeof(W_Account));
                 this.StartActivity(Acc);

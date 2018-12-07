@@ -8,7 +8,6 @@
 	<EditText
 		android:layout_width="match_parent"	
 		android:layout_height="wrap_content"
-		
 		android:id="@+id/inputText"/>
 	
                     <LinearLayout
@@ -23,6 +22,13 @@
                         android:layout_weight="1"
                         android:text="Search" />
 
+					<Button
+					android:text="Sort"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:id="@+id/buttonSort" />
+
                     <Button
                         android:id="@+id/buttonISBN"
                         android:layout_width="match_parent"
@@ -31,24 +37,21 @@
                         android:text="ISBN" />
                 </LinearLayout>
 
-	<Button
-		android:text="Sort"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/buttonSort" />
-	<ListView
-		android:layout_width="match_parent"
-		android:layout_height="350dp"
-		android:id="@+id/listView" />
+
 	<Button
 		android:text="Account"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/buttonAcc" />
-			<Button
+	<Button
 		android:text="To Library system"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/buttonSys" />
+	<ListView
+		android:layout_width="match_parent"
+		android:layout_height="350dp"
+		android:id="@+id/listView" />
+
 
 </LinearLayout>

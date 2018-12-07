@@ -226,10 +226,10 @@
           "lib/MonoAndroid10/_._": {}
         }
       },
-      "System.Buffers/4.4.0": {
+      "System.Buffers/4.5.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Buffers.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Buffers.dll": {}
@@ -1445,10 +1445,10 @@
         "system.appcontext.nuspec"
       ]
     },
-    "System.Buffers/4.4.0": {
-      "sha512": "VCJfpWcYG1gT3WwivZWgT0KaqY678MQBvrOI2si6V8GHeQOtuW+wpiv5ss4KyfGG+cFFdPNaI+nw2/kExCtGgQ==",
+    "System.Buffers/4.5.0": {
+      "sha512": "5BgE5qYF/TgftB9FlByFqfhwYVt8UKf748KGovHLkBnW67Z89VdY/8ZXDVXRU78RCtQ/gIJ3TPBLmXtFvhm5xA==",
       "type": "package",
-      "path": "system.buffers/4.4.0",
+      "path": "system.buffers/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1459,12 +1459,16 @@
         "lib/netstandard1.1/System.Buffers.xml",
         "lib/netstandard2.0/System.Buffers.dll",
         "lib/netstandard2.0/System.Buffers.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net45/System.Buffers.dll",
+        "ref/net45/System.Buffers.xml",
         "ref/netcoreapp2.0/_._",
         "ref/netstandard1.1/System.Buffers.dll",
         "ref/netstandard1.1/System.Buffers.xml",
         "ref/netstandard2.0/System.Buffers.dll",
         "ref/netstandard2.0/System.Buffers.xml",
-        "system.buffers.4.4.0.nupkg.sha512",
+        "ref/uap10.0.16299/_._",
+        "system.buffers.4.5.0.nupkg.sha512",
         "system.buffers.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -4528,6 +4532,7 @@
       "Ideine.ZXing.Net.Mobile >= 2.4.2",
       "Microsoft.Extensions.Configuration.Abstractions >= 2.1.1",
       "MySql.Data >= 8.0.13",
+      "System.Buffers >= 4.5.0",
       "Xamarin.Android.Support.Annotations >= 27.0.2.1",
       "Xamarin.Android.Support.Compat >= 27.0.2.1",
       "Xamarin.Android.Support.Core.UI >= 27.0.2.1",
@@ -4548,11 +4553,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VirtualLibrarian1.1 git\\VLibrarian\\VLibrarian.csproj",
+      "projectUniqueName": "D:\\LATEST TOP\\VirtualLibrarian1.1\\VLibrarian\\VLibrarian.csproj",
       "projectName": "VLibrarian",
-      "projectPath": "D:\\VirtualLibrarian1.1 git\\VLibrarian\\VLibrarian.csproj",
+      "projectPath": "D:\\LATEST TOP\\VirtualLibrarian1.1\\VLibrarian\\VLibrarian.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\VirtualLibrarian1.1 git\\VLibrarian\\obj\\",
+      "outputPath": "D:\\LATEST TOP\\VirtualLibrarian1.1\\VLibrarian\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
@@ -4590,6 +4595,10 @@
           "MySql.Data": {
             "target": "Package",
             "version": "[8.0.13, )"
+          },
+          "System.Buffers": {
+            "target": "Package",
+            "version": "[4.5.0, )"
           },
           "Xamarin.Android.Support.Annotations": {
             "target": "Package",

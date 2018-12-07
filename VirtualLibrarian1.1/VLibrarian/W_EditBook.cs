@@ -16,7 +16,7 @@ namespace VLibrarian
     public class W_EditBook : Activity
     {
         //passed book
-        public static Book passedBook = new Book();
+        public static Book passedBook;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,7 +30,7 @@ namespace VLibrarian
             CheckBox Genres = FindViewById<CheckBox>(Resource.Id.checkBoxGenres);
             EditText Description = FindViewById<EditText>(Resource.Id.textInputDescription);
 
-            Button EditBook = FindViewById<Button>(Resource.Id.buttonEdit);
+            Button EditBook = FindViewById<Button>(Resource.Id.buttonEditBook);
 
             //display info.
             ISBN.Text = passedBook.ISBN;
