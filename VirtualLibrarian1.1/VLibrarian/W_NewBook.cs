@@ -9,12 +9,19 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
+using Plugin.Media;
 
 namespace VLibrarian
 {
     [Activity(Label = "W_NewBook")]
     public class W_NewBook : Activity
     {
+
+        byte[] temp;
+        string picN;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,14 +35,23 @@ namespace VLibrarian
             EditText Description = FindViewById<EditText>(Resource.Id.textInputDescription);
             Button AddNewBook = FindViewById<Button>(Resource.Id.buttonAddNewBook);
 
+            EditText Picture = FindViewById<EditText>(Resource.Id.textInputPicture);
+            Button ChoosePic = FindViewById<Button>(Resource.Id.buttonChoosePicture);
 
-            ////display genres
-            //string[] gs = { "Adventure", "Art", "Children's", "Drama", "Encyclopedias", "Fantasy",
-            //                    "Health", "History", "Horror", "Mystery", "Philosophy", "Poetry",
-            //                    "Romance", "Science-fiction", "Travel" };
-            //List<string> toDisplay = gs.ToList();
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, toDisplay);
-           
+            
+            //choose a picture
+            ChoosePic.Click += async (sender, e) =>
+            {
+                //OnUpload(sender, e);
+
+                FileData filedata = await CrossFilePicker.Current.PickFile();
+
+                //name of chosen pic
+                Picture.Text = filedata.FileName;
+                //for saving ito db
+                temp = filedata.DataArray;
+
+            };
 
 
             AddNewBook.Click += (sender, e) =>
@@ -76,8 +92,10 @@ namespace VLibrarian
                 L.Add("Mystery");
 
 
+                Toast.MakeText(ApplicationContext, picN, ToastLength.Long).Show();
+
                 //define new book
-                Book bp = new Book(ISBN.Text, Title.Text, Author.Text, L, qua);
+                Book bp = new Book(ISBN.Text, Title.Text, Author.Text, L, qua, Description.Text, temp);
                 //add a book to table
                 Controller_linker.runBookUpdate(LibrarySystem.newBook, bp);
 

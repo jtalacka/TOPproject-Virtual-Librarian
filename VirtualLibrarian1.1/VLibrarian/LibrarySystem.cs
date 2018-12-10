@@ -86,8 +86,19 @@ namespace VLibrarian
         //WRITE NEW INFO. INTO TABLES: Taken, Books
         public void returnBook(Book book, Taken taken)
         {
+            //get taken object
+            var table = Database.conn.Table<Taken>();
+            foreach (var line in table)
+            {
+                if (line.ISBN == taken.ISBN && line.Username == taken.Username)
+                {
+                    taken.DateTaken = line.DateTaken;
+                    taken.DateReturn = line.DateReturn;
+                }
+            }
             //delete in Taken
             Database.conn.Delete(taken);
+
 
             //change (add) quantity in Books
             //get current quantity in list

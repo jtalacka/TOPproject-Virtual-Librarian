@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using System;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
+using Android.Media;
+using Android.Graphics;
 
 namespace VLibrarian
 {
@@ -30,6 +28,9 @@ namespace VLibrarian
             CheckBox Genres = FindViewById<CheckBox>(Resource.Id.checkBoxGenres);
             EditText Description = FindViewById<EditText>(Resource.Id.textInputDescription);
 
+            EditText Picture = FindViewById<EditText>(Resource.Id.textInputPicture);
+            Button ChoosePic = FindViewById<Button>(Resource.Id.buttonChoosePicture);
+
             Button EditBook = FindViewById<Button>(Resource.Id.buttonEditBook);
 
             //display info.
@@ -38,6 +39,35 @@ namespace VLibrarian
             Author.Text = passedBook.author;
             Quantity.Text = passedBook.quantity.ToString();
             Description.Text = passedBook.description;
+
+
+
+            //choose a picture
+            ChoosePic.Click += (sender, e) =>
+            {
+                OnUpload(sender, e); 
+            };
+
+            async void OnUpload(object sender, EventArgs e)
+            {
+                try
+                {
+                    // the dataarray of the file will be found in filedata.DataArray
+                    // file name will be found in filedata.FileName;
+                    FileData filedata = await CrossFilePicker.Current.PickFile();
+                    //name of chosen pic
+                    Picture.Text = filedata.FileName;
+
+                    //for saving ito db
+                    passedBook.picture = filedata.DataArray;
+
+                }
+                catch (Exception ex)
+                {
+                    Toast.MakeText(ApplicationContext, ex.Message, ToastLength.Long).Show();
+                }
+            }
+
 
             //edit
             EditBook.Click += (sender, e) =>
@@ -55,11 +85,11 @@ namespace VLibrarian
                     return;
                 }
                 passedBook.quantity = qua;
-
                 passedBook.description = Description.Text;
 
 
-                //edit
+
+                //save changes
                 Controller_linker.runBookUpdate(LibrarySystem.edBook, passedBook);
                 Toast.MakeText(ApplicationContext, "Changes saved", ToastLength.Long).Show();
 

@@ -30,5 +30,7 @@ namespace VLibrarian
             this.ISBN = code;
             this.Username = user;
         }
+
+        public static List<Taken> allTaken = new List<Taken>();
     }
 }

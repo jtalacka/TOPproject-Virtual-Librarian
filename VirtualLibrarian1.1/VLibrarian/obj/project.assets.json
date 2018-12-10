@@ -159,6 +159,35 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
+      "Plugin.CurrentActivity/2.1.0.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid44/Plugin.CurrentActivity.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid44/Plugin.CurrentActivity.dll": {}
+        }
+      },
+      "Plugin.Permissions/3.0.0.12": {
+        "type": "package",
+        "dependencies": {
+          "Plugin.CurrentActivity": "2.1.0.2",
+          "Xamarin.Android.Support.Compat": "25.4.0.2",
+          "Xamarin.Android.Support.Core.Utils": "25.4.0.2"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid71/Plugin.Permissions.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid71/Plugin.Permissions.dll": {}
+        }
+      },
       "sqlite-net-pcl/1.5.231": {
         "type": "package",
         "dependencies": {
@@ -765,6 +794,33 @@
           "lib/MonoAndroid10/_._": {}
         }
       },
+      "Xam.Plugin.FilePicker/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/MonoAndroid10/Plugin.FilePicker.Abstractions.dll": {},
+          "lib/MonoAndroid10/Plugin.FilePicker.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid10/Plugin.FilePicker.Abstractions.dll": {},
+          "lib/MonoAndroid10/Plugin.FilePicker.dll": {}
+        }
+      },
+      "Xam.Plugin.Media/4.0.1.5": {
+        "type": "package",
+        "dependencies": {
+          "Plugin.Permissions": "3.0.0.12",
+          "Xamarin.Android.Support.Core.Utils": "25.4.0.2"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid71/Plugin.Media.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid71/Plugin.Media.dll": {}
+        }
+      },
       "Xamarin.Android.Arch.Core.Common/1.0.0.1": {
         "type": "package",
         "dependencies": {
@@ -1275,6 +1331,43 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.1.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Plugin.CurrentActivity/2.1.0.2": {
+      "sha512": "5jmilYPu9fcSh/3AYRrDkvXhWlsZTzf3SDhJKdtIl8EL+/YM1lrjv99MGVqC0jKloCWND9aOrgBKJCMzQsVamw==",
+      "type": "package",
+      "path": "plugin.currentactivity/2.1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid44/Plugin.CurrentActivity.dll",
+        "lib/monoandroid44/Plugin.CurrentActivity.xml",
+        "plugin.currentactivity.2.1.0.2.nupkg.sha512",
+        "plugin.currentactivity.nuspec",
+        "readme.txt"
+      ]
+    },
+    "Plugin.Permissions/3.0.0.12": {
+      "sha512": "R8Rlzfci1byoPBGOiJfCMzu0HhhN6Q4Vq4YizlF41W946NEmoL/Mb8U5caP5t5KfSbdPQpzdQ9JfM8fxPG8pfw==",
+      "type": "package",
+      "path": "plugin.permissions/3.0.0.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid71/Plugin.Permissions.dll",
+        "lib/monoandroid71/Plugin.Permissions.xml",
+        "lib/netstandard1.0/Plugin.Permissions.dll",
+        "lib/netstandard1.0/Plugin.Permissions.xml",
+        "lib/netstandard2.0/Plugin.Permissions.dll",
+        "lib/netstandard2.0/Plugin.Permissions.xml",
+        "lib/uap10.0.10240/Plugin.Permissions.dll",
+        "lib/uap10.0.10240/Plugin.Permissions.pri",
+        "lib/uap10.0.10240/Plugin.Permissions.xml",
+        "lib/xamarinios10/Plugin.Permissions.dll",
+        "lib/xamarinios10/Plugin.Permissions.xml",
+        "plugin.permissions.3.0.0.12.nupkg.sha512",
+        "plugin.permissions.nuspec",
+        "readme.txt"
       ]
     },
     "sqlite-net-pcl/1.5.231": {
@@ -4251,6 +4344,83 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "Xam.Plugin.FilePicker/1.1.0": {
+      "sha512": "qjPQ+MF5FDObArKr6snS95TBPcK2PmNoiXpjXY5c53tiWCGpTvUcbVccFAiruNiUpYBa/yGa50r9or/UsvlRaA==",
+      "type": "package",
+      "path": "xam.plugin.filepicker/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid10/Plugin.FilePicker.Abstractions.dll",
+        "lib/MonoAndroid10/Plugin.FilePicker.Abstractions.pdb",
+        "lib/MonoAndroid10/Plugin.FilePicker.Abstractions.xml",
+        "lib/MonoAndroid10/Plugin.FilePicker.dll",
+        "lib/MonoAndroid10/Plugin.FilePicker.pdb",
+        "lib/MonoAndroid10/Plugin.FilePicker.xml",
+        "lib/MonoTouch10/Plugin.FilePicker.Abstractions.dll",
+        "lib/MonoTouch10/Plugin.FilePicker.Abstractions.xml",
+        "lib/MonoTouch10/Plugin.FilePicker.dll",
+        "lib/MonoTouch10/Plugin.FilePicker.xml",
+        "lib/UAP10/Plugin.FilePicker.Abstractions.dll",
+        "lib/UAP10/Plugin.FilePicker.Abstractions.pdb",
+        "lib/UAP10/Plugin.FilePicker.Abstractions.xml",
+        "lib/UAP10/Plugin.FilePicker.dll",
+        "lib/UAP10/Plugin.FilePicker.pdb",
+        "lib/UAP10/Plugin.FilePicker.xml",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.FilePicker.Abstractions.dll",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.FilePicker.Abstractions.pdb",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.FilePicker.Abstractions.xml",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.FilePicker.dll",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.FilePicker.pdb",
+        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Plugin.FilePicker.xml",
+        "lib/win8/Plugin.FilePicker.Abstractions.dll",
+        "lib/win8/Plugin.FilePicker.Abstractions.pdb",
+        "lib/win8/Plugin.FilePicker.Abstractions.xml",
+        "lib/win8/Plugin.FilePicker.dll",
+        "lib/win8/Plugin.FilePicker.pdb",
+        "lib/win8/Plugin.FilePicker.xml",
+        "lib/wp8/Plugin.FilePicker.Abstractions.dll",
+        "lib/wp8/Plugin.FilePicker.Abstractions.pdb",
+        "lib/wp8/Plugin.FilePicker.Abstractions.xml",
+        "lib/wp8/Plugin.FilePicker.dll",
+        "lib/wp8/Plugin.FilePicker.pdb",
+        "lib/wp8/Plugin.FilePicker.xml",
+        "lib/wpa81/Plugin.FilePicker.Abstractions.dll",
+        "lib/wpa81/Plugin.FilePicker.Abstractions.pdb",
+        "lib/wpa81/Plugin.FilePicker.Abstractions.xml",
+        "lib/wpa81/Plugin.FilePicker.dll",
+        "lib/wpa81/Plugin.FilePicker.pdb",
+        "lib/wpa81/Plugin.FilePicker.xml",
+        "readme.txt",
+        "xam.plugin.filepicker.1.1.0.nupkg.sha512",
+        "xam.plugin.filepicker.nuspec"
+      ]
+    },
+    "Xam.Plugin.Media/4.0.1.5": {
+      "sha512": "PxL0vcTXpS79l2KgtaJBShcPVMRK2HC5J08vG6hKTC7hk5+3RjgFrdX0N6Gd4oF8pxVxV2ia7rhYnjxRCMWZtw==",
+      "type": "package",
+      "path": "xam.plugin.media/4.0.1.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid71/Plugin.Media.dll",
+        "lib/monoandroid71/Plugin.Media.xml",
+        "lib/netstandard1.0/Plugin.Media.dll",
+        "lib/netstandard1.0/Plugin.Media.xml",
+        "lib/netstandard2.0/Plugin.Media.dll",
+        "lib/netstandard2.0/Plugin.Media.xml",
+        "lib/tizen40/Plugin.Media.dll",
+        "lib/tizen40/Plugin.Media.xml",
+        "lib/uap10.0.10240/Plugin.Media.dll",
+        "lib/uap10.0.10240/Plugin.Media.pri",
+        "lib/uap10.0.10240/Plugin.Media.xml",
+        "lib/xamarinios10/Plugin.Media.dll",
+        "lib/xamarinios10/Plugin.Media.xml",
+        "readme.txt",
+        "xam.plugin.media.4.0.1.5.nupkg.sha512",
+        "xam.plugin.media.nuspec"
+      ]
+    },
     "Xamarin.Android.Arch.Core.Common/1.0.0.1": {
       "sha512": "skWc2Kobu11hCiH1WM2Hh77ftO8QQNn423jFDqz3alvfrPUMRS0PoP5N1FW/Hq+y36/qrFoBp2Z/FNliJ2yI1A==",
       "type": "package",
@@ -4533,6 +4703,8 @@
       "Microsoft.Extensions.Configuration.Abstractions >= 2.1.1",
       "MySql.Data >= 8.0.13",
       "System.Buffers >= 4.5.0",
+      "Xam.Plugin.FilePicker >= 1.1.0",
+      "Xam.Plugin.Media >= 4.0.1.5",
       "Xamarin.Android.Support.Annotations >= 27.0.2.1",
       "Xamarin.Android.Support.Compat >= 27.0.2.1",
       "Xamarin.Android.Support.Core.UI >= 27.0.2.1",
@@ -4599,6 +4771,14 @@
           "System.Buffers": {
             "target": "Package",
             "version": "[4.5.0, )"
+          },
+          "Xam.Plugin.FilePicker": {
+            "target": "Package",
+            "version": "[1.1.0, )"
+          },
+          "Xam.Plugin.Media": {
+            "target": "Package",
+            "version": "[4.0.1.5, )"
           },
           "Xamarin.Android.Support.Annotations": {
             "target": "Package",

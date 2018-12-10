@@ -56,6 +56,11 @@ namespace VLibrarian
                Controller_linker.runLoad(Library.loadL);
                Controller_linker.runLoad(Library.loadU);
 
+               //foreach(int l in Library.array)
+               //{
+               //    Toast.MakeText(ApplicationContext, l.ToString(), ToastLength.Long).Show();
+               //}
+
 
                List<string> toDisplay = new List<string>();
                 //checks all the books in the bookList
@@ -128,11 +133,11 @@ namespace VLibrarian
                 //get selected
                 string selectedT = Convert.ToString(ListViewMain.GetItemAtPosition(e.Position));
 
-                if (selectedT == null)
-                {
-                    Toast.MakeText(ApplicationContext, "Please select a book to view", ToastLength.Long).Show();
-                    return;
-                }
+                //if (selectedT == null)
+                //{
+                //    Toast.MakeText(ApplicationContext, "Please select a book to view", ToastLength.Long).Show();
+                //    return;
+                //}
 
                 //LINQ gets all info about selected book
                 var aboutBook = from book in Book.bookList

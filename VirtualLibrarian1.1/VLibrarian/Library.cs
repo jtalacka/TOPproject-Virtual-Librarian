@@ -38,22 +38,20 @@ namespace VLibrarian
         public static Controller_linker.readerUpdate delete = Lib.deleteReaderInfo;
         public static Controller_linker.selectTaken getTaken = Lib.selectTakenBooks;
 
+        public static List<int> array = new List<int>();
 
         //load books
         public void loadLibraryBooks()
         {
             //clear book list
             Book.bookList.Clear();
-            string descr = "Not added";
+            
 
             var table = Database.conn.Table<Book>();
             foreach (var line in table)
             {
                 line.genres = line.Genres.Split(' ').ToList();
-                if (line.description != "")
-                    descr = line.description;
-                else
-                    descr = "Not added";
+                array.Add(line.picture.Length);
 
                 Book.bookList.Add(line);
             }
@@ -133,8 +131,10 @@ namespace VLibrarian
                 {
                     if (line.ISBN == line2.ISBN)
                     {
-                        result.Add(line2.title + " --- " + line2.author + " ---" +
+                        result.Add(line.Username + " --- " + line2.title + " --- " + line2.author + " ---" +
                                    line.DateTaken + " --- " + line.DateReturn);
+
+                        Taken.allTaken.Add(new Taken(line2.ISBN, line.Username, line.DateTaken, line.DateReturn));
                     }
                 }
             }

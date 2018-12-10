@@ -9,7 +9,7 @@
 		android:minWidth="25px"
 		android:minHeight="25px"
 		android:id="@+id/textInputISBN"
-		android:text="ISBN" />
+		android:text="9783161484100" />
 	<EditText
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -30,11 +30,11 @@
 		android:minWidth="25px"
 		android:minHeight="25px"
 		android:id="@+id/textInputQuantity"
-		android:text="Quantity" />
+		android:text="123" />
 	<CheckBox
 		android:text="Genres"
 		android:layout_width="match_parent"
-		android:layout_height="143.5dp"
+		android:layout_height="70dp"
 		android:id="@+id/checkBoxGenres" />
 	<EditText
 		android:layout_width="match_parent"
@@ -43,6 +43,22 @@
 		android:minHeight="25px"
 		android:id="@+id/textInputDescription"
 		android:text="Description" />
+	<LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+		<EditText
+		android:layout_width="200dp"
+		android:layout_height="wrap_content"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:id="@+id/textInputPicture" />
+		<Button
+		android:text="Choose Picture"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/buttonChoosePicture" />
+					</LinearLayout>
 	<Button
 		android:text="Add Book"
 		android:layout_width="match_parent"
