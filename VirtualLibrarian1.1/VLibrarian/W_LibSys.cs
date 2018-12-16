@@ -49,6 +49,11 @@ namespace VLibrarian
             //1. Display Library books
             Books.Click += (sender, e) =>
             {
+                // run delegate method
+                Controller_linker.runLoad(Library.loadL);
+                Controller_linker.runLoad(Library.loadU);
+
+
                 whatToSelect = "book";
                 bookToPass = null;
                 // userToPass = null;
@@ -310,8 +315,27 @@ namespace VLibrarian
             TakenBooks.Click += (sender, e) =>
             {
                 //get all taken books
-                List<String> toDisplay = Library.selectAllTakenBooks();
-                
+                List<Taken> toDis = Library.selectAllTakenBooks();
+                //group by reader
+                var booksByReader = toDis.GroupBy(b => b.Username);
+                //convert to string list
+                List<string> toDisplay = new List<string>();
+                foreach(var readerGr in booksByReader)
+                {
+                    toDisplay.Add(readerGr.Key + " has taken " + readerGr.Count() + " books.");
+                    foreach(Taken t in readerGr)
+                    {
+                        toDisplay.Add(t.Username + " --- " + t.ISBN + " --- " + t.DateTaken + " --- " + t.DateReturn);
+                    }
+                }
+
+
+                //LINQ gets all info about selected book
+                //var aboutBook = from book in Book.bookList
+                //                where selectedTitle == book.title
+                //                select book;
+                //foreach (var book in aboutBook)
+                //{ bookToPass = book; }
 
                 //display
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>

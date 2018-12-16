@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android;
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
-using Plugin.Media;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace VLibrarian
 {
@@ -22,6 +16,13 @@ namespace VLibrarian
         byte[] temp;
         string picN;
 
+        //fill ListView with genres on load
+        string[] tempG = { "Adventure", "Art", "Children's", "Drama", "Encyclopedias", "Fantasy",
+                "Health", "History", "Horror","Mystery", "Philosophy", "Poetry", "Romance", "Science-fiction", "Travel"};
+        List<string> genresDisplay = new List<string>();
+        List<string> genresSelected = new List<string>();
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -31,26 +32,41 @@ namespace VLibrarian
             EditText Title = FindViewById<EditText>(Resource.Id.textInputTitle);
             EditText Author = FindViewById<EditText>(Resource.Id.textInputAuthor);
             EditText Quantity = FindViewById<EditText>(Resource.Id.textInputQuantity);
-            CheckBox Genres = FindViewById<CheckBox>(Resource.Id.checkBoxGenres);
+            ListView ListGenres = FindViewById<ListView>(Resource.Id.listViewGenres);
+            Button GenreB = FindViewById<Button>(Resource.Id.buttonGenres);
             EditText Description = FindViewById<EditText>(Resource.Id.textInputDescription);
             Button AddNewBook = FindViewById<Button>(Resource.Id.buttonAddNewBook);
 
             EditText Picture = FindViewById<EditText>(Resource.Id.textInputPicture);
             Button ChoosePic = FindViewById<Button>(Resource.Id.buttonChoosePicture);
 
-            
-            //choose a picture
-            ChoosePic.Click += async (sender, e) =>
+
+            //show genres
+            GenreB.Click += (sender, e) =>
             {
-                //OnUpload(sender, e);
+                for (int i = 0; i < tempG.Length; i++)
+                {
+                    genresDisplay.Add(tempG[i]);
+                }
 
-                FileData filedata = await CrossFilePicker.Current.PickFile();
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, genresDisplay);
+                ListGenres.Adapter = adapter;
+            };
 
-                //name of chosen pic
-                Picture.Text = filedata.FileName;
-                //for saving ito db
-                temp = filedata.DataArray;
+            //save picked genres
+            ListGenres.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
+            {
+                //get selected
+                string selectedG = Convert.ToString(ListGenres.GetItemAtPosition(e.Position));
 
+                genresSelected.Add(selectedG);
+
+                string gs = "";
+                foreach(string g in genresSelected)
+                {
+                    gs += " " + g;
+                }
+                Toast.MakeText(ApplicationContext, gs, ToastLength.Short).Show();
             };
 
 
@@ -72,7 +88,7 @@ namespace VLibrarian
 
                 //check if title / author empty
                 if (string.IsNullOrWhiteSpace(Title.Text) ||
-                    string.IsNullOrWhiteSpace(Author.Text))
+                       string.IsNullOrWhiteSpace(Author.Text))
                 {
                     Toast.MakeText(ApplicationContext, "Please enter a title and author", ToastLength.Long).Show();
                     return;
@@ -87,17 +103,23 @@ namespace VLibrarian
                 }
 
                 //get which genres chosen
-                //default genre
-                List<string> L = new List<string>();
-                L.Add("Mystery");
+                if (genresSelected.Count == 0)
+                {
+                    Toast.MakeText(ApplicationContext, "Please select at least one genre", ToastLength.Long).Show();
+                    return;
+                }
 
 
                 Toast.MakeText(ApplicationContext, picN, ToastLength.Long).Show();
 
                 //define new book
-                Book bp = new Book(ISBN.Text, Title.Text, Author.Text, L, qua, Description.Text, temp);
-                //add a book to table
-                Controller_linker.runBookUpdate(LibrarySystem.newBook, bp);
+                Book bp = new Book(ISBN.Text, Title.Text, Author.Text, genresSelected, qua, Description.Text, temp);
+                try
+                {
+                    //add a book to table
+                    Controller_linker.runBookUpdate(LibrarySystem.newBook, bp);
+                }
+                catch { }
 
 
                 Toast.MakeText(ApplicationContext, "Book " + bp.title + " added.", ToastLength.Long).Show();
@@ -108,6 +130,31 @@ namespace VLibrarian
                 Description.Text = "Description";
 
             };
+
+
+
+
+            //choose a picture
+            ChoosePic.Click += async (sender, e) =>
+            {
+                //OnUpload(sender, e);
+
+                try
+                {
+                    FileData filedata = await CrossFilePicker.Current.PickFile();
+                    //name of chosen pic
+                    Picture.Text = filedata.FileName;
+                    //for saving ito db
+                    temp = filedata.DataArray;
+
+                    Toast.MakeText(ApplicationContext, filedata.FileName, ToastLength.Long).Show();
+
+                }
+                catch { }
+            };
         }
+
+
+
     }
 }

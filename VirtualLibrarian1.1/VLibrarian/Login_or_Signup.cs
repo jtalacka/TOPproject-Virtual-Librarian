@@ -11,9 +11,10 @@ namespace VLibrarian
     //       checkIfExistsInDBUsers
     //
 
-    public class Login_or_Signup : I_NewLogin
+    public class Login_or_Signup //: I_NewLogin
     {
-        public static I_NewLogin L_or_S = new Login_or_Signup();
+        //public static I_NewLogin L_or_S = new Login_or_Signup();
+
         //Login_or_Signup di;
 
         //implement property from interface
@@ -29,12 +30,12 @@ namespace VLibrarian
         //    //L_or_S = di;
         //}
 
-
+        
         //DEFINE DELEGATES
-        public static Controller_linker.del check = L_or_S.login;
-        public static Controller_linker.del2 check2 = L_or_S.checkIfExistsInDBUsers;
-        public static Controller_linker.del3<string> check3 = L_or_S.signup;
-        public static Controller_linker.delIN inputC = L_or_S.inputCheck;
+        public static Controller_linker.del check = Login_or_Signup.login;
+        public static Controller_linker.del2 check2 = Login_or_Signup.checkIfExistsInDBUsers;
+        public static Controller_linker.del3<string> check3 = Login_or_Signup.signup;
+        public static Controller_linker.delIN inputC = Login_or_Signup.inputCheck;
 
 
 
@@ -46,7 +47,7 @@ namespace VLibrarian
 
 
         //On buttonLogIn_Click
-        public string login(string username, string pass)
+        public static string login(string username, string pass)
         {
             var table = Database.conn.Table<User>();
             //tikrinti ar input correct
@@ -82,7 +83,7 @@ namespace VLibrarian
 
 
         //On buttonSignup_Click
-        public string signup(string username, string pass,
+        public static string signup(string username, string pass,
                                     string name, string surname, string birth, string email)
         {
             //define user class object
@@ -97,7 +98,7 @@ namespace VLibrarian
 
 
         //input validation - email, date of birth, ISBN
-        public int inputCheck(string whatToCheck, int c)
+        public static int inputCheck(string whatToCheck, int c)
         {
             Regex emailRegex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");
             var dateFormats = new[] { "yyyy.MM.dd", "yyyy-MM-dd" };
@@ -136,7 +137,7 @@ namespace VLibrarian
 
 
         //check if username exists in db
-        public bool checkIfExistsInDBUsers(string whatToLookFor)
+        public static bool checkIfExistsInDBUsers(string whatToLookFor)
         {
             //check if exists
             bool existsResult = false;
