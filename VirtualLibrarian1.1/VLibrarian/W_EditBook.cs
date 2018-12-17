@@ -14,6 +14,7 @@ namespace VLibrarian
     [Activity(Label = "W_EditBook")]
     public class W_EditBook : Activity
     {
+
         //passed book
         public static Book passedBook;
 
@@ -25,7 +26,6 @@ namespace VLibrarian
         List<string> genresSelected = new List<string>();
 
 
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -35,14 +35,18 @@ namespace VLibrarian
             EditText Title = FindViewById<EditText>(Resource.Id.textInputTitle);
             EditText Author = FindViewById<EditText>(Resource.Id.textInputAuthor);
             EditText Quantity = FindViewById<EditText>(Resource.Id.textInputQuantity);
-            ListView ListGenres = FindViewById<ListView>(Resource.Id.listViewGenres);
-            Button GenreB = FindViewById<Button>(Resource.Id.buttonGenres);
+
+            ListView ListGenres = FindViewById<ListView>(Resource.Id.listViewG);
+            Button GenreButton = FindViewById<Button>(Resource.Id.buttonG);
+
             EditText Description = FindViewById<EditText>(Resource.Id.textInputDescription);
 
             EditText Picture = FindViewById<EditText>(Resource.Id.textInputPicture);
             Button ChoosePic = FindViewById<Button>(Resource.Id.buttonChoosePicture);
 
             Button EditBook = FindViewById<Button>(Resource.Id.buttonEditBook);
+
+            TextView genresPassed = FindViewById<TextView>(Resource.Id.textViewGs);
 
             //display info.
             ISBN.Text = passedBook.ISBN;
@@ -51,12 +55,19 @@ namespace VLibrarian
             Quantity.Text = passedBook.quantity.ToString();
             Description.Text = passedBook.description;
 
+            string temp = "";
+            foreach(string g in passedBook.genres)
+            {
+                temp += g + " ";
+            }
+            genresPassed.Text = temp;
 
 
 
             //show genres
-            GenreB.Click += (sender, e) =>
+            GenreButton.Click += (sender, e) =>
             {
+              
                 for (int i = 0; i < tempG.Length; i++)
                 {
                     genresDisplay.Add(tempG[i]);
@@ -79,7 +90,8 @@ namespace VLibrarian
                 {
                     gs += " " + g;
                 }
-                Toast.MakeText(ApplicationContext, gs, ToastLength.Short).Show();
+                //Toast.MakeText(ApplicationContext, gs, ToastLength.Short).Show();
+                genresPassed.Text = gs;
             };
 
 
@@ -112,7 +124,7 @@ namespace VLibrarian
 
                 //save changes
                 Controller_linker.runBookUpdate(LibrarySystem.edBook, passedBook);
-                Toast.MakeText(ApplicationContext, "Changes saved", ToastLength.Long).Show();
+                Toast.MakeText(ApplicationContext, "Changes saved", ToastLength.Short).Show();
 
                 //exit
                 Intent Exiting = new Intent(this, typeof(W_LibSys));

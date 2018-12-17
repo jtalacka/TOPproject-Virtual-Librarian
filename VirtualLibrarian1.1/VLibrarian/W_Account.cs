@@ -26,12 +26,12 @@ namespace VLibrarian
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.L_AccountSet);
 
-            TextView Username = FindViewById<TextView>(Resource.Id.textViewUsername);
-            TextView Password = FindViewById<TextView>(Resource.Id.textViewPass);
-            TextView Name = FindViewById<TextView>(Resource.Id.textViewName);
-            TextView Surname = FindViewById<TextView>(Resource.Id.textViewSurname);
-            TextView Email = FindViewById<TextView>(Resource.Id.textViewEmail);
-            TextView Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
+            EditText Username = FindViewById<EditText>(Resource.Id.textEditUsername);
+            EditText Password = FindViewById<EditText>(Resource.Id.textEditPass);
+            EditText Name = FindViewById<EditText>(Resource.Id.textEditName);
+            EditText Surname = FindViewById<EditText>(Resource.Id.textEditSurname);
+            EditText Email = FindViewById<EditText>(Resource.Id.textEditEmail);
+            EditText Birth = FindViewById<EditText>(Resource.Id.textEditBirth);
 
             //display info of the passed user
             Username.Text = passedUser.username;
@@ -57,12 +57,12 @@ namespace VLibrarian
             Save.Click += (sender, e) =>
             {
                 //take new info.
-                Username = FindViewById<TextView>(Resource.Id.textViewUsername);
-                Password = FindViewById<TextView>(Resource.Id.textViewPass);
-                Name = FindViewById<TextView>(Resource.Id.textViewName);
-                Surname = FindViewById<TextView>(Resource.Id.textViewSurname);
-                Email = FindViewById<TextView>(Resource.Id.textViewEmail);
-                Birth = FindViewById<TextView>(Resource.Id.textViewBirth);
+                Username = FindViewById<EditText>(Resource.Id.textEditUsername);
+                Password = FindViewById<EditText>(Resource.Id.textEditPass);
+                Name = FindViewById<EditText>(Resource.Id.textEditName);
+                Surname = FindViewById<EditText>(Resource.Id.textEditSurname);
+                Email = FindViewById<EditText>(Resource.Id.textEditEmail);
+                Birth = FindViewById<EditText>(Resource.Id.textEditBirth);
 
                 //check if valid email
                 if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, Email.Text, 1) == 0)

@@ -17,9 +17,9 @@ namespace VLibrarian
 
         //for selecting book/account/takenBook
         string whatToSelect = "";        //book/user
-        public static Book bookToPass = null;
-        public static User userToPass = null;
-        public static Taken takenBtoPass = null;
+        public static Book bookToPass;
+        public static User userToPass;
+        public static Taken takenBtoPass;
 
 
         User tempSave = null;
@@ -130,7 +130,7 @@ namespace VLibrarian
                     Toast.MakeText(ApplicationContext, "You selected: " + userToPass.username, ToastLength.Short).Show();
                 }
 
-                if(whatToSelect == "takenBook")
+                if (whatToSelect == "takenBook")
                 {
                     //get selected
                     string selectedTaken = Taken.allTaken[e.Position].ISBN;
@@ -138,9 +138,9 @@ namespace VLibrarian
 
                     //LINQ gets all info about selected user
                     var aboutTaken = from taken in Taken.allTaken
-                                    where selectedTaken == taken.ISBN
-                                    where selectedTaken2 == taken.Username
-                                    select taken;
+                                     where selectedTaken == taken.ISBN
+                                     where selectedTaken2 == taken.Username
+                                     select taken;
                     foreach (var taken in aboutTaken)
                     { takenBtoPass = taken; }
 
@@ -161,16 +161,20 @@ namespace VLibrarian
             //3. Edit Book
             buttonEdit.Click += (sender, e) =>
             {
-                if (bookToPass == null && whatToSelect != "book")
+                if (bookToPass == null)
                 {
                     Toast.MakeText(ApplicationContext, "Please select a book to edit", ToastLength.Short).Show();
                     return;
                 }
-                //pass selected book
-                W_EditBook.passedBook = bookToPass;
+                else
+                {
+                    //pass selected book
+                    W_EditBook.passedBook = bookToPass;
 
-                Intent Editing = new Intent(this, typeof(W_EditBook));
-                this.StartActivity(Editing);
+                    Intent Editing = new Intent(this, typeof(W_EditBook));
+                    this.StartActivity(Editing);
+                }
+
             };
             //4. Delete book
             buttonDel.Click += (sender, e) =>
@@ -303,7 +307,7 @@ namespace VLibrarian
                     //delete in Taken and add quantity in Books
                     Controller_linker.runReturnBook(LibrarySystem.returning, bookToPass, takenBtoPass);
                 }
-                catch(Exception ) { }
+                catch (Exception) { }
 
                 Toast.MakeText(ApplicationContext, "Book " + takenBtoPass.ISBN + " returned by " + userToPass.username, ToastLength.Short).Show();
                 takenBtoPass = null;
@@ -320,10 +324,10 @@ namespace VLibrarian
                 var booksByReader = toDis.GroupBy(b => b.Username);
                 //convert to string list
                 List<string> toDisplay = new List<string>();
-                foreach(var readerGr in booksByReader)
+                foreach (var readerGr in booksByReader)
                 {
                     toDisplay.Add(readerGr.Key + " has taken " + readerGr.Count() + " books.");
-                    foreach(Taken t in readerGr)
+                    foreach (Taken t in readerGr)
                     {
                         toDisplay.Add(t.Username + " --- " + t.ISBN + " --- " + t.DateTaken + " --- " + t.DateReturn);
                     }
