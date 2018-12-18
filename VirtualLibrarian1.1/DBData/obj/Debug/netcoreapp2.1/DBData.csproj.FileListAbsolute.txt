@@ -1,0 +1,14 @@
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\bin\Debug\netcoreapp2.1\DBData.deps.json
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\bin\Debug\netcoreapp2.1\DBData.runtimeconfig.json
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\bin\Debug\netcoreapp2.1\DBData.runtimeconfig.dev.json
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\bin\Debug\netcoreapp2.1\DBData.dll
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\bin\Debug\netcoreapp2.1\DBData.pdb
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.csprojAssemblyReference.cache
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.csproj.CoreCompileInputs.cache
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.RazorAssemblyInfo.cache
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.RazorAssemblyInfo.cs
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.AssemblyInfoInputs.cache
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.AssemblyInfo.cs
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.RazorTargetAssemblyInfo.cache
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.dll
+C:\Users\juliu\OneDrive\Documents\GitHub\TOPprojectVirtualLibrarian\VirtualLibrarian1.1\DBData\obj\Debug\netcoreapp2.1\DBData.pdb
