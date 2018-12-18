@@ -17,13 +17,6 @@ namespace VLibrarian
     public class W_Signup : Activity
     {
 
-        //define generic delegate with placeholder for L_or_S.signup
-        public delegate T add<T>(T n, T s, T u, T p, T b, T e);
-        static string runAdelegate(add<string> d, string n, string s, string u, string p, string b, string e)
-        {
-            return d(n, s, u, p, b, e);
-        }
-
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -56,31 +49,27 @@ namespace VLibrarian
                     }
 
                     //check if valid email w regex
-                    if (Login_or_Signup.inputCheck(Email.Text, 1) == 0)
+                    if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, Email.Text, 1) == 0)
                     {
                         Toast.MakeText(ApplicationContext, "Please enter a valid email (ex.:email@gmail.com)", ToastLength.Long).Show();
                         return;
                     }
                     //check if date the right format
-                    if (Login_or_Signup.inputCheck(Birth.Text, 2) == 0)
+                    if (Controller_linker.runAnInputdelegate(Login_or_Signup.inputC, Birth.Text, 2) == 0)
                     {
                         Toast.MakeText(ApplicationContext, "Incorrect date of birth format (ex.: 1989.11.05 or 1989-11-05)", ToastLength.Long).Show();
                         return;
                     }
-                    Login_or_Signup los = new Login_or_Signup();
+
                     //check if username already exists in db table Users
-                    bool exists = los.checkIfExistsInDBUsers(Username.Text);
+                    bool exists = Controller_linker.runAdelegate(Login_or_Signup.check2, Username.Text);
 
                     //if username unique - add user info. to db
                     if (exists == false)
                     {
-                        //point delegate to a method
-                        //add = L_or_S.signup;
-                        add<string> add = los.signup;
-                        //call the method using the delegate object
-                        string result = runAdelegate(add,
-                                        Username.Text, Pass.Text, Name.Text,
-                                        Surname.Text, Birth.Text, Email.Text);
+                        string result = Controller_linker.runAdelegate3(Login_or_Signup.check3,
+                                                    Username.Text, Pass.Text, Name.Text,
+                                                     Surname.Text, Birth.Text, Email.Text);
 
                         if (result == "new reader added")
                         {

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualLibrarianTests", "Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLibrarian", "VLibrarian\VLibrarian.csproj", "{362F8564-E596-462D-BA94-D0B96A14E96C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbservice", "dbservice\dbservice.csproj", "{EA85DE22-6362-40F6-ACA8-B86469641469}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{362F8564-E596-462D-BA94-D0B96A14E96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{362F8564-E596-462D-BA94-D0B96A14E96C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{362F8564-E596-462D-BA94-D0B96A14E96C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EA85DE22-6362-40F6-ACA8-B86469641469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA85DE22-6362-40F6-ACA8-B86469641469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA85DE22-6362-40F6-ACA8-B86469641469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA85DE22-6362-40F6-ACA8-B86469641469}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

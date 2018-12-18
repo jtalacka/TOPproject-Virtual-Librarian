@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.Content;
 using Android.Content.Res;
 using Android.Database.Sqlite;
@@ -14,15 +15,13 @@ namespace VLibrarian
 
     public class MainActivity : AppCompatActivity
     {
-        public static SQLiteConnection conn;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
+            //db
             AssetManager asset = this.Assets;
             Database db = new Database(asset);
-
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
@@ -42,11 +41,9 @@ namespace VLibrarian
                 //check if empty
                 if (string.IsNullOrWhiteSpace(UsernameText.Text) || string.IsNullOrWhiteSpace(PasswordText.Text))
                 { return; }
-                Login_or_Signup los = new Login_or_Signup();
-                //do the function
-                string result = los.login(UsernameText.Text, PasswordText.Text);
 
-                Toast.MakeText(ApplicationContext, result, ToastLength.Long).Show();
+                //call delegate method
+                string result = Controller_linker.runAdelegate(Login_or_Signup.check, UsernameText.Text, PasswordText.Text);
 
                 //check if login info. correct
                 if (result == "correct" && Login_or_Signup.user != null)

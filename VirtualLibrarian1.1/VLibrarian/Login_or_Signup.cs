@@ -1,15 +1,6 @@
-﻿using System.Text;
-using System;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using SQLite;
-using System.Data;
-using System.IO;
-using Android.Widget;
-using System.Threading.Tasks;
-using Android.App;
-using Android.Content.Res;
-using VLibrarian;
 using System.Text.RegularExpressions;
 
 namespace VLibrarian
@@ -21,40 +12,39 @@ namespace VLibrarian
     //       checkIfExistsInDBUsers
     //
 
-    public class Login_or_Signup
+    public class Login_or_Signup : I_NewLogin
     {
+        public static I_NewLogin L_or_S = new Login_or_Signup();
+        //Login_or_Signup di;
 
-        //interface object, through which we will be accessing the controller class methods
-        static Login_or_Signup L_or_S = new Login_or_Signup();
+        //implement property from interface
+        //public I_NewLogin L_or_S
+        //{
+        //    get { return interfaceObj; }
+        //    set { interfaceObj = di; }
+        //}
 
-        //define delegate that will point to L_or_S.login
-        public delegate string del(string N, string P);
-        public static del check = L_or_S.login;
-        public static string runAdelegate(del d, string n, string p)
-        {
-            return d(n, p);
-        }
+        //constructor
+        //public Login_or_Signup()//Login_or_Signup di)
+        //{
+        //    //L_or_S = di;
+        //}
 
-        //define a delegate
-        public delegate bool del2(string w);
-        public static del2 check2 = L_or_S.checkIfExistsInDBUsers;
-        public static bool runAdelegate(del2 d, string w)
-        {
-            return d(w);
-        }
 
-        //define a placeholder delegate
-        public delegate T del3<T>(T u, T p, T n, T s, T b, T e);
-        public static del3<string> check3 = L_or_S.signup;
-        public static string runAdelegate3(del3<string> d, string u, string p, string n, string s, string b, string e)
-        {
-            return d(u, p, n, s, b, e);
-        }
+        //DEFINE DELEGATES
+        public static Controller_linker.del check = L_or_S.login;
+        public static Controller_linker.del2 check2 = L_or_S.checkIfExistsInDBUsers;
+        public static Controller_linker.del3<string> check3 = L_or_S.signup;
+        public static Controller_linker.delIN inputC = L_or_S.inputCheck;
+
 
 
         //this needs to be defined in one of the functions below
         //to be passed to the next window -> Library
         public static User user = null;
+
+
+
 
         //On buttonLogIn_Click
         public string login(string username, string pass)
@@ -62,8 +52,7 @@ namespace VLibrarian
             var table = Database.conn.Table<User>();
             //tikrinti ar input correct
             bool correct = false;
-
-            foreach (var line in table)
+            foreach (var line in Database.UserSelectRequest())
             {
                 //Console.WriteLine(t.username);
 
@@ -108,7 +97,7 @@ namespace VLibrarian
 
 
         //input validation - email, date of birth, ISBN
-        public static int inputCheck(string whatToCheck, int c)
+        public int inputCheck(string whatToCheck, int c)
         {
             Regex emailRegex = new Regex(@"^([\w]+)@([\w]+)\.([\w]+)$");
             var dateFormats = new[] { "yyyy.MM.dd", "yyyy-MM-dd" };

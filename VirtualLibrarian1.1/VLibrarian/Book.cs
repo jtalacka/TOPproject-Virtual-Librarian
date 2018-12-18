@@ -26,8 +26,9 @@ namespace VLibrarian
             this.quantity = q;
             this.description = des;
             this.picture = image;
+            this.Genres = String.Join(" ", g.ToArray());
 
-            this.image = "picture set";
+            //this.image = "picture set";
         }
         public Book(string isbn, string t, string a, List<string> g, int q)
         {
@@ -36,8 +37,9 @@ namespace VLibrarian
             this.author = a;
             this.genres = g;
             this.quantity = q;
+            this.Genres = String.Join(" ", g.ToArray());
 
-            this.image = "show default";
+            //this.image = "show default";
         }
 
         public Book() { }
@@ -50,16 +52,18 @@ namespace VLibrarian
         [Column("Author")]
         public string author { get; set; }
         public string Genres { get; set; }
+        [Column("Genres")]
         public List<string> genres { get; set; }
         [Column("Quantity")]
         public int quantity { get; set; }
         [Column("Description")]
         public string description { get; set; }
-        [Column("Image")]
-        public string image { get; set; }
-        [Column("Title")]
+        [Column("Picture")]
         public byte[] picture { get; set; }
 
+
+        //[Ignore]
+        //public string image { get; set; }
 
         //List for all books AND books to sort
         public static List<Book> bookList = new List<Book>();
